@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Hero } from '../model/hero';
+import { Hero } from '../model/hero/hero';
 import { HeroService } from '../services/hero.service';
 
 @Component({
