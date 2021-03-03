@@ -1,6 +1,6 @@
-import { Hero } from './hero';
+import { Pokemon } from './pokemon';
 
-export const HEROES: Hero[] = [
+export const POKEMONS: Pokemon[] = [
   { id: 11, name: 'Blanchon' },
   { id: 12, name: 'Narco' },
   { id: 13, name: 'Bombasto' },

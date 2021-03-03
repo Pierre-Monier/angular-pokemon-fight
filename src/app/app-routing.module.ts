@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HeroesComponent } from './heroes/heroes.component';
+import { PokemonComponent } from './pokemon/pokemon.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HeroDetailComponent } from './hero-detail/hero-detail.component';
-import { WeaponsComponent } from './weapons/weapons.component';
+import { PokemonDetailComponent } from './pokemon/component/pokemon-detail/pokemon-detail.component';
+import { MoveComponent } from './move/move.component';
 
+// TODO use a Guard to force the user to sign in
 const routes: Routes = [
-  { path: 'heroes', component: HeroesComponent },
-  { path: 'weapons', component: WeaponsComponent },
+  { path: 'pokemons', component: PokemonComponent },
+  { path: 'moves', component: MoveComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'detail/:id', component: HeroDetailComponent },
+  { path: 'pokemon/:id', component: PokemonDetailComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
 

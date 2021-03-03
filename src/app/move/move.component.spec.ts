@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WeaponsComponent } from './weapons.component';
+import { MoveComponent } from './move.component';
 
 describe('WeaponsComponent', () => {
-  let component: WeaponsComponent;
-  let fixture: ComponentFixture<WeaponsComponent>;
+  let component: MoveComponent;
+  let fixture: ComponentFixture<MoveComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WeaponsComponent ]
+      declarations: [ MoveComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WeaponsComponent);
+    fixture = TestBed.createComponent(MoveComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

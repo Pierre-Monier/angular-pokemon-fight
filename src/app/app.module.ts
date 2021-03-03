@@ -3,21 +3,21 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeroesComponent } from './heroes/heroes.component';
+import { PokemonComponent } from './pokemon/pokemon.component';
 import { FormsModule } from '@angular/forms';
-import { HeroDetailComponent } from './hero-detail/hero-detail.component';
-import { MessagesComponent } from './messages/messages.component';
+import { PokemonDetailComponent } from './pokemon/component/pokemon-detail/pokemon-detail.component';
+import { MessageComponent } from './message/message.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { WeaponsComponent } from './weapons/weapons.component';
+import { MoveComponent } from './move/move.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeroesComponent,
-    HeroDetailComponent,
-    MessagesComponent,
+    PokemonComponent,
+    PokemonDetailComponent,
+    MessageComponent,
     DashboardComponent,
-    WeaponsComponent
+    MoveComponent
   ],
   imports: [
     BrowserModule,

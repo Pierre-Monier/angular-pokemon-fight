@@ -2,20 +2,20 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Hero } from '../model/hero/hero';
-import { HeroService } from '../services/hero.service';
+import { Pokemon } from '../../../shared/model/pokemon/pokemon';
+import { PokemonService } from '../../../shared/service/pokemon.service';
 
 @Component({
   selector: 'app-hero-detail',
-  templateUrl: './hero-detail.component.html',
-  styleUrls: ['./hero-detail.component.css']
+  templateUrl: './pokemon-detail.component.html',
+  styleUrls: ['./pokemon-detail.component.css']
 })
 
-export class HeroDetailComponent implements OnInit {
-  @Input() hero?: Hero;
+export class PokemonDetailComponent implements OnInit {
+  @Input() hero?: Pokemon;
   constructor(
     private route: ActivatedRoute,
-    private heroService: HeroService,
+    private heroService: PokemonService,
     private location: Location
   ) { }
 
@@ -26,7 +26,7 @@ export class HeroDetailComponent implements OnInit {
   getHero(): void {
     const id: string | null = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.heroService.getHero(parseInt(id))
+      this.heroService.getHero(parseInt(id, 10))
         .subscribe(hero => this.hero = hero);
     }
   }

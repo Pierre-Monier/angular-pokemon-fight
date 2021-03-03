@@ -1,0 +1,8 @@
+<h2>My Pokemons</h2>
+<ul class="heroes">
+    <li *ngFor="let pokemon of pokemons" [class.selected]="pokemon === selectedPokemon">
+        <a routerLink="/pokemon/{{pokemon.id}}">
+            <span class="badge">{{pokemon.id}}</span> {{pokemon.name}}
+        </a>
+    </li>
+</ul>

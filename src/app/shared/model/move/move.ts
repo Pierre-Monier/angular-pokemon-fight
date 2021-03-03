@@ -1,4 +1,4 @@
-export interface Weapon {
+export interface Move {
     id: number;
     name: string;
 }

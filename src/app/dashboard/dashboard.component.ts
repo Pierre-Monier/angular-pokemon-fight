@@ -1,23 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Hero } from '../model/hero/hero';
-import { HeroService } from '../services/hero.service';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
-  heroes: Hero[] = [];
+  // with onPush ChangeDetectionStrategy, all class attribute should be immutable
+  // if we have an attribute toto = { test: true }, we should update toto like this : this.toto = { test: false }
+  constructor() { }
 
-  constructor(private heroService: HeroService) { }
-
-  ngOnInit() {
-    this.getHeroes();
-  }
-
-  getHeroes(): void {
-    this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes.slice(1, 5));
+  ngOnInit(): void{
   }
 }
