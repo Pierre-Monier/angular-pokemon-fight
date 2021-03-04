@@ -1,14 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
-import { FormsModule } from '@angular/forms';
 import { PokemonDetailComponent } from './pokemon/component/pokemon-detail/pokemon-detail.component';
 import { MessageComponent } from './message/message.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MoveComponent } from './move/move.component';
+import { SignInComponent } from './auth/sign-in/sign-in.component';
+import { AuthService } from './shared/service/auth.service';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -17,14 +24,19 @@ import { MoveComponent } from './move/move.component';
     PokemonDetailComponent,
     MessageComponent,
     DashboardComponent,
-    MoveComponent
+    MoveComponent,
+    SignInComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

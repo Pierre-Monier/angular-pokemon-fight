@@ -1,0 +1,9 @@
+<nav *ngIf="authService.isLoggedIn">
+  <a routerLink="/dashboard">Dashboard</a>
+  <a routerLink="/pokemons">Pokemons</a>
+  <a routerLink="/moves">Moves</a>
+  <div>
+    <img  src="{{ getAvatar() }}" alt="avatar" />
+    <a (click)="authService.signOut()">Logout</a>
+  </div>
+</nav>
