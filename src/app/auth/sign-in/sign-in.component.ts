@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../shared/service/auth.service';
 
 @Component({
@@ -8,9 +9,12 @@ import { AuthService } from '../../shared/service/auth.service';
 })
 export class SignInComponent implements OnInit {
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService, public router: Router) { }
 
   ngOnInit(): void {
+    if (this.authService.isLoggedIn) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
 }

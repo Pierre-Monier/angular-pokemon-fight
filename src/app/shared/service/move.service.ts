@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { MessageService } from '../../message/service/message.service';
+import { MessageService } from './message.service';
 import { Move } from '../model/move/move';
 import { MOVES } from '../model/move/mock-moves';
 
