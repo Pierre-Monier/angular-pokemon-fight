@@ -8,25 +8,29 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PokemonComponent } from './pokemon/pokemon.component';
-import { PokemonDetailComponent } from './pokemon/component/pokemon-detail/pokemon-detail.component';
+import { PokemonContainerComponent } from './pokemon/component/pokemon-container/pokemon-container.component';
+import { PokemonDetailContainerComponent } from './pokemon/component/pokemon-detail-container/pokemon-detail-container.component';
 import { MessageComponent } from './message/message.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MoveComponent } from './move/move.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { AuthService } from './shared/service/auth.service';
 import { NavbarComponent } from './navbar/navbar.component';
+import { PokemonListComponent } from './pokemon/component/pokemon-list/pokemon-list.component';
+import { PokemonDetailFormComponent } from './pokemon/component/pokemon-detail-form/pokemon-detail-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PokemonComponent,
-    PokemonDetailComponent,
+    PokemonContainerComponent,
+    PokemonDetailContainerComponent,
     MessageComponent,
     DashboardComponent,
     MoveComponent,
     SignInComponent,
-    NavbarComponent
+    NavbarComponent,
+    PokemonListComponent,
+    PokemonDetailFormComponent
   ],
   imports: [
     BrowserModule,

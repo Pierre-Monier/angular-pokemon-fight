@@ -2,23 +2,54 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { Pokemon } from '../model/pokemon/pokemon';
-import { POKEMONS } from '../model/pokemon/mock-pokemons';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {map} from 'rxjs/operators';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonService {
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService,
+              private authService: AuthService,
+              private db: AngularFirestore) { }
 
-  getHeroes(): Observable<Pokemon[]> {
-    const heroes = of(POKEMONS);
-    this.messageService.add('PokemonService: fetched heroes');
-    return heroes;
+  getPokemons(): Observable<Pokemon[]> {
+    this.messageService.add('PokemonService: fetching pokemons');
+    return this.db.collection<Pokemon>('/pokemon').get().pipe(map(pokemons => {
+      return pokemons.docs.filter((pokemonSnapshot) => this.authService.userData
+        && pokemonSnapshot.data().userUid === this.authService.userData?.uid)
+        .map((pokemonSnapshot) => {
+        return {
+          id: pokemonSnapshot.id,
+          name: pokemonSnapshot.data().name,
+          userUid: pokemonSnapshot.data().userUid
+        };
+      });
+    }));
   }
 
-  getHero(id: number): Observable<Pokemon | undefined> {
-    // TODO: send the message _after_ fetching the hero
-    this.messageService.add(`HeroService: fetched hero id=${id}`);
-    return of(POKEMONS.find(hero => hero.id === id));
+  getPokemon(id: string): Observable<Pokemon | undefined> {
+    this.messageService.add(`PokemonService: fetched pokemon name=${id}`);
+
+    return this.db.doc<Pokemon>(`/pokemon/${id}`).get().pipe(map(pokemonSnapshot => {
+      const data = pokemonSnapshot.data();
+      if (data) {
+        return {
+          id: pokemonSnapshot.id,
+          name: data.name,
+          userUid: data.userUid
+        };
+      } else {
+        console.error('No pokemon found');
+        return undefined;
+      }
+    }));
+  }
+
+  updatePokemon(pokemon: Pokemon): void {
+    this.db.doc<Pokemon>(`/pokemon/${pokemon.id}`).update(pokemon)
+      .then(() => this.messageService.add('pokemon updated'))
+      .catch((error) => console.error(error));
   }
 }
