@@ -1,1 +1,1 @@
-<app-pokemon-detail-form [pokemon]="pokemon" [goBack]="goBack" [updatePokemon]="updatePokemon"></app-pokemon-detail-form>
+<app-pokemon-detail-form [pokemon]="pokemon" (goBackEvent)="goBack()" (updateEvent)="updatePokemon($event)"></app-pokemon-detail-form>

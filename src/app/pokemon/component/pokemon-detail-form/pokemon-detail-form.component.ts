@@ -9,13 +9,20 @@ import {Pokemon} from '../../../shared/model/pokemon/pokemon';
 export class PokemonDetailFormComponent implements OnInit {
   @Input()
   pokemon?: Pokemon;
-  @Input()
-  goBack!: () => void;
-  @Input()
-  updatePokemon!: (pokemon: Pokemon) => void;
+  @Output()
+  updateEvent = new EventEmitter<Pokemon>();
+  @Output()
+  goBackEvent = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  updatePokemon(pokemon: Pokemon): void {
+    this.updateEvent.emit(pokemon);
+  }
+
+  goBack(): void {
+    this.goBackEvent.emit();
+  }
 }

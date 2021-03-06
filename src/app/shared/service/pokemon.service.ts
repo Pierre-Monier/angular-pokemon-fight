@@ -16,14 +16,14 @@ export class PokemonService {
 
   getPokemons(): Observable<Pokemon[]> {
     this.messageService.add('PokemonService: fetching pokemons');
-    return this.db.collection<Pokemon>('/pokemon').get().pipe(map(pokemons => {
-      return pokemons.docs.filter((pokemonSnapshot) => this.authService.userData
-        && pokemonSnapshot.data().userUid === this.authService.userData?.uid)
+    return this.db.collection<Pokemon>('/pokemon').snapshotChanges().pipe(map(pokemons => {
+      return pokemons.filter((pokemonSnapshot) => this.authService.userData
+        && pokemonSnapshot.payload.doc.data().userUid === this.authService.userData?.uid)
         .map((pokemonSnapshot) => {
         return {
-          id: pokemonSnapshot.id,
-          name: pokemonSnapshot.data().name,
-          userUid: pokemonSnapshot.data().userUid
+          id: pokemonSnapshot.payload.doc.id,
+          name: pokemonSnapshot.payload.doc.data().name,
+          userUid: pokemonSnapshot.payload.doc.data().userUid
         };
       });
     }));
@@ -32,11 +32,11 @@ export class PokemonService {
   getPokemon(id: string): Observable<Pokemon | undefined> {
     this.messageService.add(`PokemonService: fetched pokemon name=${id}`);
 
-    return this.db.doc<Pokemon>(`/pokemon/${id}`).get().pipe(map(pokemonSnapshot => {
-      const data = pokemonSnapshot.data();
+    return this.db.doc<Pokemon>(`/pokemon/${id}`).snapshotChanges().pipe(map(pokemonSnapshot => {
+      const data = pokemonSnapshot.payload.data();
       if (data) {
         return {
-          id: pokemonSnapshot.id,
+          id: pokemonSnapshot.payload.id,
           name: data.name,
           userUid: data.userUid
         };
