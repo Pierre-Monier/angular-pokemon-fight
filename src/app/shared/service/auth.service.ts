@@ -1,9 +1,9 @@
-import { Injectable, NgZone } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import {Injectable, NgZone} from '@angular/core';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
+import {Router} from '@angular/router';
 
-import { AppUser } from '../model/user/app-user';
+import {AppUser} from '../model/user/app-user';
 import firebase from 'firebase';
 import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
 import UserCredential = firebase.auth.UserCredential;
@@ -44,9 +44,7 @@ export class AuthService {
   authLogin(provider: GoogleAuthProvider): Promise<void> {
     return this.afAuth.signInWithPopup(provider)
       .then((result: UserCredential) => {
-        console.log('In then');
         this.ngZone.run(() => {
-          console.log('should be redirected');
           this.router.navigate(['dashboard']);
         });
         this.setUserData(result.user);
@@ -61,20 +59,12 @@ export class AuthService {
 
   setUserData(user: User | null): Promise<void> | void {
     if (user) {
-      const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-      const userData: AppUser = {
+      this.userData = {
         uid: user.uid,
         email: user.email ?? 'Unknown',
         displayName: user.displayName ?? 'Unknown',
         photoURL: user.photoURL ?? 'Unknown',
       };
-
-      this.userData = userData;
-
-      // update firestore
-      return userRef.set(userData, {
-        merge: true
-      });
     } else {
       console.error('SendUserData was called without an actual user');
     }
