@@ -6,11 +6,11 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-pokemons',
-  templateUrl: './pokemon-container.component.html'
+  selector: 'app-pokemon-list-container',
+  templateUrl: './pokemon-list-container.component.html'
 })
 
-export class PokemonContainerComponent implements OnInit, OnDestroy {
+export class PokemonListContainerComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   pokemons: Pokemon[] = [];
   selectedPokemon?: Pokemon;
@@ -24,6 +24,10 @@ export class PokemonContainerComponent implements OnInit, OnDestroy {
   getPokemons(): void {
     this.pokemonService.getPokemons().pipe(takeUntil(this.destroy$))
       .subscribe(pokemons => this.pokemons = pokemons);
+  }
+
+  deletePokemon(id: string): void {
+    this.pokemonService.deletePokemon(id);
   }
 
   ngOnDestroy(): void {

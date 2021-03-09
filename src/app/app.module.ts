@@ -8,8 +8,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PokemonContainerComponent } from './pokemon/component/pokemon-container/pokemon-container.component';
-import { PokemonDetailContainerComponent } from './pokemon/component/pokemon-detail-container/pokemon-detail-container.component';
+import { PokemonListContainerComponent } from './pokemon/component/pokemon-list-container/pokemon-list-container.component';
+import { PokemonEditContainerComponent } from './pokemon/component/pokemon-edit-container/pokemon-edit-container.component';
 import { MessageComponent } from './message/message.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MoveComponent } from './move/move.component';
@@ -17,20 +17,26 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { AuthService } from './shared/service/auth.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PokemonListComponent } from './pokemon/component/pokemon-list/pokemon-list.component';
-import { PokemonDetailFormComponent } from './pokemon/component/pokemon-detail-form/pokemon-detail-form.component';
+import { PokemonFormComponent } from './pokemon/component/pokemon-form/pokemon-form.component';
+import { PokemonNumberComponent } from './pokemon/component/pokemon-number/pokemon-number.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PokemonAddContainerComponent } from './pokemon/component/pokemon-add-container/pokemon-add-container.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PokemonContainerComponent,
-    PokemonDetailContainerComponent,
+    PokemonListContainerComponent,
+    PokemonEditContainerComponent,
     MessageComponent,
     DashboardComponent,
     MoveComponent,
     SignInComponent,
     NavbarComponent,
     PokemonListComponent,
-    PokemonDetailFormComponent
+    PokemonFormComponent,
+    PokemonNumberComponent,
+    PageNotFoundComponent,
+    PokemonAddContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +44,7 @@ import { PokemonDetailFormComponent } from './pokemon/component/pokemon-detail-f
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule,
+    AngularFirestoreModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

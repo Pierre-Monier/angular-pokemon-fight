@@ -1,9 +1,0 @@
-<div *ngIf="pokemon">
-    <button (click)="goBack()">go back</button>
-    <h2>{{pokemon.name | uppercase}} Details</h2>
-    <div><span>id: </span>{{pokemon.id}}</div>
-    <div>
-        <label for="hero-name">Pokemon name: </label>
-        <input id="hero-name" [(ngModel)]="pokemon.name" (change)="updatePokemon(pokemon)" placeholder="name">
-    </div>
-</div>

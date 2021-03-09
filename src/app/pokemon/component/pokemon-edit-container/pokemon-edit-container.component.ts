@@ -1,25 +1,29 @@
-import {Component, OnInit, Input, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Pokemon } from '../../../shared/model/pokemon/pokemon';
 import { PokemonService } from '../../../shared/service/pokemon.service';
+import { FormMode } from '../../../shared/model/form-mode/form-mode';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {FormService} from '../../../shared/service/form.service';
 
 @Component({
-  selector: 'app-hero-detail',
-  templateUrl: './pokemon-detail-container.component.html'
+  selector: 'app-pokemon-edit',
+  templateUrl: './pokemon-edit-container.component.html'
 })
 
-export class PokemonDetailContainerComponent implements OnInit, OnDestroy {
+export class PokemonEditContainerComponent implements OnInit, OnDestroy {
   pokemon?: Pokemon;
+  formMode = FormMode.Update;
   private destroy$ = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
     private pokemonService: PokemonService,
-    private location: Location
+    private location: Location,
+    private formService: FormService
   ) { }
 
   ngOnInit(): void {
@@ -31,11 +35,17 @@ export class PokemonDetailContainerComponent implements OnInit, OnDestroy {
     if (id) {
       this.pokemonService.getPokemon(id).pipe(takeUntil(this.destroy$))
         .subscribe(hero => this.pokemon = hero);
+    } else {
+      console.error('Trying to edit a pokemon without specifying a id');
     }
   }
 
   updatePokemon(pokemon: Pokemon): void {
-    this.pokemonService.updatePokemon(pokemon);
+    if (this.formService.isFormValid(pokemon)) {
+      this.pokemonService.updatePokemon(pokemon);
+    } else {
+      console.error('Trying to update pokemon with wrong values');
+    }
   }
 
   goBack(): void  {

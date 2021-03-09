@@ -52,4 +52,19 @@ export class PokemonService {
       .then(() => this.messageService.add('pokemon updated'))
       .catch((error) => console.error(error));
   }
+
+  addPokemon(pokemon: Pokemon): void {
+    if (this.authService.userData) {
+      pokemon.userUid = this.authService.userData.uid;
+      this.db.collection<Pokemon>('/pokemon').add(pokemon);
+    } else {
+      console.error('trying to add pokemon in collection but no user authenticated');
+    }
+  }
+
+  deletePokemon(id: string): void {
+    this.db.doc<Pokemon>(`/pokemon/${id}`).delete()
+      .then(() => this.messageService.add('pokemon deleted'))
+      .catch((error) => console.error(error));
+  }
 }

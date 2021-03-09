@@ -1,0 +1,20 @@
+<div *ngIf="pokemon">
+    <button (click)="goBack()">go back</button>
+    <h2>{{pokemon.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{pokemon.id}}</div>
+<!--  The create form  -->
+  <div *ngIf="mode === 0">
+    <label> Pokemon name:
+      <input [(ngModel)]="pokemon.name" placeholder="name" required>
+    </label>
+    <button (click)="submit(pokemon)">Save</button>
+  </div>
+<!--  The update form -->
+    <div *ngIf="mode === 1">
+      <label> Pokemon name:
+        <input [(ngModel)]="pokemon.name" (change)="submit(pokemon)" placeholder="name" required>
+      </label>
+    </div>
+</div>
+
+
