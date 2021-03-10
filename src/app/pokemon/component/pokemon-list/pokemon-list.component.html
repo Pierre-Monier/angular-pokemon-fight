@@ -1,9 +1,12 @@
 <h2>{{ title }}</h2>
-<ul class="heroes">
-    <li *ngFor="let pokemon of pokemons" [class.selected]="pokemon === selectedPokemon">
-        <a routerLink="/pokemon/{{pokemon.id}}">
-            <span class="badge">{{pokemon.id}}</span> {{pokemon.name}}
-        </a>
-        <button (click)="deletePokemon(pokemon.id)">Delete</button>
-    </li>
-</ul>
+<div class="heroes" *ngFor="let pokemon of pokemons">
+    <div  [class.selected]="pokemon === selectedPokemon">
+      <p>{{pokemon.name}}</p>
+      <p>Type: {{pokemon.type}}</p>
+      <p>Pv: {{pokemon.pv}}</p>
+      <p>Esquive: {{pokemon.e}}</p>
+      <p>Coup critique: {{pokemon.cc}}</p>
+      <a routerLink="/pokemon/{{pokemon.id}}">Edit</a>
+      <button (click)="deletePokemon(pokemon.id)">Delete</button>
+    </div>
+</div>

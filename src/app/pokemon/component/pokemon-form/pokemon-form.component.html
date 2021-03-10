@@ -7,6 +7,11 @@
     <label> Pokemon name:
       <input [(ngModel)]="pokemon.name" placeholder="name" required>
     </label>
+    <label> Type:
+      <select [(ngModel)]="pokemon.type" >
+        <option *ngFor="let item of types" [value]="item">{{item}}</option>
+      </select>
+    </label>
     <button (click)="submit(pokemon)">Save</button>
   </div>
 <!--  The update form -->

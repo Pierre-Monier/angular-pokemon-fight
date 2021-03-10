@@ -16,6 +16,8 @@ export class PokemonFormComponent implements OnInit {
   submitEvent = new EventEmitter<Pokemon>();
   @Output()
   goBackEvent = new EventEmitter<void>();
+  @Input()
+  types!: string[];
   constructor() { }
 
   ngOnInit(): void { }

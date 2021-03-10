@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { MessageService } from './message.service';
-import { Pokemon } from '../model/pokemon/pokemon';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {MessageService} from './message.service';
+import {Pokemon} from '../model/pokemon/pokemon';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
 import {AuthService} from './auth.service';
+import {ElemantaryType} from '../model/elemantary-type/elemantary-type';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,11 @@ export class PokemonService {
         return {
           id: pokemonSnapshot.payload.doc.id,
           name: pokemonSnapshot.payload.doc.data().name,
-          userUid: pokemonSnapshot.payload.doc.data().userUid
+          userUid: pokemonSnapshot.payload.doc.data().userUid,
+          type: ElemantaryType[pokemonSnapshot.payload.doc.data().type],
+          pv: pokemonSnapshot.payload.doc.data().pv,
+          e: pokemonSnapshot.payload.doc.data().e,
+          cc: pokemonSnapshot.payload.doc.data().cc
         };
       });
     }));
@@ -38,7 +43,11 @@ export class PokemonService {
         return {
           id: pokemonSnapshot.payload.id,
           name: data.name,
-          userUid: data.userUid
+          userUid: data.userUid,
+          type: ElemantaryType[data.type],
+          pv: data.pv,
+          e: data.e,
+          cc: data.cc
         };
       } else {
         console.error('No pokemon found');

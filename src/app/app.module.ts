@@ -21,6 +21,7 @@ import { PokemonFormComponent } from './pokemon/component/pokemon-form/pokemon-f
 import { PokemonNumberComponent } from './pokemon/component/pokemon-number/pokemon-number.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PokemonAddContainerComponent } from './pokemon/component/pokemon-add-container/pokemon-add-container.component';
+import {EnumToArrayPipe} from './pokemon/component/pokemon-form/enum-to-array-pipe';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { PokemonAddContainerComponent } from './pokemon/component/pokemon-add-co
     PokemonFormComponent,
     PokemonNumberComponent,
     PageNotFoundComponent,
-    PokemonAddContainerComponent
+    PokemonAddContainerComponent,
+    EnumToArrayPipe
   ],
   imports: [
     BrowserModule,
