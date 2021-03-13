@@ -1,4 +1,1 @@
-export enum FormMode {
-  Create,
-  Update
-}
+export type FormMode = 'create' | 'update';

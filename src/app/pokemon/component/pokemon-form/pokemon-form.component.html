@@ -1,25 +1,57 @@
 <div *ngIf="pokemon">
-    <button (click)="goBack()">go back</button>
-    <h2>{{pokemon.name | uppercase}} Details</h2>
-    <div><span>id: </span>{{pokemon.id}}</div>
-<!--  The create form  -->
-  <div *ngIf="mode === 0">
-    <label> Pokemon name:
-      <input [(ngModel)]="pokemon.name" placeholder="name" required>
+  <button (click)="goBack()">go back</button>
+  <h2>{{ pokemon.name | uppercase }} Details</h2>
+  <div>
+    <p>points: {{ points }}</p>
+    <label>
+      Pokemon name:
+      <input [(ngModel)]="pokemon.name" placeholder="name" required />
     </label>
-    <label> Type:
-      <select [(ngModel)]="pokemon.type" >
-        <option *ngFor="let item of types" [value]="item">{{item}}</option>
-      </select>
-    </label>
+    <app-types-selector
+      name="types"
+      ngDefaultControl
+      [types]="types"
+      [current]="pokemon.type.toString()"
+      [(ngModel)]="pokemon.type"
+    ></app-types-selector>
+
+    <!-- TODO split this in another component  -->
+    <div>
+      <p>Pv: {{ pokemon.pv }}</p>
+      <app-stat-selector
+        [current]="points"
+        [max]="60"
+        [min]="0"
+        [property]="'pv'"
+        (removePointEvent)="removePoint($event)"
+        (addPointEvent)="addPoint($event)"
+      ></app-stat-selector>
+    </div>
+
+    <div>
+      <p>Esquive: {{ pokemon.e }}</p>
+      <app-stat-selector
+        [current]="points"
+        [max]="60"
+        [min]="0"
+        [property]="'e'"
+        (removePointEvent)="removePoint($event)"
+        (addPointEvent)="addPoint($event)"
+      ></app-stat-selector>
+    </div>
+
+    <div>
+      <p>Coup critique: {{ pokemon.cc }}</p>
+      <app-stat-selector
+        [current]="points"
+        [max]="60"
+        [min]="0"
+        [property]="'cc'"
+        (removePointEvent)="removePoint($event)"
+        (addPointEvent)="addPoint($event)"
+      ></app-stat-selector>
+    </div>
+
     <button (click)="submit(pokemon)">Save</button>
   </div>
-<!--  The update form -->
-    <div *ngIf="mode === 1">
-      <label> Pokemon name:
-        <input [(ngModel)]="pokemon.name" (change)="submit(pokemon)" placeholder="name" required>
-      </label>
-    </div>
 </div>
-
-

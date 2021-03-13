@@ -1,24 +1,21 @@
-import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
-import {Pokemon} from '../../../shared/model/pokemon/pokemon';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Pokemon } from '../../../shared/model/pokemon/pokemon';
 
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
-  styleUrls: ['./pokemon-list.component.css']
+  styleUrls: ['./pokemon-list.component.css'],
 })
 export class PokemonListComponent implements OnInit {
   @Input()
   title!: string;
   @Input()
   pokemons!: Pokemon[];
-  @Input()
-  selectedPokemon?: Pokemon;
   @Output()
   deleteEvent = new EventEmitter();
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   deletePokemon(id: string): void {
     this.deleteEvent.emit(id);

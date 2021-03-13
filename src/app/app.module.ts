@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PokemonListContainerComponent } from './pokemon/component/pokemon-list-container/pokemon-list-container.component';
-import { PokemonEditContainerComponent } from './pokemon/component/pokemon-edit-container/pokemon-edit-container.component';
+import { PokemonFormContainerComponent } from './pokemon/component/pokemon-form-container/pokemon-form-container.component';
 import { MessageComponent } from './message/message.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MoveComponent } from './move/move.component';
@@ -20,14 +20,14 @@ import { PokemonListComponent } from './pokemon/component/pokemon-list/pokemon-l
 import { PokemonFormComponent } from './pokemon/component/pokemon-form/pokemon-form.component';
 import { PokemonNumberComponent } from './pokemon/component/pokemon-number/pokemon-number.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { PokemonAddContainerComponent } from './pokemon/component/pokemon-add-container/pokemon-add-container.component';
-import {EnumToArrayPipe} from './pokemon/component/pokemon-form/enum-to-array-pipe';
+import { TypesSelectorComponent } from './shared/component/types-selector/types-selector.component';
+import { StatSelectorComponent } from './shared/component/stat-selector/stat-selector.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokemonListContainerComponent,
-    PokemonEditContainerComponent,
+    PokemonFormContainerComponent,
     MessageComponent,
     DashboardComponent,
     MoveComponent,
@@ -37,8 +37,8 @@ import {EnumToArrayPipe} from './pokemon/component/pokemon-form/enum-to-array-pi
     PokemonFormComponent,
     PokemonNumberComponent,
     PageNotFoundComponent,
-    PokemonAddContainerComponent,
-    EnumToArrayPipe
+    TypesSelectorComponent,
+    StatSelectorComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,9 +46,9 @@ import {EnumToArrayPipe} from './pokemon/component/pokemon-form/enum-to-array-pi
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
   ],
   providers: [AuthService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
