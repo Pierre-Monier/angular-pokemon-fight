@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Pokemon, PokemonStat } from '../../../shared/model/pokemon/pokemon';
-import { FormMode } from '../../../shared/model/form-mode/form-mode';
+import { FormMode } from '../../../shared/domain/form/form';
 
 @Component({
   selector: 'app-pokemon-form',
@@ -8,10 +8,9 @@ import { FormMode } from '../../../shared/model/form-mode/form-mode';
   styleUrls: ['./pokemon-form.component.css'],
 })
 export class PokemonFormComponent implements OnInit {
+  // Maybe remove the undefined
   @Input()
-  pokemon?: Pokemon;
-  @Input()
-  mode!: FormMode;
+  pokemon!: Pokemon;
   @Input()
   types!: string[];
   @Input()

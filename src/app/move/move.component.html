@@ -1,8 +1,0 @@
-<h2>My Move</h2>
-<ul class="weapons">
-    <li *ngFor="let weapon of moves" [class.selected]="weapon === selectedMove">
-        <!-- <a routerLink="/detail/{{hero.id}}"> -->
-        <span class="badge">{{weapon.id}}</span> {{weapon.name}}
-        <!-- </a> -->
-    </li>
-</ul>

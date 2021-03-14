@@ -1,9 +1,10 @@
-<app-pokemon-form
-  (goBackEvent)="goBack()"
+<app-move-form
   (submitEvent)="submit($event)"
   (addPointEvent)="addPoint($event)"
   (removePointEvent)="removePoint($event)"
-  [pokemon]="pokemon"
-  [types]="elemantaryTypes"
+  (goBackEvent)="goBack()"
+  [move]="move"
   [points]="points"
-></app-pokemon-form>
+  [types]="elemantaryTypes"
+>
+</app-move-form>

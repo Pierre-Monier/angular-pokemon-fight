@@ -22,7 +22,7 @@ export const defaultPokemon: Pokemon = {
 
 export type PokemonStat = 'pv' | 'e' | 'cc';
 
-export const pokemonStatDetail = { max: 60, min: 0 };
+export const pokemonSpec = { maxPoints: 60, minPoint: 0, maxPokemonNbr: 6 };
 
 export const getPokemonStatPoint = (pokemon: Pokemon) =>
   pokemon.pv + pokemon.e + pokemon.cc;

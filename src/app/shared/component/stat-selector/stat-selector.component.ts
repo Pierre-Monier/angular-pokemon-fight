@@ -1,5 +1,7 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { Pokemon, PokemonStat } from '../../model/pokemon/pokemon';
+import { PokemonStat } from '../../model/pokemon/pokemon';
+import { MoveStat } from '../../model/move/move';
+import { AppStat } from '../../domain/model/app-stat';
 
 @Component({
   selector: 'app-stat-selector',
@@ -14,21 +16,21 @@ export class StatSelectorComponent implements OnInit {
   @Input()
   current!: number;
   @Input()
-  property!: PokemonStat;
+  property!: AppStat;
   @Output()
-  addPointEvent = new EventEmitter<PokemonStat>();
+  addPointEvent = new EventEmitter<AppStat>();
   @Output()
-  removePointEvent = new EventEmitter<PokemonStat>();
+  removePointEvent = new EventEmitter<AppStat>();
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  addPoint(property: PokemonStat): void {
-    this.addPointEvent.emit(property);
+  addPoint(): void {
+    this.addPointEvent.emit(this.property);
   }
 
-  removePoint(property: PokemonStat): void {
-    this.removePointEvent.emit(property);
+  removePoint(): void {
+    this.removePointEvent.emit(this.property);
   }
 }

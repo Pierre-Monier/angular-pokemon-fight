@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { ElemantaryType } from '../model/elemantary-type/elemantary-type';
-import { FormMode } from '../model/form-mode/form-mode';
+import { FormMode } from '../domain/form/form';
 
 @Injectable({
   providedIn: 'root',
@@ -74,7 +74,7 @@ export class PokemonService {
       );
   }
 
-  updatePokemon(pokemon: Pokemon): void {
+  private updatePokemon(pokemon: Pokemon): void {
     this.db
       .doc<Pokemon>(`/pokemon/${pokemon.id}`)
       .update(pokemon)
@@ -82,7 +82,7 @@ export class PokemonService {
       .catch((error) => console.error(error));
   }
 
-  addPokemon(pokemon: Pokemon): void {
+  private addPokemon(pokemon: Pokemon): void {
     if (this.authService.userData) {
       pokemon.userUid = this.authService.userData.uid;
       this.db.collection<Pokemon>('/pokemon').add(pokemon);

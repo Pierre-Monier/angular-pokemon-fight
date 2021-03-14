@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
   Pokemon,
-  pokemonStatDetail,
+  pokemonSpec,
   getPokemonStatPoint,
 } from '../model/pokemon/pokemon';
 import { ElemantaryType } from '../model/elemantary-type/elemantary-type';
+import { getMoveStatPoint, Move, moveSpec } from '../model/move/move';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +17,17 @@ export class FormService {
     return (
       pokemon.name.trim() !== '' &&
       Object.values(ElemantaryType).includes(pokemon.type) &&
-      getPokemonStatPoint(pokemon) <= pokemonStatDetail.max &&
-      getPokemonStatPoint(pokemon) > pokemonStatDetail.min
+      getPokemonStatPoint(pokemon) <= pokemonSpec.maxPoints &&
+      getPokemonStatPoint(pokemon) > pokemonSpec.minPoint
+    );
+  }
+
+  isMoveFormValid(move: Move): boolean {
+    return (
+      move.name.trim() !== '' &&
+      Object.values(ElemantaryType).includes(move.type) &&
+      getMoveStatPoint(move) <= moveSpec.maxPoints &&
+      getMoveStatPoint(move) > moveSpec.minPoint
     );
   }
 }

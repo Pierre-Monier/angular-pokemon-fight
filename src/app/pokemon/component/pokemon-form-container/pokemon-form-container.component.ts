@@ -1,30 +1,33 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
+import { FormContainer } from '../../../shared/domain/form/form';
 import {
   Pokemon,
   PokemonStat,
-  pokemonStatDetail,
+  pokemonSpec,
   getPokemonStatPoint,
   defaultPokemon,
 } from '../../../shared/model/pokemon/pokemon';
 import { PokemonService } from '../../../shared/service/pokemon.service';
-import { FormMode } from '../../../shared/model/form-mode/form-mode';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { FormMode } from '../../../shared/domain/form/form';
 import { FormService } from '../../../shared/service/form.service';
 import { elemantaryTypeToArray } from '../../../shared/model/elemantary-type/elemantary-type';
+import { AppStat } from '../../../shared/domain/model/app-stat';
 
 @Component({
   selector: 'app-pokemon-form-container',
   templateUrl: './pokemon-form-container.component.html',
 })
-export class PokemonFormContainerComponent implements OnInit, OnDestroy {
+export class PokemonFormContainerComponent
+  implements OnInit, OnDestroy, FormContainer {
   private destroy$ = new Subject<void>();
   pokemon = defaultPokemon;
   elemantaryTypes = elemantaryTypeToArray();
-  points = pokemonStatDetail.max;
+  points = pokemonSpec.maxPoints;
   type: FormMode;
 
   constructor(
@@ -63,27 +66,27 @@ export class PokemonFormContainerComponent implements OnInit, OnDestroy {
     }
   }
 
-  updatePokemon(pokemon: Pokemon): void {
+  submit(pokemon: Pokemon): void {
     if (this.formService.isPokemonFormValid(pokemon)) {
       this.pokemonService.submitPokemon(this.type, pokemon);
       this.goBack();
     } else {
-      console.error('Trying to update pokemon with wrong values');
+      console.error('Trying to submit pokemon with wrong values');
     }
   }
 
   updatePoints(): void {
-    this.points = pokemonStatDetail.max - getPokemonStatPoint(this.pokemon);
+    this.points = pokemonSpec.maxPoints - getPokemonStatPoint(this.pokemon);
   }
 
-  addPoint(property: PokemonStat): void {
+  addPoint(property: AppStat): void {
     if (this.points > 0) {
       this.pokemon[property] += 5;
       this.points -= 5;
     }
   }
 
-  removePoint(property: PokemonStat): void {
+  removePoint(property: AppStat): void {
     if (this.points < 60 && this.pokemon[property] > 0) {
       this.pokemon[property] -= 5;
       this.points += 5;
