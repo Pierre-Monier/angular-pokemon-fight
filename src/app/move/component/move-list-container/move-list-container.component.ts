@@ -1,36 +1,36 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-
-import { Pokemon, pokemonSpec } from '../../../shared/model/pokemon/pokemon';
-import { PokemonService } from '../../../shared/service/pokemon.service';
 import { Subject } from 'rxjs';
+import { MoveService } from '../../../shared/service/move.service';
 import { takeUntil } from 'rxjs/operators';
+
 import { ListContainer } from '../../../shared/domain/list/list';
+import { Move, moveSpec } from '../../../shared/model/move/move';
 
 @Component({
-  selector: 'app-pokemon-list-container',
-  templateUrl: './pokemon-list-container.component.html',
+  selector: 'app-move-list-container',
+  templateUrl: './move-list-container.component.html',
 })
-export class PokemonListContainerComponent
+export class MoveListContainerComponent
   implements OnInit, OnDestroy, ListContainer {
   private destroy$ = new Subject<void>();
-  pokemons: Pokemon[] = [];
-  maxPokemon = pokemonSpec.maxPokemonNbr;
+  moves: Move[] = [];
+  maxMoveNbr = moveSpec.maxMoveNbr;
 
-  constructor(private pokemonService: PokemonService) {}
+  constructor(private moveService: MoveService) {}
 
   ngOnInit(): void {
     this.getItems();
   }
 
   getItems(): void {
-    this.pokemonService
-      .getPokemons()
+    this.moveService
+      .getMoves()
       .pipe(takeUntil(this.destroy$))
-      .subscribe((pokemons) => (this.pokemons = pokemons));
+      .subscribe((moves) => (this.moves = moves));
   }
 
   deleteItem(id: string): void {
-    this.pokemonService.deletePokemon(id);
+    this.moveService.deleteMove(id);
   }
 
   ngOnDestroy(): void {

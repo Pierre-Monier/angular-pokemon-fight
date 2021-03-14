@@ -1,0 +1,11 @@
+<h2>{{ title }}</h2>
+<div *ngFor="let move of moves">
+  <div>
+    <p>{{ move.name }}</p>
+    <p>Type: {{ move.type }}</p>
+    <p>Esquive: {{ move.e }}</p>
+    <p>Coup critique: {{ move.cc }}</p>
+    <a routerLink="/move/{{ move.id }}">Edit</a>
+    <button (click)="deleteMove(move.id)">Delete</button>
+  </div>
+</div>

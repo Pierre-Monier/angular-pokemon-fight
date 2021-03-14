@@ -1,34 +1,22 @@
 <div>
   <button (click)="goBack()">go back</button>
-  <h2>{{ pokemon.name | uppercase }} Details</h2>
+  <h2>{{ move.name | uppercase }} Details</h2>
   <div>
     <p>points: {{ points }}</p>
     <label>
       Pokemon name:
-      <input [(ngModel)]="pokemon.name" placeholder="name" required />
+      <input [(ngModel)]="move.name" placeholder="name" required />
     </label>
     <app-types-selector
       name="types"
       ngDefaultControl
       [types]="types"
-      [current]="pokemon.type.toString()"
-      [(ngModel)]="pokemon.type"
+      [current]="move.type.toString()"
+      [(ngModel)]="move.type"
     ></app-types-selector>
 
-    <!--    <div>-->
-    <!--      <p>Pv: {{ pokemon.pv }}</p>-->
-    <!--      <app-stat-selector-->
-    <!--        [current]="points"-->
-    <!--        [max]="60"-->
-    <!--        [min]="0"-->
-    <!--        [property]="'pv'"-->
-    <!--        (removePointEvent)="removePoint($event)"-->
-    <!--        (addPointEvent)="addPoint($event)"-->
-    <!--      ></app-stat-selector>-->
-    <!--    </div>-->
-
     <div>
-      <p>Esquive: {{ pokemon.e }}</p>
+      <p>Esquive: {{ move.e }}</p>
       <app-stat-selector
         [current]="points"
         [max]="60"
@@ -40,7 +28,7 @@
     </div>
 
     <div>
-      <p>Coup critique: {{ pokemon.cc }}</p>
+      <p>Coup critique: {{ move.cc }}</p>
       <app-stat-selector
         [current]="points"
         [max]="60"
@@ -51,6 +39,6 @@
       ></app-stat-selector>
     </div>
 
-    <button (click)="submit(pokemon)">Save</button>
+    <button (click)="submit(move)">Save</button>
   </div>
 </div>

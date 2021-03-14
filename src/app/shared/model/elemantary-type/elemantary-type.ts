@@ -8,5 +8,5 @@ export enum ElemantaryType {
 }
 
 export const elemantaryTypeToArray = (): string[] => {
-  return Object.keys(ElemantaryType).map(item => item.toString());
+  return Object.keys(ElemantaryType).map((item) => item.toString());
 };
