@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Pokemon, PokemonStat } from '../../../shared/model/pokemon/pokemon';
-import { FormMode } from '../../../shared/domain/form/form';
+import { FormMode } from '../../../shared/interface/form';
+import { AppStat } from '../../../shared/interface/app-stat';
 
 @Component({
   selector: 'app-pokemon-form',
@@ -8,7 +9,6 @@ import { FormMode } from '../../../shared/domain/form/form';
   styleUrls: ['./pokemon-form.component.css'],
 })
 export class PokemonFormComponent implements OnInit {
-  // Maybe remove the undefined
   @Input()
   pokemon!: Pokemon;
   @Input()
@@ -20,9 +20,9 @@ export class PokemonFormComponent implements OnInit {
   @Output()
   goBackEvent = new EventEmitter<void>();
   @Output()
-  addPointEvent = new EventEmitter<PokemonStat>();
+  addPointEvent = new EventEmitter<AppStat>();
   @Output()
-  removePointEvent = new EventEmitter<PokemonStat>();
+  removePointEvent = new EventEmitter<AppStat>();
   constructor() {}
 
   ngOnInit(): void {}
@@ -35,11 +35,11 @@ export class PokemonFormComponent implements OnInit {
     this.goBackEvent.emit();
   }
 
-  addPoint(property: PokemonStat): void {
+  addPoint(property: AppStat): void {
     this.addPointEvent.emit(property);
   }
 
-  removePoint(property: PokemonStat): void {
+  removePoint(property: AppStat): void {
     this.removePointEvent.emit(property);
   }
 }

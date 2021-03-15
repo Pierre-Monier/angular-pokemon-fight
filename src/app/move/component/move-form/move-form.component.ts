@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormMode } from '../../../shared/domain/form/form';
+import { FormMode } from '../../../shared/interface/form';
 import { Move, MoveStat } from '../../../shared/model/move/move';
+import { AppStat } from '../../../shared/interface/app-stat';
 
 @Component({
   selector: 'app-move-form',
@@ -19,9 +20,9 @@ export class MoveFormComponent implements OnInit {
   @Output()
   goBackEvent = new EventEmitter<void>();
   @Output()
-  addPointEvent = new EventEmitter<MoveStat>();
+  addPointEvent = new EventEmitter<AppStat>();
   @Output()
-  removePointEvent = new EventEmitter<MoveStat>();
+  removePointEvent = new EventEmitter<AppStat>();
   constructor() {}
 
   ngOnInit(): void {}
@@ -34,11 +35,11 @@ export class MoveFormComponent implements OnInit {
     this.goBackEvent.emit();
   }
 
-  addPoint<T>(property: T): void {
+  addPoint(property: AppStat): void {
     this.addPointEvent.emit(property);
   }
 
-  removePoint(property: MoveStat): void {
+  removePoint(property: AppStat): void {
     this.removePointEvent.emit(property);
   }
 }

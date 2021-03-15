@@ -4,7 +4,7 @@ import { Pokemon, pokemonSpec } from '../../../shared/model/pokemon/pokemon';
 import { PokemonService } from '../../../shared/service/pokemon.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ListContainer } from '../../../shared/domain/list/list';
+import { ListContainer } from '../../../shared/interface/list';
 
 @Component({
   selector: 'app-pokemon-list-container',

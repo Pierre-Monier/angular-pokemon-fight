@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { FormContainer } from '../../../shared/domain/form/form';
+import { FormContainer } from '../../../shared/interface/form';
 import {
   Pokemon,
   PokemonStat,
@@ -13,10 +13,10 @@ import {
   defaultPokemon,
 } from '../../../shared/model/pokemon/pokemon';
 import { PokemonService } from '../../../shared/service/pokemon.service';
-import { FormMode } from '../../../shared/domain/form/form';
+import { FormMode } from '../../../shared/interface/form';
 import { FormService } from '../../../shared/service/form.service';
 import { elemantaryTypeToArray } from '../../../shared/model/elemantary-type/elemantary-type';
-import { AppStat } from '../../../shared/domain/model/app-stat';
+import { AppStat } from '../../../shared/interface/app-stat';
 
 @Component({
   selector: 'app-pokemon-form-container',

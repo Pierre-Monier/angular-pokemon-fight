@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { ElemantaryType } from '../model/elemantary-type/elemantary-type';
-import { FormMode } from '../domain/form/form';
+import { FormMode } from '../interface/form';
 import { Pokemon } from '../model/pokemon/pokemon';
 
 @Injectable({

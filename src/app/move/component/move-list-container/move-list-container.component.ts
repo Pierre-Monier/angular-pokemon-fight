@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import { MoveService } from '../../../shared/service/move.service';
 import { takeUntil } from 'rxjs/operators';
 
-import { ListContainer } from '../../../shared/domain/list/list';
+import { ListContainer } from '../../../shared/interface/list';
 import { Move, moveSpec } from '../../../shared/model/move/move';
 
 @Component({

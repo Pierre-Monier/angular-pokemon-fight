@@ -1,7 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { PokemonStat } from '../../model/pokemon/pokemon';
-import { MoveStat } from '../../model/move/move';
-import { AppStat } from '../../domain/model/app-stat';
+import { AppStat } from '../../interface/app-stat';
 
 @Component({
   selector: 'app-stat-selector',

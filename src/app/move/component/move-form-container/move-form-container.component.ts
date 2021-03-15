@@ -1,20 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormContainer, FormMode } from '../../../shared/domain/form/form';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { FormContainer, FormMode } from '../../../shared/interface/form';
 import {
   defaultMove,
   getMoveStatPoint,
   Move,
   moveSpec,
-  MoveStat,
+  isMoveStat,
 } from '../../../shared/model/move/move';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { FormService } from '../../../shared/service/form.service';
 import { MoveService } from '../../../shared/service/move.service';
-import { Subject } from 'rxjs';
 import { elemantaryTypeToArray } from '../../../shared/model/elemantary-type/elemantary-type';
-import { takeUntil } from 'rxjs/operators';
-import { AppStat } from '../../../shared/domain/model/app-stat';
+import { AppStat } from '../../../shared/interface/app-stat';
 
 @Component({
   selector: 'app-move-form-container',
@@ -78,14 +78,14 @@ export class MoveFormContainerComponent
   }
 
   addPoint(property: AppStat): void {
-    if (this.points > 0 && property !== 'pv') {
+    if (this.points > 0 && isMoveStat(property)) {
       this.move[property] += 5;
       this.points -= 5;
     }
   }
 
   removePoint(property: AppStat): void {
-    if (this.points < 60 && property !== 'pv' && this.move[property] > 0) {
+    if (this.points < 60 && isMoveStat(property) && this.move[property] > 0) {
       this.move[property] -= 5;
       this.points += 5;
     }
