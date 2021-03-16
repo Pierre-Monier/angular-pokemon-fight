@@ -7,7 +7,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { ElemantaryType } from '../model/elemantary-type/elemantary-type';
 import { FormMode } from '../interface/form';
-import { Pokemon } from '../model/pokemon/pokemon';
 
 @Injectable({
   providedIn: 'root',
@@ -19,19 +18,20 @@ export class MoveService {
     private db: AngularFirestore
   ) {}
 
-  getMoves(): Observable<Move[]> {
+  getMoves(ids?: string[]): Observable<Move[]> {
     this.messageService.add('MoveService: fetching moves');
     return this.db
       .collection<Move>('/move')
       .snapshotChanges()
       .pipe(
         map((moves) => {
+          const areIds = (id: string) => ids ? ids.includes(id) : true
           return moves
             .filter(
               (movesSnapshot) =>
                 this.authService.userData &&
                 movesSnapshot.payload.doc.data().userUid ===
-                  this.authService.userData?.uid
+                  this.authService.userData?.uid && areIds(movesSnapshot.payload.doc.id)
             )
             .map((movesSnapshot) => {
               return {

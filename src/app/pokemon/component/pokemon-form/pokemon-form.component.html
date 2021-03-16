@@ -15,17 +15,17 @@
       [(ngModel)]="pokemon.type"
     ></app-types-selector>
 
-    <!--    <div>-->
-    <!--      <p>Pv: {{ pokemon.pv }}</p>-->
-    <!--      <app-stat-selector-->
-    <!--        [current]="points"-->
-    <!--        [max]="60"-->
-    <!--        [min]="0"-->
-    <!--        [property]="'pv'"-->
-    <!--        (removePointEvent)="removePoint($event)"-->
-    <!--        (addPointEvent)="addPoint($event)"-->
-    <!--      ></app-stat-selector>-->
-    <!--    </div>-->
+        <div>
+          <p>Pv: {{ pokemon.pv }}</p>
+          <app-stat-selector
+            [current]="points"
+            [max]="60"
+            [min]="0"
+            [property]="'pv'"
+            (removePointEvent)="removePoint($event)"
+            (addPointEvent)="addPoint($event)"
+          ></app-stat-selector>
+        </div>
 
     <div>
       <p>Esquive: {{ pokemon.e }}</p>

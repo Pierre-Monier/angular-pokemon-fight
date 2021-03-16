@@ -1,6 +1,20 @@
 import { ElemantaryType } from '../elemantary-type/elemantary-type';
+import {Move} from "../move/move";
+import {MoveService} from "../../service/move.service";
+import {Observable} from "rxjs";
+//
+// export interface Pokemon {
+//   id: string;
+//   name: string;
+//   userUid: string;
+//   type: ElemantaryType;
+//   pv: number;
+//   e: number;
+//   cc: number;
+//   movesId?: string[];
+// }
 
-export interface Pokemon {
+export class Pokemon {
   id: string;
   name: string;
   userUid: string;
@@ -8,17 +22,22 @@ export interface Pokemon {
   pv: number;
   e: number;
   cc: number;
+  movesIds?: string[];
+  moves?: Move[];
+
+  constructor(id: string, name: string, userUid: string, type: ElemantaryType, pv: number, e: number, cc: number, movesIds?: string[]) {
+    this.id = id;
+    this.name = name;
+    this.userUid = userUid;
+    this.type = type;
+    this.pv = pv;
+    this.e = e;
+    this.cc = cc;
+    this.movesIds = movesIds;
+  }
 }
 
-export const defaultPokemon: Pokemon = {
-  id: '',
-  name: '',
-  userUid: '',
-  type: ElemantaryType.Air,
-  pv: 0,
-  e: 0,
-  cc: 0,
-};
+export const defaultPokemon = new Pokemon('', '', '', ElemantaryType.Air, 0, 0, 0);
 
 export type PokemonStat = 'pv' | 'e' | 'cc';
 
