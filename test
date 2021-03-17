@@ -1,0 +1,152 @@
+scss :
+
+.connexion-section {
+  background-color: $black-bc;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-image: url('../../../assets/pokemon-signin.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+    opacity: .1;
+    z-index: 1;
+  }
+  .connexion-container {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+
+    .connexion-block {
+      background-color: $black-main;
+      padding: 20px;
+      border-radius: 7px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .app-title {
+        font-family: $main-bold;
+        color: white;
+        margin: 0;
+        margin-bottom: 32px;
+        font-size: 32px;
+        line-height: 48px;
+        letter-spacing: 0.96px;
+      }
+      button {
+
+      }
+    }
+  }
+}
+
+variables :
+
+// COLORS
+$red-main: #E74C3C;
+$red-secondary: #DA2E1B;
+$red-tertiary: #B62616;
+$red-error: #DD4545;
+
+$blue-main: #2980B9;
+$blue-secondary: #216897;
+$blue-tertiary: #1A5175;
+
+$yellow-main: #FFAB1D;
+$yellow-secondary: #CC8100;
+
+$green-main: #3AAF79;
+$green-secondary: #339969;
+$green-tertiary: #297A54;
+
+$grey-main: #6F7C8D;
+$grey-secondary: #636E7E;
+$grey-tertiary: #48505B;
+$grey-placeholder: #96A3AB;
+
+$white-main: #EEEEEE;
+$white: #FFFFFF;
+
+$black-main: #202529;
+$black-secondary: #292F33;
+$black-bc: #2C3338;
+$black-important: #161A1C;
+
+// FONTS
+$main-light: "proxima-nova-light";
+$main-regular: "proxima-nova-regular";
+$main-medium: "proxima-nova-medium";
+$main-semibold: "proxima-nova-semibold";
+$main-bold: "proxima-nova-bold";
+
+fonts :
+
+@font-face {
+  font-family: "proxima-nova-bold";
+  src: url("https://use.typekit.net/af/949f99/00000000000000003b9b3068/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff2"),url("https://use.typekit.net/af/949f99/00000000000000003b9b3068/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff"),url("https://use.typekit.net/af/949f99/00000000000000003b9b3068/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("opentype");
+  font-display: auto;
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "proxima-nova-semibold";
+  src: url("https://use.typekit.net/af/576d53/00000000000000003b9b3066/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("woff2"),url("https://use.typekit.net/af/576d53/00000000000000003b9b3066/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("woff"),url("https://use.typekit.net/af/576d53/00000000000000003b9b3066/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("opentype");
+  font-display: auto;
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "proxima-nova-medium";
+  src: url("https://use.typekit.net/af/6e816b/00000000000000003b9b3064/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),url("https://use.typekit.net/af/6e816b/00000000000000003b9b3064/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),url("https://use.typekit.net/af/6e816b/00000000000000003b9b3064/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");
+  font-display: auto;
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "proxima-nova-regular";
+  src: url("https://use.typekit.net/af/705e94/00000000000000003b9b3062/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/705e94/00000000000000003b9b3062/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/705e94/00000000000000003b9b3062/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+  font-display: auto;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "proxima-nova-light";
+  src: url("https://use.typekit.net/af/cebe0e/00000000000000003b9b3060/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3") format("woff2"),url("https://use.typekit.net/af/cebe0e/00000000000000003b9b3060/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3") format("woff"),url("https://use.typekit.net/af/cebe0e/00000000000000003b9b3060/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3") format("opentype");
+  font-display: auto;
+  font-style: normal;
+  font-weight: 300;
+}
+
+
+html :
+
+<div class="connexion-section">
+  <div class="connexion-container">
+    <div class="connexion-block">
+      <h1 class="app-title">{{title}}</h1>
+      <button type="button" class="btn googleBtn" (click)="authService.googleAuth()">
+        <i class="fab fa-google-plus-g"></i> Log in with Google
+      </button>
+    </div>
+  </div>
+</div>
+

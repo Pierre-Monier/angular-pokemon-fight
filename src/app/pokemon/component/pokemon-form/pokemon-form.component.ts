@@ -6,7 +6,7 @@ import { Move } from '../../../shared/model/move/move';
 @Component({
   selector: 'app-pokemon-form',
   templateUrl: './pokemon-form.component.html',
-  styleUrls: ['./pokemon-form.component.css'],
+  styleUrls: ['./pokemon-form.component.scss'],
 })
 export class PokemonFormComponent {
   @Input()
