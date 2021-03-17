@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
+import { Observable } from 'rxjs';
 import { MessageService } from './message.service';
 import { Pokemon } from '../model/pokemon/pokemon';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -7,8 +7,6 @@ import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { ElemantaryType } from '../model/elemantary-type/elemantary-type';
 import { FormMode } from '../interface/form';
-import {MoveService} from "./move.service";
-import {Move} from "../model/move/move";
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +15,7 @@ export class PokemonService {
   constructor(
     private messageService: MessageService,
     private authService: AuthService,
-    private db: AngularFirestore,
-    private moveService: MoveService
+    private db: AngularFirestore
   ) {}
 
   getPokemons(): Observable<Pokemon[]> {

@@ -6,7 +6,7 @@ import { AppStat } from '../../../shared/interface/app-stat';
 @Component({
   selector: 'app-move-form',
   templateUrl: './move-form.component.html',
-  styleUrls: ['./move-form.component.css'],
+  styleUrls: ['./move-form.component.scss'],
 })
 export class MoveFormComponent implements OnInit {
   @Input()

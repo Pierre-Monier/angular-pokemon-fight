@@ -2,17 +2,6 @@ import { ElemantaryType } from '../elemantary-type/elemantary-type';
 import {Move} from "../move/move";
 import {MoveService} from "../../service/move.service";
 import {Observable} from "rxjs";
-//
-// export interface Pokemon {
-//   id: string;
-//   name: string;
-//   userUid: string;
-//   type: ElemantaryType;
-//   pv: number;
-//   e: number;
-//   cc: number;
-//   movesId?: string[];
-// }
 
 export class Pokemon {
   id: string;

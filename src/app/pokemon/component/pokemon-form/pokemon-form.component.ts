@@ -6,7 +6,7 @@ import { AppStat } from '../../../shared/interface/app-stat';
 @Component({
   selector: 'app-pokemon-form',
   templateUrl: './pokemon-form.component.html',
-  styleUrls: ['./pokemon-form.component.css'],
+  styleUrls: ['./pokemon-form.component.scss'],
 })
 export class PokemonFormComponent implements OnInit {
   @Input()
