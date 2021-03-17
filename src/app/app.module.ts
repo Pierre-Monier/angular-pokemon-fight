@@ -25,7 +25,6 @@ import { MoveListContainerComponent } from './move/component/move-list-container
 import { MoveListComponent } from './move/component/move-list/move-list.component';
 import { MoveFormContainerComponent } from './move/component/move-form-container/move-form-container.component';
 import { MoveFormComponent } from './move/component/move-form/move-form.component';
-import { MoveSelectorComponent } from './shared/component/move-selector/move-selector.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +45,6 @@ import { MoveSelectorComponent } from './shared/component/move-selector/move-sel
     MoveListComponent,
     MoveFormContainerComponent,
     MoveFormComponent,
-    MoveSelectorComponent,
   ],
   imports: [
     BrowserModule,

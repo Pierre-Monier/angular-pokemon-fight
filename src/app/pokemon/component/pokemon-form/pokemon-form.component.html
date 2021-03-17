@@ -51,14 +51,18 @@
       ></app-stat-selector>
     </div>
 
-    <app-move-selector
-      *ngIf="moves"
-      name="moves"
-      ngDefaultControl
-      [moves]="moves"
-      [(ngModel)]="pokemon.movesIds"
-    >
-    </app-move-selector>
+    <label>
+      Moves:
+      <select multiple *ngIf="moves" [(ngModel)]="pokemon.movesIds">
+        <option
+          *ngFor="let move of moves"
+          [value]="move.id"
+          [selected]="pokemon.movesIds.includes(move.id)"
+        >
+          {{ move.id }}
+        </option>
+      </select>
+    </label>
 
     <button (click)="submit(pokemon)">Save</button>
   </div>

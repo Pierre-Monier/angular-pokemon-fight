@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Pokemon, PokemonStat } from '../../../shared/model/pokemon/pokemon';
-import { FormMode } from '../../../shared/interface/form';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Pokemon } from '../../../shared/model/pokemon/pokemon';
 import { AppStat } from '../../../shared/interface/app-stat';
 import { Move } from '../../../shared/model/move/move';
 
@@ -9,7 +8,7 @@ import { Move } from '../../../shared/model/move/move';
   templateUrl: './pokemon-form.component.html',
   styleUrls: ['./pokemon-form.component.css'],
 })
-export class PokemonFormComponent implements OnInit {
+export class PokemonFormComponent {
   @Input()
   pokemon!: Pokemon;
   @Input()
@@ -27,8 +26,6 @@ export class PokemonFormComponent implements OnInit {
   @Output()
   removePointEvent = new EventEmitter<AppStat>();
   constructor() {}
-
-  ngOnInit(): void {}
 
   submit(pokemon: Pokemon): void {
     this.submitEvent.emit(pokemon);

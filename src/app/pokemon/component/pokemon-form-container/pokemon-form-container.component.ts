@@ -4,16 +4,14 @@ import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { FormContainer } from '../../../shared/interface/form';
+import { FormContainer, FormMode } from '../../../shared/interface/form';
 import {
-  Pokemon,
-  PokemonStat,
-  pokemonSpec,
-  getPokemonStatPoint,
   defaultPokemon,
+  getPokemonStatPoint,
+  Pokemon,
+  pokemonSpec,
 } from '../../../shared/model/pokemon/pokemon';
 import { PokemonService } from '../../../shared/service/pokemon.service';
-import { FormMode } from '../../../shared/interface/form';
 import { FormService } from '../../../shared/service/form.service';
 import { elemantaryTypeToArray } from '../../../shared/model/elemantary-type/elemantary-type';
 import { AppStat } from '../../../shared/interface/app-stat';

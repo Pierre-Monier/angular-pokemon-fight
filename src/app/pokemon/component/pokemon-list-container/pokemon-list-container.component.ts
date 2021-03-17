@@ -2,10 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Pokemon, pokemonSpec } from '../../../shared/model/pokemon/pokemon';
 import { PokemonService } from '../../../shared/service/pokemon.service';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ListContainer } from '../../../shared/interface/list';
-import { Move } from '../../../shared/model/move/move';
 import { MoveService } from '../../../shared/service/move.service';
 
 @Component({

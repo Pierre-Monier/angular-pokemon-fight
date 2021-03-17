@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { MessageService } from './message.service';
 import { Move } from '../model/move/move';
 import { AuthService } from './auth.service';
@@ -25,13 +25,14 @@ export class MoveService {
       .snapshotChanges()
       .pipe(
         map((moves) => {
-          const areIds = (id: string) => ids ? ids.includes(id) : true
+          const areIds = (id: string) => (ids ? ids.includes(id) : true);
           return moves
             .filter(
               (movesSnapshot) =>
                 this.authService.userData &&
                 movesSnapshot.payload.doc.data().userUid ===
-                  this.authService.userData?.uid && areIds(movesSnapshot.payload.doc.id)
+                  this.authService.userData?.uid &&
+                areIds(movesSnapshot.payload.doc.id)
             )
             .map((movesSnapshot) => {
               return {

@@ -1,8 +1,5 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Pokemon } from '../../../shared/model/pokemon/pokemon';
-import {MoveService} from "../../../shared/service/move.service";
-import {Observable} from "rxjs";
-import {Move} from "../../../shared/model/move/move";
 
 @Component({
   selector: 'app-pokemon-list',

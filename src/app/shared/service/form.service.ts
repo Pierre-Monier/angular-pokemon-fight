@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
+  getPokemonStatPoint,
   Pokemon,
   pokemonSpec,
-  getPokemonStatPoint,
 } from '../model/pokemon/pokemon';
 import { ElemantaryType } from '../model/elemantary-type/elemantary-type';
 import { getMoveStatPoint, Move, moveSpec } from '../model/move/move';
@@ -19,6 +19,7 @@ export class FormService {
       Object.values(ElemantaryType).includes(pokemon.type) &&
       getPokemonStatPoint(pokemon) <= pokemonSpec.maxPoints &&
       getPokemonStatPoint(pokemon) > pokemonSpec.minPoint
+      // && pokemon.movesIds !== undefined
     );
   }
 
