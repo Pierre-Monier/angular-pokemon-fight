@@ -1,0 +1,10 @@
+<app-add-status
+  [currentNumber]="moves.length"
+  [route]="'/add-move'"
+  [max]="maxMoveNbr"
+></app-add-status>
+<app-move-list
+  title="My moves"
+  [moves]="moves"
+  (deleteEvent)="deleteItem($event)"
+></app-move-list>

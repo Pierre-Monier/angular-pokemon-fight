@@ -1,0 +1,44 @@
+<div>
+  <button (click)="goBack()">go back</button>
+  <h2>{{ move.name | uppercase }} Details</h2>
+  <div>
+    <p>points: {{ points }}</p>
+    <label>
+      Pokemon name:
+      <input [(ngModel)]="move.name" placeholder="name" required />
+    </label>
+    <app-types-selector
+      name="types"
+      ngDefaultControl
+      [types]="types"
+      [current]="move.type.toString()"
+      [(ngModel)]="move.type"
+    ></app-types-selector>
+
+    <div>
+      <p>Esquive: {{ move.e }}</p>
+      <app-stat-selector
+        [current]="points"
+        [max]="60"
+        [min]="0"
+        [property]="'e'"
+        (removePointEvent)="removePoint($event)"
+        (addPointEvent)="addPoint($event)"
+      ></app-stat-selector>
+    </div>
+
+    <div>
+      <p>Coup critique: {{ move.cc }}</p>
+      <app-stat-selector
+        [current]="points"
+        [max]="60"
+        [min]="0"
+        [property]="'cc'"
+        (removePointEvent)="removePoint($event)"
+        (addPointEvent)="addPoint($event)"
+      ></app-stat-selector>
+    </div>
+
+    <button (click)="submit(move)">Save</button>
+  </div>
+</div>

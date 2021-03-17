@@ -1,0 +1,12 @@
+<div>
+  <app-add-status
+    [currentNumber]="pokemons.length"
+    route="/add-pokemon"
+    [max]="maxPokemon"
+  ></app-add-status>
+  <app-pokemon-list
+    title="My pokemons"
+    [pokemons]="pokemons"
+    (deleteEvent)="deleteItem($event)"
+  ></app-pokemon-list>
+</div>

@@ -1,0 +1,56 @@
+<div>
+  <button (click)="goBack()">go back</button>
+  <h2>{{ pokemon.name | uppercase }} Details</h2>
+  <div>
+    <p>points: {{ points }}</p>
+    <label>
+      Pokemon name:
+      <input [(ngModel)]="pokemon.name" placeholder="name" required />
+    </label>
+    <app-types-selector
+      name="types"
+      ngDefaultControl
+      [types]="types"
+      [current]="pokemon.type.toString()"
+      [(ngModel)]="pokemon.type"
+    ></app-types-selector>
+
+    <!--    <div>-->
+    <!--      <p>Pv: {{ pokemon.pv }}</p>-->
+    <!--      <app-stat-selector-->
+    <!--        [current]="points"-->
+    <!--        [max]="60"-->
+    <!--        [min]="0"-->
+    <!--        [property]="'pv'"-->
+    <!--        (removePointEvent)="removePoint($event)"-->
+    <!--        (addPointEvent)="addPoint($event)"-->
+    <!--      ></app-stat-selector>-->
+    <!--    </div>-->
+
+    <div>
+      <p>Esquive: {{ pokemon.e }}</p>
+      <app-stat-selector
+        [current]="points"
+        [max]="60"
+        [min]="0"
+        [property]="'e'"
+        (removePointEvent)="removePoint($event)"
+        (addPointEvent)="addPoint($event)"
+      ></app-stat-selector>
+    </div>
+
+    <div>
+      <p>Coup critique: {{ pokemon.cc }}</p>
+      <app-stat-selector
+        [current]="points"
+        [max]="60"
+        [min]="0"
+        [property]="'cc'"
+        (removePointEvent)="removePoint($event)"
+        (addPointEvent)="addPoint($event)"
+      ></app-stat-selector>
+    </div>
+
+    <button (click)="submit(pokemon)">Save</button>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<label>
+  Type:
+  <select>
+    <option
+      *ngFor="let item of types"
+      [value]="item"
+      [selected]="item == current"
+    >
+      {{ item }}
+    </option>
+  </select>
+</label>
