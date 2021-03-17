@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Pokemon, PokemonStat } from '../../../shared/model/pokemon/pokemon';
 import { FormMode } from '../../../shared/interface/form';
 import { AppStat } from '../../../shared/interface/app-stat';
+import { Move } from '../../../shared/model/move/move';
 
 @Component({
   selector: 'app-pokemon-form',
@@ -15,6 +16,8 @@ export class PokemonFormComponent implements OnInit {
   types!: string[];
   @Input()
   points!: number;
+  @Input()
+  moves?: Move[];
   @Output()
   submitEvent = new EventEmitter<Pokemon>();
   @Output()
