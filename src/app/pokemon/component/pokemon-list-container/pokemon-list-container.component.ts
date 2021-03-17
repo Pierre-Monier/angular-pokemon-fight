@@ -2,9 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Pokemon, pokemonSpec } from '../../../shared/model/pokemon/pokemon';
 import { PokemonService } from '../../../shared/service/pokemon.service';
-import { Subject } from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ListContainer } from '../../../shared/interface/list';
+import {Move} from "../../../shared/model/move/move";
+import {MoveService} from "../../../shared/service/move.service";
 
 @Component({
   selector: 'app-pokemon-list-container',
@@ -16,7 +18,7 @@ export class PokemonListContainerComponent
   pokemons: Pokemon[] = [];
   maxPokemon = pokemonSpec.maxPokemonNbr;
 
-  constructor(private pokemonService: PokemonService) {}
+  constructor(private pokemonService: PokemonService, public moveService: MoveService) {}
 
   ngOnInit(): void {
     this.getItems();
@@ -26,7 +28,16 @@ export class PokemonListContainerComponent
     this.pokemonService
       .getPokemons()
       .pipe(takeUntil(this.destroy$))
-      .subscribe((pokemons) => (this.pokemons = pokemons));
+      .subscribe((pokemons) => {
+        this.pokemons = pokemons;
+        this.pokemons.map((pokemon, i) => {
+          if (pokemon.movesIds) {
+            this.moveService.getMoves(pokemon.movesIds).pipe(takeUntil(this.destroy$)).subscribe((moves) => {
+              this.pokemons[i].moves = moves;
+            })
+          }
+        });
+      });
   }
 
   deleteItem(id: string): void {

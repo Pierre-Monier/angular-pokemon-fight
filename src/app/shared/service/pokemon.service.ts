@@ -33,16 +33,12 @@ export class PokemonService {
                   this.authService.userData?.uid
             )
             .map((pokemonSnapshot) => {
-              return {
-                id: pokemonSnapshot.payload.doc.id,
-                name: pokemonSnapshot.payload.doc.data().name,
-                userUid: pokemonSnapshot.payload.doc.data().userUid,
-                type: ElemantaryType[pokemonSnapshot.payload.doc.data().type],
-                pv: pokemonSnapshot.payload.doc.data().pv,
-                e: pokemonSnapshot.payload.doc.data().e,
-                cc: pokemonSnapshot.payload.doc.data().cc,
-              };
+              const data = pokemonSnapshot.payload.doc.data();
+              return new Pokemon(pokemonSnapshot.payload.doc.id, data.name, data.userUid, data.type, data.pv, data.e, data.cc, data.movesIds);
             });
+        }),
+        map((toto) => {
+          return toto;
         })
       );
   }
@@ -57,15 +53,8 @@ export class PokemonService {
         map((pokemonSnapshot) => {
           const data = pokemonSnapshot.payload.data();
           if (data) {
-            return {
-              id: pokemonSnapshot.payload.id,
-              name: data.name,
-              userUid: data.userUid,
-              type: ElemantaryType[data.type],
-              pv: data.pv,
-              e: data.e,
-              cc: data.cc,
-            };
+            const moves = undefined
+            return new Pokemon(pokemonSnapshot.payload.id, data.name, data.userUid, data.type, data.pv, data.e, data.cc, moves)
           } else {
             console.error('No pokemon found');
             return undefined;

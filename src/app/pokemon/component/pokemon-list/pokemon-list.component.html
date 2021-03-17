@@ -6,6 +6,11 @@
     <p>Pv: {{ pokemon.pv }}</p>
     <p>Esquive: {{ pokemon.e }}</p>
     <p>Coup critique: {{ pokemon.cc }}</p>
+    <div *ngIf="pokemon.moves">
+      <ul *ngFor="let move of pokemon.moves">
+        <li>{{ move.name }}</li>
+      </ul>
+    </div>
     <a routerLink="/pokemon/{{ pokemon.id }}">Edit</a>
     <button (click)="deletePokemon(pokemon.id)">Delete</button>
   </div>
