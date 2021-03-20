@@ -8,9 +8,8 @@ describe('MoveListContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MoveListContainerComponent ]
-    })
-    .compileComponents();
+      declarations: [MoveListContainerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

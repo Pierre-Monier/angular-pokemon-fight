@@ -8,9 +8,8 @@ describe('TypesSelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TypesSelectorComponent ]
-    })
-    .compileComponents();
+      declarations: [TypesSelectorComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

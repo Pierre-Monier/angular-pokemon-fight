@@ -1,16 +1,16 @@
-import {Injectable, NgZone} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
-import {Router} from '@angular/router';
+import { Injectable, NgZone } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
-import {AppUser} from '../model/user/app-user';
+import { AppUser } from '../model/user/app-user';
 import firebase from 'firebase';
 import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
 import UserCredential = firebase.auth.UserCredential;
 import User = firebase.User;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   userData: AppUser | null = null;
@@ -22,8 +22,7 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone
   ) {
-
-    this.afAuth.authState.subscribe(user => {
+    this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.setUserData(user);
         localStorage.setItem('user', JSON.stringify(this.userData));
@@ -37,18 +36,20 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     const userData: string | null = localStorage.getItem('user');
-    return  (userData !== null);
+    return userData !== null;
   }
 
   // Auth logic to run auth providers
   authLogin(provider: GoogleAuthProvider): Promise<void> {
-    return this.afAuth.signInWithPopup(provider)
+    return this.afAuth
+      .signInWithPopup(provider)
       .then((result: UserCredential) => {
         this.ngZone.run(() => {
           this.router.navigate(['dashboard']);
         });
         this.setUserData(result.user);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         window.alert(error);
       });
   }

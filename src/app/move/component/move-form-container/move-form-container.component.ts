@@ -7,9 +7,9 @@ import { FormContainer, FormMode } from '../../../shared/interface/form';
 import {
   defaultMove,
   getMoveStatPoint,
+  isMoveStat,
   Move,
   moveSpec,
-  isMoveStat,
 } from '../../../shared/model/move/move';
 import { FormService } from '../../../shared/service/form.service';
 import { MoveService } from '../../../shared/service/move.service';

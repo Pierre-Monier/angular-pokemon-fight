@@ -5,7 +5,6 @@ import { Pokemon } from '../model/pokemon/pokemon';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
-import { ElemantaryType } from '../model/elemantary-type/elemantary-type';
 import { FormMode } from '../interface/form';
 
 @Injectable({
@@ -34,7 +33,16 @@ export class PokemonService {
             )
             .map((pokemonSnapshot) => {
               const data = pokemonSnapshot.payload.doc.data();
-              return new Pokemon(pokemonSnapshot.payload.doc.id, data.name, data.userUid, data.type, data.pv, data.e, data.cc, data.movesIds);
+              return new Pokemon(
+                pokemonSnapshot.payload.doc.id,
+                data.name,
+                data.userUid,
+                data.type,
+                data.pv,
+                data.e,
+                data.cc,
+                data.movesIds
+              );
             });
         }),
         map((toto) => {
@@ -53,8 +61,16 @@ export class PokemonService {
         map((pokemonSnapshot) => {
           const data = pokemonSnapshot.payload.data();
           if (data) {
-            const moves = undefined
-            return new Pokemon(pokemonSnapshot.payload.id, data.name, data.userUid, data.type, data.pv, data.e, data.cc, moves)
+            return new Pokemon(
+              pokemonSnapshot.payload.id,
+              data.name,
+              data.userUid,
+              data.type,
+              data.pv,
+              data.e,
+              data.cc,
+              data.movesIds
+            );
           } else {
             console.error('No pokemon found');
             return undefined;
@@ -66,7 +82,7 @@ export class PokemonService {
   private updatePokemon(pokemon: Pokemon): void {
     this.db
       .doc<Pokemon>(`/pokemon/${pokemon.id}`)
-      .update(pokemon)
+      .update(Object.assign({}, pokemon))
       .then(() => this.messageService.add('pokemon updated'))
       .catch((error) => console.error(error));
   }
@@ -74,7 +90,9 @@ export class PokemonService {
   private addPokemon(pokemon: Pokemon): void {
     if (this.authService.userData) {
       pokemon.userUid = this.authService.userData.uid;
-      this.db.collection<Pokemon>('/pokemon').add(pokemon);
+      // we need to pass a native js Object to make the Add operation works
+      // https://stackoverflow.com/questions/48156234/function-documentreference-set-called-with-invalid-data-unsupported-field-val
+      this.db.collection<Pokemon>('/pokemon').add(Object.assign({}, pokemon));
     } else {
       console.error(
         'trying to add pokemon in collection but no user authenticated'
@@ -83,6 +101,9 @@ export class PokemonService {
   }
 
   submitPokemon(type: FormMode, pokemon: Pokemon): void {
+    // we don't want to store Move object on firebase
+    pokemon.moves = [];
+
     if (type === 'create') {
       this.addPokemon(pokemon);
     } else {

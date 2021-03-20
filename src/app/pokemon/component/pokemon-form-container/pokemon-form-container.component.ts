@@ -4,19 +4,19 @@ import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { FormContainer } from '../../../shared/interface/form';
+import { FormContainer, FormMode } from '../../../shared/interface/form';
 import {
-  Pokemon,
-  PokemonStat,
-  pokemonSpec,
-  getPokemonStatPoint,
   defaultPokemon,
+  getPokemonStatPoint,
+  Pokemon,
+  pokemonSpec,
 } from '../../../shared/model/pokemon/pokemon';
 import { PokemonService } from '../../../shared/service/pokemon.service';
-import { FormMode } from '../../../shared/interface/form';
 import { FormService } from '../../../shared/service/form.service';
 import { elemantaryTypeToArray } from '../../../shared/model/elemantary-type/elemantary-type';
 import { AppStat } from '../../../shared/interface/app-stat';
+import { MoveService } from '../../../shared/service/move.service';
+import { Move } from '../../../shared/model/move/move';
 
 @Component({
   selector: 'app-pokemon-form-container',
@@ -29,10 +29,12 @@ export class PokemonFormContainerComponent
   elemantaryTypes = elemantaryTypeToArray();
   points = pokemonSpec.maxPoints;
   type: FormMode;
+  moves?: Move[];
 
   constructor(
     private route: ActivatedRoute,
     private pokemonService: PokemonService,
+    private moveService: MoveService,
     private location: Location,
     private formService: FormService
   ) {
@@ -45,6 +47,13 @@ export class PokemonFormContainerComponent
   }
 
   init(): void {
+    this.moveService
+      .getMoves()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((moves) => {
+        this.moves = moves;
+      });
+
     if (this.type === 'update') {
       const id: string | null = this.route.snapshot.paramMap.get('id');
       if (id) {
@@ -56,6 +65,15 @@ export class PokemonFormContainerComponent
               this.pokemon = pokemon;
               // we update the current points base on the existing pokemon
               this.updatePoints();
+
+              if (this.pokemon.movesIds) {
+                this.moveService
+                  .getMoves(this.pokemon.movesIds)
+                  .pipe(takeUntil(this.destroy$))
+                  .subscribe((moves) => {
+                    this.pokemon.moves = moves;
+                  });
+              }
             }
           });
       } else {
