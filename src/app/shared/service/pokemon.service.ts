@@ -41,6 +41,7 @@ export class PokemonService {
                 data.pv,
                 data.e,
                 data.cc,
+                data.imageUrl,
                 data.movesIds
               );
             });
@@ -69,6 +70,7 @@ export class PokemonService {
               data.pv,
               data.e,
               data.cc,
+              data.imageUrl,
               data.movesIds
             );
           } else {

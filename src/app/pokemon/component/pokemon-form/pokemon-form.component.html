@@ -59,10 +59,13 @@
           [value]="move.id"
           [selected]="pokemon.movesIds.includes(move.id)"
         >
-          {{ move.id }}
+          {{ move.name }}
         </option>
       </select>
     </label>
+
+    <input type='file' (change)="readURL($event);" accept=".png,.jpg" />
+    <img id="blah" [src]="avatarSrc" alt="your image" />
 
     <button (click)="submit(pokemon)">Save</button>
   </div>

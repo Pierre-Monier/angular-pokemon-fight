@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { v4 as uuidv4 } from 'uuid';
 
 import { FormContainer, FormMode } from '../../../shared/interface/form';
 import {
@@ -17,6 +18,7 @@ import { elemantaryTypeToArray } from '../../../shared/model/elemantary-type/ele
 import { AppStat } from '../../../shared/interface/app-stat';
 import { MoveService } from '../../../shared/service/move.service';
 import { Move } from '../../../shared/model/move/move';
+import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-pokemon-form-container',
@@ -30,13 +32,16 @@ export class PokemonFormContainerComponent
   points = pokemonSpec.maxPoints;
   type: FormMode;
   moves?: Move[];
+  avatarFile?: File;
+  isLoading = false;
 
   constructor(
     private route: ActivatedRoute,
     private pokemonService: PokemonService,
     private moveService: MoveService,
     private location: Location,
-    private formService: FormService
+    private formService: FormService,
+    private afStorage: AngularFireStorage
   ) {
     const { type } = this.route.snapshot.data;
     this.type = type;
@@ -84,13 +89,33 @@ export class PokemonFormContainerComponent
     }
   }
 
-  submit(pokemon: Pokemon): void {
+  async submit(pokemon: Pokemon): Promise<void> {
+    console.log(this.avatarFile);
     if (this.formService.isPokemonFormValid(pokemon)) {
+      this.isLoading = true;
+
+      if (this.avatarFile) {
+        await this.uploadAvatarFile()
+          .then(async (data) => {
+          this.pokemon.imageUrl = await data.ref.getDownloadURL();
+          })
+          .catch((err) => console.error(err));
+      }
+
       this.pokemonService.submitPokemon(this.type, pokemon);
       this.goBack();
     } else {
       console.error('Trying to submit pokemon with wrong values');
     }
+  }
+
+  uploadAvatarFile(): AngularFireUploadTask {
+    const ref = this.afStorage.ref(uuidv4());
+    return ref.put(this.avatarFile);
+  }
+
+  setAvatarFile(file: File): void {
+    this.avatarFile = file;
   }
 
   updatePoints(): void {

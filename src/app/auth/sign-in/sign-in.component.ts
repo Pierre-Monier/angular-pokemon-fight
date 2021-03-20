@@ -10,8 +10,6 @@ import { AuthService } from '../../shared/service/auth.service';
 export class SignInComponent implements OnInit {
   constructor(public authService: AuthService, public router: Router) {}
 
-  constructor(public authService: AuthService, public router: Router) {}
-
   title = 'Angular Pokemon Fighter';
 
   ngOnInit(): void {
