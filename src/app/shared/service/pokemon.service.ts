@@ -113,8 +113,8 @@ export class PokemonService {
     }
   }
 
-  deletePokemon(id: string): void {
-    this.db
+  deletePokemon(id: string): Promise<void> {
+    return this.db
       .doc<Pokemon>(`/pokemon/${id}`)
       .delete()
       .then(() => this.messageService.add('pokemon deleted'))

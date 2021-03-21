@@ -97,6 +97,12 @@ export class PokemonFormContainerComponent
       if (this.avatarFile) {
         await this.uploadAvatarFile()
           .then(async (data) => {
+          const imageRef = this.pokemon.isImageUrlDefault() ? undefined : this.afStorage.ref(this.pokemon.getImageRef());
+
+          if (imageRef) {
+            imageRef.delete();
+          }
+
           this.pokemon.imageUrl = await data.ref.getDownloadURL();
           })
           .catch((err) => console.error(err));
@@ -105,6 +111,7 @@ export class PokemonFormContainerComponent
       this.pokemonService.submitPokemon(this.type, pokemon);
       this.goBack();
     } else {
+      this.isLoading = false;
       console.error('Trying to submit pokemon with wrong values');
     }
   }

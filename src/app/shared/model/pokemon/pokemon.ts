@@ -40,6 +40,14 @@ export class Pokemon {
   static getDefaultImageUrl(): string {
     return 'https://firebasestorage.googleapis.com/v0/b/lp-angular.appspot.com/o/default_avatar.png?alt=media&token=46d115c9-8391-4b5a-ac57-32f729b3f088';
   }
+
+  getImageRef(): string {
+    return this.imageUrl.split('/')[7].split('?')[0];
+  }
+
+  isImageUrlDefault(): boolean {
+    return this.getImageRef() === 'default_avatar.png';
+  }
 }
 
 export const defaultPokemon = new Pokemon(

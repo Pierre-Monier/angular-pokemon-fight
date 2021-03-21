@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ListContainer } from '../../../shared/interface/list';
 import { MoveService } from '../../../shared/service/move.service';
+import {AngularFireStorage} from "@angular/fire/storage";
 
 @Component({
   selector: 'app-pokemon-list-container',
@@ -19,7 +20,8 @@ export class PokemonListContainerComponent
 
   constructor(
     private pokemonService: PokemonService,
-    public moveService: MoveService
+    public moveService: MoveService,
+    private afStorage: AngularFireStorage
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +36,7 @@ export class PokemonListContainerComponent
         this.pokemons = pokemons;
         this.pokemons.map((pokemon, i) => {
           if (pokemon.movesIds) {
+            console.log(pokemon.isImageUrlDefault(), pokemon.getImageRef());
             this.moveService
               .getMoves(pokemon.movesIds)
               .pipe(takeUntil(this.destroy$))
@@ -45,8 +48,15 @@ export class PokemonListContainerComponent
       });
   }
 
-  deleteItem(id: string): void {
-    this.pokemonService.deletePokemon(id);
+  deleteItem(pokemon: Pokemon): void {
+    const imageRef = pokemon.isImageUrlDefault() ? undefined : this.afStorage.ref(pokemon.getImageRef());
+
+    this.pokemonService.deletePokemon(pokemon.id)
+      .then(() => {
+        if (imageRef) {
+          imageRef.delete();
+        }
+      });
   }
 
   ngOnDestroy(): void {
