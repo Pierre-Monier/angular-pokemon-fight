@@ -6,7 +6,8 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ListContainer } from '../../../shared/interface/list';
 import { MoveService } from '../../../shared/service/move.service';
-import {AngularFireStorage} from "@angular/fire/storage";
+import {AngularFireStorage} from '@angular/fire/storage';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pokemon-list-container',
@@ -21,7 +22,8 @@ export class PokemonListContainerComponent
   constructor(
     private pokemonService: PokemonService,
     public moveService: MoveService,
-    private afStorage: AngularFireStorage
+    private afStorage: AngularFireStorage,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +58,10 @@ export class PokemonListContainerComponent
         if (imageRef) {
           imageRef.delete();
         }
-      });
+
+        this.toastr.success('Pokemon supprimé');
+      })
+      .catch(() => this.toastr.error('Il  y a eu un problème lors de la suppression du pokemon'));
   }
 
   ngOnDestroy(): void {
