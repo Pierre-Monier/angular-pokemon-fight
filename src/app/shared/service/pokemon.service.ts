@@ -1,24 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MessageService } from './message.service';
 import { Pokemon } from '../model/pokemon/pokemon';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { FormMode } from '../interface/form';
+import firebase from 'firebase';
+import DocumentReference = firebase.firestore.DocumentReference;
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonService {
-  constructor(
-    private messageService: MessageService,
-    private authService: AuthService,
-    private db: AngularFirestore
-  ) {}
+  constructor(private authService: AuthService, private db: AngularFirestore) {}
 
   getPokemons(): Observable<Pokemon[]> {
-    this.messageService.add('PokemonService: fetching pokemons');
     return this.db
       .collection<Pokemon>('/pokemon')
       .snapshotChanges()
@@ -45,16 +41,11 @@ export class PokemonService {
                 data.movesIds
               );
             });
-        }),
-        map((toto) => {
-          return toto;
         })
       );
   }
 
   getPokemon(id: string): Observable<Pokemon | undefined> {
-    this.messageService.add(`PokemonService: fetched pokemon name=${id}`);
-
     return this.db
       .doc<Pokemon>(`/pokemon/${id}`)
       .snapshotChanges()
@@ -81,35 +72,38 @@ export class PokemonService {
       );
   }
 
-  private updatePokemon(pokemon: Pokemon): void {
-    this.db
+  private updatePokemon(pokemon: Pokemon): Promise<void> {
+    return this.db
       .doc<Pokemon>(`/pokemon/${pokemon.id}`)
-      .update(Object.assign({}, pokemon))
-      .then(() => this.messageService.add('pokemon updated'))
-      .catch((error) => console.error(error));
+      .update(Object.assign({}, pokemon));
   }
 
-  private addPokemon(pokemon: Pokemon): void {
-    if (this.authService.userData) {
-      pokemon.userUid = this.authService.userData.uid;
-      // we need to pass a native js Object to make the Add operation works
-      // https://stackoverflow.com/questions/48156234/function-documentreference-set-called-with-invalid-data-unsupported-field-val
-      this.db.collection<Pokemon>('/pokemon').add(Object.assign({}, pokemon));
-    } else {
-      console.error(
-        'trying to add pokemon in collection but no user authenticated'
-      );
-    }
+  private addPokemon(
+    pokemon: Pokemon,
+    userUid: string
+  ): Promise<DocumentReference<Pokemon>> {
+    pokemon.userUid = userUid;
+    // we need to pass a native js Object to make the Add operation works
+    // https://stackoverflow.com/questions/48156234/function-documentreference-set-called-with-invalid-data-unsupported-field-val
+    return this.db
+      .collection<Pokemon>('/pokemon')
+      .add(Object.assign({}, pokemon));
   }
 
-  submitPokemon(type: FormMode, pokemon: Pokemon): void {
+  submitPokemon(
+    type: FormMode,
+    pokemon: Pokemon
+  ): Promise<DocumentReference<Pokemon> | void> {
     // we don't want to store Move object on firebase
     pokemon.moves = [];
+    const userUid = this.authService.userData
+      ? this.authService.userData.uid
+      : 'unknown';
 
     if (type === 'create') {
-      this.addPokemon(pokemon);
+      return this.addPokemon(pokemon, userUid);
     } else {
-      this.updatePokemon(pokemon);
+      return this.updatePokemon(pokemon);
     }
   }
 
@@ -117,7 +111,6 @@ export class PokemonService {
     return this.db
       .doc<Pokemon>(`/pokemon/${id}`)
       .delete()
-      .then(() => this.messageService.add('pokemon deleted'))
       .catch((error) => console.error(error));
   }
 }

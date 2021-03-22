@@ -48,6 +48,10 @@ export class Pokemon {
   isImageUrlDefault(): boolean {
     return this.getImageRef() === 'default_avatar.png';
   }
+
+  getStatPoint(): number {
+    return this.pv + this.e + this.cc;
+  }
 }
 
 export const defaultPokemon = new Pokemon(
@@ -59,11 +63,8 @@ export const defaultPokemon = new Pokemon(
   0,
   0,
   Pokemon.getDefaultImageUrl()
-  );
+);
 
 export type PokemonStat = 'pv' | 'e' | 'cc';
 
 export const pokemonSpec = { maxPoints: 60, minPoint: 0, maxPokemonNbr: 6 };
-
-export const getPokemonStatPoint = (pokemon: Pokemon) =>
-  pokemon.pv + pokemon.e + pokemon.cc;

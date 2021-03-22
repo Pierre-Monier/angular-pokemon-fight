@@ -12,7 +12,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PokemonListContainerComponent } from './pokemon/component/pokemon-list-container/pokemon-list-container.component';
 import { PokemonFormContainerComponent } from './pokemon/component/pokemon-form-container/pokemon-form-container.component';
-import { MessageComponent } from './message/message.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { AuthService } from './shared/service/auth.service';
@@ -34,7 +33,6 @@ import { LoaderComponent } from './shared/component/loader/loader.component';
     AppComponent,
     PokemonListContainerComponent,
     PokemonFormContainerComponent,
-    MessageComponent,
     DashboardComponent,
     SignInComponent,
     NavbarComponent,
@@ -58,7 +56,7 @@ import { LoaderComponent } from './shared/component/loader/loader.component';
     AngularFireAuthModule,
     AngularFirestoreModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

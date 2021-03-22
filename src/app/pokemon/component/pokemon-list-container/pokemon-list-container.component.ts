@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { Pokemon, pokemonSpec } from '../../../shared/model/pokemon/pokemon';
 import { PokemonService } from '../../../shared/service/pokemon.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { ListContainer } from '../../../shared/interface/list';
 import { MoveService } from '../../../shared/service/move.service';
-import {AngularFireStorage} from '@angular/fire/storage';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pokemon-list-container',
@@ -51,9 +51,12 @@ export class PokemonListContainerComponent
   }
 
   deleteItem(pokemon: Pokemon): void {
-    const imageRef = pokemon.isImageUrlDefault() ? undefined : this.afStorage.ref(pokemon.getImageRef());
+    const imageRef = pokemon.isImageUrlDefault()
+      ? undefined
+      : this.afStorage.ref(pokemon.getImageRef());
 
-    this.pokemonService.deletePokemon(pokemon.id)
+    this.pokemonService
+      .deletePokemon(pokemon.id)
       .then(() => {
         if (imageRef) {
           imageRef.delete();
@@ -61,7 +64,11 @@ export class PokemonListContainerComponent
 
         this.toastr.success('Pokemon supprimé');
       })
-      .catch(() => this.toastr.error('Il  y a eu un problème lors de la suppression du pokemon'));
+      .catch(() =>
+        this.toastr.error(
+          'Il  y a eu un problème lors de la suppression du pokemon'
+        )
+      );
   }
 
   ngOnDestroy(): void {

@@ -1,29 +1,40 @@
 import { ElemantaryType } from '../elemantary-type/elemantary-type';
 import { AppStat } from '../../interface/app-stat';
 
-export interface Move {
+export class Move {
   id: string;
   name: string;
   userUid: string;
   type: ElemantaryType;
   e: number;
   cc: number;
+
+  constructor(
+    id: string,
+    name: string,
+    userUid: string,
+    type: ElemantaryType,
+    e: number,
+    cc: number
+  ) {
+    this.id = id;
+    this.name = name;
+    this.userUid = userUid;
+    this.type = type;
+    this.e = e;
+    this.cc = cc;
+  }
+
+  getStatPoint(): number {
+    return this.e + this.cc;
+  }
 }
 
-export const defaultMove: Move = {
-  id: '',
-  name: '',
-  userUid: '',
-  type: ElemantaryType.Air,
-  e: 0,
-  cc: 0,
-};
+export const defaultMove = new Move('', '', '', ElemantaryType.Air, 0, 0);
 
 export type MoveStat = 'e' | 'cc';
 
 export const moveSpec = { maxPoints: 60, minPoint: 0, maxMoveNbr: 4 };
-
-export const getMoveStatPoint = (move: Move) => move.e + move.cc;
 
 // function to make sure that an AppStat is MoveStat
 export const isMoveStat = (input: AppStat): input is MoveStat => {
