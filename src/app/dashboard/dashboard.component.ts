@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {Boss} from '../shared/model/boss/boss';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,8 +8,8 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
-  // with onPush ChangeDetectionStrategy, all class attribute should be immutable
-  // if we have an attribute toto = { test: true }, we should update toto like this : this.toto = { test: false }
+  @Input()
+  bosses!: Boss[];
   constructor() { }
 
   ngOnInit(): void{

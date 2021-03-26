@@ -58,14 +58,14 @@ export class AuthService {
     return this.authLogin(new GoogleAuthProvider());
   }
 
-  setUserData(user: User | null): Promise<void> | void {
+  setUserData(user: User | null): void {
     if (user) {
-      this.userData = {
-        uid: user.uid,
-        email: user.email ?? 'Unknown',
-        displayName: user.displayName ?? 'Unknown',
-        photoURL: user.photoURL ?? 'Unknown',
-      };
+      this.userData = new AppUser(
+        user.uid,
+        user.email ?? 'Unknown',
+        user.displayName ?? 'Unknown',
+        user.photoURL ?? 'Unknown'
+      );
     } else {
       console.error('SendUserData was called without an actual user');
     }

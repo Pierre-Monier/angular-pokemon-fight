@@ -27,6 +27,7 @@ import { MoveListComponent } from './move/component/move-list/move-list.componen
 import { MoveFormContainerComponent } from './move/component/move-form-container/move-form-container.component';
 import { MoveFormComponent } from './move/component/move-form/move-form.component';
 import { LoaderComponent } from './shared/component/loader/loader.component';
+import { DashboardContainerComponent } from './dashboard/dashboard-container/dashboard-container.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { LoaderComponent } from './shared/component/loader/loader.component';
     MoveFormContainerComponent,
     MoveFormComponent,
     LoaderComponent,
+    DashboardContainerComponent,
   ],
   imports: [
     BrowserModule,
