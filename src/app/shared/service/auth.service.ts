@@ -8,6 +8,7 @@ import firebase from 'firebase';
 import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
 import UserCredential = firebase.auth.UserCredential;
 import User = firebase.User;
+import {AppUserService} from './app-user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,13 +21,12 @@ export class AuthService {
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    private appUserService: AppUserService
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.setUserData(user);
-        localStorage.setItem('user', JSON.stringify(this.userData));
-
         if (this.redirectUrl !== '') {
           this.router.navigate([this.redirectUrl]);
         }
@@ -60,12 +60,10 @@ export class AuthService {
 
   setUserData(user: User | null): void {
     if (user) {
-      this.userData = new AppUser(
-        user.uid,
-        user.email ?? 'Unknown',
-        user.displayName ?? 'Unknown',
-        user.photoURL ?? 'Unknown'
-      );
+      this.appUserService.initUser(user).subscribe((dbUser) => {
+        this.userData = dbUser;
+        localStorage.setItem('user', JSON.stringify(this.userData));
+      });
     } else {
       console.error('SendUserData was called without an actual user');
     }

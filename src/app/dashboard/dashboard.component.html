@@ -1,5 +1,6 @@
 <h2>Dashboard</h2>
 <div *ngFor="let boss of bosses">
   <p>{{ boss.name }}</p>
+  <p *ngIf="isBossDefeated(boss.id)">Boss defeated</p>
   <img src="{{boss.imageUrl}}" alt="Boss Image"/>
 </div>

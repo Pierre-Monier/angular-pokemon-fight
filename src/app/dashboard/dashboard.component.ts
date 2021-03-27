@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {Boss} from '../shared/model/boss/boss';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Boss } from '../shared/model/boss/boss';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,8 +10,15 @@ import {Boss} from '../shared/model/boss/boss';
 export class DashboardComponent implements OnInit {
   @Input()
   bosses!: Boss[];
-  constructor() { }
+  @Input()
+  bossDefeatedByUser!: string[];
+  constructor() {
+  }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
+  }
+
+  isBossDefeated(id: string): boolean {
+    return this.bossDefeatedByUser.includes(id);
   }
 }

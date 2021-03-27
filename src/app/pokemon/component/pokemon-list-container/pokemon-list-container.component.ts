@@ -23,7 +23,7 @@ export class PokemonListContainerComponent
     private pokemonService: PokemonService,
     public moveService: MoveService,
     private afStorage: AngularFireStorage,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {
