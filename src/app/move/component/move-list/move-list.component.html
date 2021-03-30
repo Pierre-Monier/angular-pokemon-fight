@@ -5,7 +5,7 @@
     <p>Type: {{ move.type }}</p>
     <p>Esquive: {{ move.e }}</p>
     <p>Coup critique: {{ move.cc }}</p>
-    <a routerLink="/move/{{ move.id }}">Edit</a>
+    <a routerLink="/moves/{{ move.id }}">Edit</a>
     <button (click)="deleteMove(move.id)">Delete</button>
   </div>
 </div>

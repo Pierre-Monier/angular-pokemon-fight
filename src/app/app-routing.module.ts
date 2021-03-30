@@ -7,7 +7,8 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MoveListContainerComponent } from './move/component/move-list-container/move-list-container.component';
 import { MoveFormContainerComponent } from './move/component/move-form-container/move-form-container.component';
-import {DashboardContainerComponent} from './dashboard/dashboard-container/dashboard-container.component';
+import {AdventureContainerComponent} from './adventure/adventure-container/adventure-container.component';
+import {GameComponent} from './game/game.component';
 
 const routes: Routes = [
   {
@@ -21,33 +22,38 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'dashboard',
-    component: DashboardContainerComponent,
+    path: 'adventure',
+    component: AdventureContainerComponent,
     canActivate: [AuthGuard],
   },
   { path: 'sign-in', component: SignInComponent },
   {
-    path: 'pokemon/:id',
+    path: 'pokemons/:id',
     component: PokemonFormContainerComponent,
     data: { type: 'update' },
     canActivate: [AuthGuard],
   },
   {
-    path: 'add-pokemon',
+    path: 'pokemons-add',
     component: PokemonFormContainerComponent,
     data: { type: 'create' },
     canActivate: [AuthGuard],
   },
   {
-    path: 'add-move',
+    path: 'moves-add',
     component: MoveFormContainerComponent,
     data: { type: 'create' },
     canActivate: [AuthGuard],
   },
   {
-    path: 'move/:id',
+    path: 'moves/:id',
     component: MoveFormContainerComponent,
     data: { type: 'update' },
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'game',
+    component: GameComponent,
     canActivate: [AuthGuard],
   },
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
