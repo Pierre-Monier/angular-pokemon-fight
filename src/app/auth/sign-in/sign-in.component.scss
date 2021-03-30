@@ -37,19 +37,47 @@
       border-radius: 7px;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
+      max-width: 650px;
+      width: 100%;
 
       .app-title {
         font-family: $main-bold;
-        color: white;
+        color: $white-main;
         margin: 0;
-        margin-bottom: 32px;
+        margin-bottom: 12px;
         font-size: 32px;
         line-height: 48px;
         letter-spacing: 0.96px;
       }
-      button {
+      .app-title-message {
+        color: $grey-placeholder;
+        margin-top: 0;
+        font-size: 14px;
+        margin-bottom: 32px;
+      }
+      .googleBtn {
+        display: flex;
+        align-items: center;
+        padding: 8px 16px;
+        border-radius: 7px;
+        border: none;
+        font-size: 14px;
+        font-family: $main-medium;
+        cursor: pointer;
+        outline: none;
+        background-color: $white-main;
+        transition: all .2s ease;
 
+        &:hover {
+          background-color: $grey-tertiary;
+          color: $white-main;
+        }
+        img {
+          width: 20px;
+          height: 20px;
+          margin-right: 8px;
+        }
       }
     }
   }

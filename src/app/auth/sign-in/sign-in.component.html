@@ -2,8 +2,10 @@
   <div class="connexion-container">
     <div class="connexion-block">
       <h1 class="app-title">{{title}}</h1>
+      <p class="app-title-message">Bienvenue sur cette application incroyable ... <br>
+        Connectez-vous grâce à Google pour y entrer (et n'oubliez pas d'enlever les chaussures en entrant :)</p>
       <button type="button" class="btn googleBtn" (click)="authService.googleAuth()">
-        <i class="fab fa-google-plus-g"></i> Log in with Google
+        <img src="../../../assets/logo-google.png" alt=""> Log in with Google
       </button>
     </div>
   </div>
