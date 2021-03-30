@@ -5,11 +5,10 @@ import { AuthService } from '../../shared/service/auth.service';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
-
-  constructor(public authService: AuthService, public router: Router) { }
+  constructor(public authService: AuthService, public router: Router) {}
 
   title = 'Angular Pokemon Fighter';
 
@@ -18,5 +17,4 @@ export class SignInComponent implements OnInit {
       this.router.navigate(['/dashboard']);
     }
   }
-
 }

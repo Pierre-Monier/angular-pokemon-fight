@@ -3,20 +3,25 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { v4 as uuidv4 } from 'uuid';
+import { ToastrService } from 'ngx-toastr';
 
-import { FormContainer } from '../../../shared/interface/form';
+import { FormContainer, FormMode } from '../../../shared/interface/form';
 import {
-  Pokemon,
-  PokemonStat,
-  pokemonSpec,
-  getPokemonStatPoint,
   defaultPokemon,
+  Pokemon,
+  pokemonSpec,
 } from '../../../shared/model/pokemon/pokemon';
 import { PokemonService } from '../../../shared/service/pokemon.service';
-import { FormMode } from '../../../shared/interface/form';
 import { FormService } from '../../../shared/service/form.service';
 import { elemantaryTypeToArray } from '../../../shared/model/elemantary-type/elemantary-type';
 import { AppStat } from '../../../shared/interface/app-stat';
+import { MoveService } from '../../../shared/service/move.service';
+import { Move } from '../../../shared/model/move/move';
+import {
+  AngularFireStorage,
+  AngularFireUploadTask,
+} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-pokemon-form-container',
@@ -29,15 +34,26 @@ export class PokemonFormContainerComponent
   elemantaryTypes = elemantaryTypeToArray();
   points = pokemonSpec.maxPoints;
   type: FormMode;
+  moves?: Move[];
+  avatarFile?: File;
+  isLoading = false;
+  successMessage: string;
 
   constructor(
     private route: ActivatedRoute,
     private pokemonService: PokemonService,
+    private moveService: MoveService,
     private location: Location,
-    private formService: FormService
+    private formService: FormService,
+    private afStorage: AngularFireStorage,
+    private toastr: ToastrService
   ) {
     const { type } = this.route.snapshot.data;
     this.type = type;
+    this.successMessage =
+      this.type === 'create'
+        ? 'le pokemon à été crée avec succes'
+        : 'le pokemon à été mis à jour';
   }
 
   ngOnInit(): void {
@@ -45,6 +61,13 @@ export class PokemonFormContainerComponent
   }
 
   init(): void {
+    this.moveService
+      .getMoves()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((moves) => {
+        this.moves = moves;
+      });
+
     if (this.type === 'update') {
       const id: string | null = this.route.snapshot.paramMap.get('id');
       if (id) {
@@ -56,27 +79,83 @@ export class PokemonFormContainerComponent
               this.pokemon = pokemon;
               // we update the current points base on the existing pokemon
               this.updatePoints();
+
+              this.moveService
+                .getMoves(this.pokemon.movesIds)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe((moves) => {
+                  this.pokemon.moves = moves;
+                });
+            } else {
+              this.toastr.error(
+                'Le pokemon que vous essayer d éditer néxiste pas'
+              );
             }
           });
       } else {
         console.error('Trying to edit a pokemon without specifying a id');
+        this.toastr.error(
+          'Le pokemon que vous essayer déditer néxiste pas, ajouter un id dans l url'
+        );
       }
     } else if (this.type !== 'create') {
+      this.toastr.error('Le formulaire ne supporte pas ce type de valeur');
       console.error('Trying to create a form with the wrong type');
     }
   }
 
-  submit(pokemon: Pokemon): void {
+  async submit(pokemon: Pokemon): Promise<void> {
     if (this.formService.isPokemonFormValid(pokemon)) {
-      this.pokemonService.submitPokemon(this.type, pokemon);
-      this.goBack();
+      this.isLoading = true;
+
+      if (this.avatarFile) {
+        await this.uploadAvatarFile()
+          .then(async (data) => {
+            const imageRef = this.pokemon.isImageUrlDefault()
+              ? undefined
+              : this.afStorage.ref(this.pokemon.getImageRef());
+
+            if (imageRef) {
+              imageRef.delete();
+            }
+
+            this.pokemon.imageUrl = await data.ref.getDownloadURL();
+          })
+          .catch((err) => {
+            console.error(err);
+            this.toastr.error(
+              'Il y a eu un problème lors de l upload de l image, veuillez reessayer'
+            );
+          });
+      }
+
+      this.pokemonService
+        .submitPokemon(this.type, pokemon)
+        .then(() => {
+          this.toastr.success(this.successMessage);
+          this.goBack();
+        })
+        .catch((err) => {
+          console.error(err);
+          this.toastr.error('Problème lors de l envoie des données');
+        });
     } else {
-      console.error('Trying to submit pokemon with wrong values');
+      this.isLoading = false;
+      this.toastr.error(this.formService.getErrorMessage(pokemon));
     }
   }
 
+  uploadAvatarFile(): AngularFireUploadTask {
+    const ref = this.afStorage.ref(uuidv4());
+    return ref.put(this.avatarFile);
+  }
+
+  setAvatarFile(file: File): void {
+    this.avatarFile = file;
+  }
+
   updatePoints(): void {
-    this.points = pokemonSpec.maxPoints - getPokemonStatPoint(this.pokemon);
+    this.points = pokemonSpec.maxPoints - this.pokemon.getStatPoint();
   }
 
   addPoint(property: AppStat): void {

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormMode } from '../../../shared/interface/form';
-import { Move, MoveStat } from '../../../shared/model/move/move';
+import { Move } from '../../../shared/model/move/move';
 import { AppStat } from '../../../shared/interface/app-stat';
 
 @Component({

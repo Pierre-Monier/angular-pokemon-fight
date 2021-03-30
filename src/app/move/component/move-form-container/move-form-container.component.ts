@@ -3,13 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+
 import { FormContainer, FormMode } from '../../../shared/interface/form';
 import {
   defaultMove,
-  getMoveStatPoint,
+  isMoveStat,
   Move,
   moveSpec,
-  isMoveStat,
 } from '../../../shared/model/move/move';
 import { FormService } from '../../../shared/service/form.service';
 import { MoveService } from '../../../shared/service/move.service';
@@ -27,15 +28,21 @@ export class MoveFormContainerComponent
   elemantaryTypes = elemantaryTypeToArray();
   points = moveSpec.maxPoints;
   type: FormMode;
+  successMessage: string;
 
   constructor(
     private route: ActivatedRoute,
     private moveService: MoveService,
     private location: Location,
-    private formService: FormService
+    private formService: FormService,
+    private toastr: ToastrService
   ) {
     const { type } = this.route.snapshot.data;
     this.type = type;
+    this.successMessage =
+      this.type === 'create'
+        ? 'le move à été crée avec succes'
+        : 'le move à été mis à jour';
   }
 
   ngOnInit(): void {
@@ -57,24 +64,35 @@ export class MoveFormContainerComponent
             }
           });
       } else {
-        console.error('Trying to edit a move without specifying a id');
+        this.toastr.error(
+          'Le move que vous essayer déditer néxiste pas, ajouter un id dans l url'
+        );
       }
     } else if (this.type !== 'create') {
+      this.toastr.error('Le formulaire ne supporte pas ce type de valeur');
       console.error('Trying to create a form with the wrong type');
     }
   }
 
-  updatePoints(): void {
-    this.points = moveSpec.maxPoints - getMoveStatPoint(this.move);
+  submit(move: Move): void {
+    if (this.formService.isMoveFormValid(move)) {
+      this.moveService
+        .submitMove(this.type, move)
+        .then(() => {
+          this.toastr.success(this.successMessage);
+          this.goBack();
+        })
+        .catch((err) => {
+          console.error(err);
+          this.toastr.error('Problème lors de l envoie des données');
+        });
+    } else {
+      this.toastr.error(this.formService.getErrorMessage(move));
+    }
   }
 
-  submit(entity: Move): void {
-    if (this.formService.isMoveFormValid(entity)) {
-      this.moveService.submitMove(this.type, entity);
-      this.goBack();
-    } else {
-      console.error('Trying to submit move with wrong values');
-    }
+  updatePoints(): void {
+    this.points = moveSpec.maxPoints - this.move.getStatPoint();
   }
 
   addPoint(property: AppStat): void {

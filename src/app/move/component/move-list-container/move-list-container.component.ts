@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MoveService } from '../../../shared/service/move.service';
 import { takeUntil } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
+import { MoveService } from '../../../shared/service/move.service';
 import { ListContainer } from '../../../shared/interface/list';
 import { Move, moveSpec } from '../../../shared/model/move/move';
 
@@ -16,7 +17,10 @@ export class MoveListContainerComponent
   moves: Move[] = [];
   maxMoveNbr = moveSpec.maxMoveNbr;
 
-  constructor(private moveService: MoveService) {}
+  constructor(
+    private moveService: MoveService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.getItems();
@@ -30,6 +34,7 @@ export class MoveListContainerComponent
   }
 
   deleteItem(id: string): void {
+    this.toastr.success('Le move à été supprimé');
     this.moveService.deleteMove(id);
   }
 

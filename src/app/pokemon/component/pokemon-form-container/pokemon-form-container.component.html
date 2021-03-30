@@ -1,9 +1,19 @@
-<app-pokemon-form
-  (goBackEvent)="goBack()"
-  (submitEvent)="submit($event)"
-  (addPointEvent)="addPoint($event)"
-  (removePointEvent)="removePoint($event)"
-  [pokemon]="pokemon"
-  [types]="elemantaryTypes"
-  [points]="points"
-></app-pokemon-form>
+<div *ngIf="isLoading">
+  <app-loader></app-loader>
+</div>
+
+<div *ngIf="!isLoading">
+  <app-pokemon-form
+    (goBackEvent)="goBack()"
+    (submitEvent)="submit($event)"
+    (addPointEvent)="addPoint($event)"
+    (removePointEvent)="removePoint($event)"
+    (fileChangeEvent)="setAvatarFile($event)"
+    [pokemon]="pokemon"
+    [types]="elemantaryTypes"
+    [points]="points"
+    [moves]="moves"
+    [avatarSrc]="pokemon.imageUrl"
+  ></app-pokemon-form>
+</div>
+

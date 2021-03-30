@@ -15,17 +15,17 @@
       [(ngModel)]="pokemon.type"
     ></app-types-selector>
 
-        <div>
-          <p>Pv: {{ pokemon.pv }}</p>
-          <app-stat-selector
-            [current]="points"
-            [max]="60"
-            [min]="0"
-            [property]="'pv'"
-            (removePointEvent)="removePoint($event)"
-            (addPointEvent)="addPoint($event)"
-          ></app-stat-selector>
-        </div>
+    <div>
+      <p>Pv: {{ pokemon.pv }}</p>
+      <app-stat-selector
+        [current]="points"
+        [max]="60"
+        [min]="0"
+        [property]="'pv'"
+        (removePointEvent)="removePoint($event)"
+        (addPointEvent)="addPoint($event)"
+      ></app-stat-selector>
+    </div>
 
     <div>
       <p>Esquive: {{ pokemon.e }}</p>
@@ -50,6 +50,22 @@
         (addPointEvent)="addPoint($event)"
       ></app-stat-selector>
     </div>
+
+    <label>
+      Moves:
+      <select multiple *ngIf="moves" [(ngModel)]="pokemon.movesIds">
+        <option
+          *ngFor="let move of moves"
+          [value]="move.id"
+          [selected]="pokemon.movesIds.includes(move.id)"
+        >
+          {{ move.name }}
+        </option>
+      </select>
+    </label>
+
+    <input type='file' (change)="readURL($event);" accept=".png,.jpg" />
+    <img id="blah" [src]="avatarSrc" alt="your image" />
 
     <button (click)="submit(pokemon)">Save</button>
   </div>

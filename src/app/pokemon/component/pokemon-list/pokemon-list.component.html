@@ -2,6 +2,7 @@
 <div class="heroes" *ngFor="let pokemon of pokemons">
   <div>
     <p>{{ pokemon.name }}</p>
+    <img src="{{ pokemon.imageUrl }}" alt="pokemon image"/>
     <p>Type: {{ pokemon.type }}</p>
     <p>Pv: {{ pokemon.pv }}</p>
     <p>Esquive: {{ pokemon.e }}</p>
@@ -12,6 +13,6 @@
       </ul>
     </div>
     <a routerLink="/pokemon/{{ pokemon.id }}">Edit</a>
-    <button (click)="deletePokemon(pokemon.id)">Delete</button>
+    <button (click)="deletePokemon(pokemon)">Delete</button>
   </div>
 </div>

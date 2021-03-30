@@ -8,9 +8,8 @@ describe('MoveFormContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MoveFormContainerComponent ]
-    })
-    .compileComponents();
+      declarations: [MoveFormContainerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
