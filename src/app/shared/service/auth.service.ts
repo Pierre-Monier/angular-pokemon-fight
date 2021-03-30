@@ -14,7 +14,7 @@ import {AppUserService} from './app-user.service';
   providedIn: 'root',
 })
 export class AuthService {
-  userData: AppUser | null = null;
+  private userData: AppUser | null = null;
   // use to redirect while signing in (guard limitation)
   redirectUrl = '';
   constructor(

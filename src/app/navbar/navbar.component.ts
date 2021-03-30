@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/service/auth.service';
+import {AppUserService} from '../shared/service/app-user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,11 +8,12 @@ import { AuthService } from '../shared/service/auth.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, public appUserService: AppUserService) {}
 
   ngOnInit(): void {}
 
   getAvatar(): string {
-    return this.authService.userData ? this.authService.userData.photoURL : '';
+    const currentUser = this.appUserService.getCurrentAppUser();
+    return currentUser ? currentUser.photoURL : '';
   }
 }

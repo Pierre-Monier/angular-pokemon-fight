@@ -70,6 +70,7 @@ export class PokemonFormContainerComponent
 
     if (this.type === 'update') {
       const id: string | null = this.route.snapshot.paramMap.get('id');
+
       if (id) {
         this.pokemonService
           .getPokemon(id)
@@ -90,6 +91,7 @@ export class PokemonFormContainerComponent
               this.toastr.error(
                 'Le pokemon que vous essayer d éditer néxiste pas'
               );
+              this.type = 'create';
             }
           });
       } else {

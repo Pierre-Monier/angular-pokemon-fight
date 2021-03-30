@@ -7,12 +7,13 @@ import { AuthService } from './auth.service';
 import { FormMode } from '../interface/form';
 import firebase from 'firebase';
 import DocumentReference = firebase.firestore.DocumentReference;
+import {AppUserService} from './app-user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonService {
-  constructor(private authService: AuthService, private db: AngularFirestore) {}
+  constructor(private appUser: AppUserService, private db: AngularFirestore) {}
 
   getPokemons(): Observable<Pokemon[]> {
     return this.db
@@ -20,12 +21,13 @@ export class PokemonService {
       .snapshotChanges()
       .pipe(
         map((pokemons) => {
+          const currentUser = this.appUser.getCurrentAppUser();
           return pokemons
             .filter(
               (pokemonSnapshot) =>
-                this.authService.userData &&
+                currentUser &&
                 pokemonSnapshot.payload.doc.data().userUid ===
-                  this.authService.userData?.uid
+                currentUser?.uid
             )
             .map((pokemonSnapshot) => {
               const data = pokemonSnapshot.payload.doc.data();
@@ -96,8 +98,9 @@ export class PokemonService {
   ): Promise<DocumentReference<Pokemon> | void> {
     // we don't want to store Move object on firebase
     pokemon.moves = [];
-    const userUid = this.authService.userData
-      ? this.authService.userData.uid
+    const currentUser = this.appUser.getCurrentAppUser();
+    const userUid = currentUser
+      ? currentUser.uid
       : 'unknown';
 
     if (type === 'create') {

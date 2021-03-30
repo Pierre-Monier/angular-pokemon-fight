@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PokemonListContainerComponent } from './pokemon/component/pokemon-list-container/pokemon-list-container.component';
 import { PokemonFormContainerComponent } from './pokemon/component/pokemon-form-container/pokemon-form-container.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { AdventureComponent } from './adventure/adventure-view/adventure.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { AuthService } from './shared/service/auth.service';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -27,14 +27,15 @@ import { MoveListComponent } from './move/component/move-list/move-list.componen
 import { MoveFormContainerComponent } from './move/component/move-form-container/move-form-container.component';
 import { MoveFormComponent } from './move/component/move-form/move-form.component';
 import { LoaderComponent } from './shared/component/loader/loader.component';
-import { DashboardContainerComponent } from './dashboard/dashboard-container/dashboard-container.component';
+import { AdventureContainerComponent } from './adventure/adventure-container/adventure-container.component';
+import { GameComponent } from './game/game.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokemonListContainerComponent,
     PokemonFormContainerComponent,
-    DashboardComponent,
+    AdventureComponent,
     SignInComponent,
     NavbarComponent,
     PokemonListComponent,
@@ -48,7 +49,8 @@ import { DashboardContainerComponent } from './dashboard/dashboard-container/das
     MoveFormContainerComponent,
     MoveFormComponent,
     LoaderComponent,
-    DashboardContainerComponent,
+    AdventureContainerComponent,
+    GameComponent,
   ],
   imports: [
     BrowserModule,
