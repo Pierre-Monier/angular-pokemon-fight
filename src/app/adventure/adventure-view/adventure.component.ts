@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Boss } from '../shared/model/boss/boss';
+import { Boss } from '../../shared/model/boss/boss';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  selector: 'app-adventure-view',
+  templateUrl: './adventure.component.html',
+  styleUrls: ['./adventure.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardComponent implements OnInit {
+export class AdventureComponent implements OnInit {
   @Input()
   bosses!: Boss[];
   @Input()
@@ -20,5 +20,9 @@ export class DashboardComponent implements OnInit {
 
   isBossDefeated(id: string): boolean {
     return this.bossDefeatedByUser.includes(id);
+  }
+
+  isBossFightable(ranking: number): boolean {
+    return (this.bossDefeatedByUser.length + 1) >= ranking;
   }
 }

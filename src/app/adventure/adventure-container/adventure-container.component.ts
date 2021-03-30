@@ -3,26 +3,25 @@ import { BossService } from '../../shared/service/boss.service';
 import { Subject } from 'rxjs';
 import { Boss } from '../../shared/model/boss/boss';
 import { takeUntil } from 'rxjs/operators';
+import {AppUserService} from '../../shared/service/app-user.service';
 
 @Component({
-  selector: 'app-dashboard-container',
-  templateUrl: './dashboard-container.component.html'
+  selector: 'app-adventure-container',
+  templateUrl: './adventure-container.component.html'
 })
-export class DashboardContainerComponent implements OnInit, OnDestroy {
+export class AdventureContainerComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   bosses: Boss[] = [];
   bossDefeatedByUser: string[] = [];
 
-  constructor(private bossService: BossService) { }
+  constructor(private bossService: BossService, private appUserService: AppUserService) { }
 
   ngOnInit(): void {
     this.getBosses();
 
-    // for some reason we can't access the AppUser data in this component from the authService
-    // So we get it from the localStorage
-    const appUser = localStorage.getItem('user');
+    const appUser = this.appUserService.getCurrentAppUser();
     if (appUser) {
-      this.bossDefeatedByUser = JSON.parse(appUser).bossesDefeated;
+      this.bossDefeatedByUser = appUser.bossesDefeated;
     }
   }
 

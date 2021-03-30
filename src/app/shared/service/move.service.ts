@@ -8,12 +8,13 @@ import { ElemantaryType } from '../model/elemantary-type/elemantary-type';
 import { FormMode } from '../interface/form';
 import firebase from 'firebase';
 import DocumentReference = firebase.firestore.DocumentReference;
+import {AppUserService} from "./app-user.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoveService {
-  constructor(private authService: AuthService, private db: AngularFirestore) {}
+  constructor(private appUser: AppUserService, private db: AngularFirestore) {}
 
   getMoves(ids?: string[]): Observable<Move[]> {
     return this.db
@@ -22,12 +23,13 @@ export class MoveService {
       .pipe(
         map((moves) => {
           const areIds = (id: string) => (ids ? ids.includes(id) : true);
+          const currentUser = this.appUser.getCurrentAppUser();
           return moves
             .filter(
               (movesSnapshot) =>
-                this.authService.userData &&
+                currentUser &&
                 movesSnapshot.payload.doc.data().userUid ===
-                  this.authService.userData?.uid &&
+                currentUser?.uid &&
                 areIds(movesSnapshot.payload.doc.id)
             )
             .map((movesSnapshot) => {
@@ -87,8 +89,9 @@ export class MoveService {
     type: FormMode,
     move: Move
   ): Promise<DocumentReference<Move> | void> {
-    const userUid = this.authService.userData
-      ? this.authService.userData.uid
+    const currentUser = this.appUser.getCurrentAppUser();
+    const userUid = currentUser
+      ? currentUser.uid
       : 'unknown';
 
     if (type === 'create') {

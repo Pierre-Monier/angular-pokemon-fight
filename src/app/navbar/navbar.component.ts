@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import {AuthService} from '../shared/service/auth.service';
 import { Location } from '@angular/common';
 import {filter} from 'rxjs/operators';
+import {AppUserService} from '../shared/service/app-user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +17,7 @@ export class NavbarComponent implements OnInit {
 
   currentRoute = "/dashboard";
 
-  constructor(public authService: AuthService, private router: Router) {
+  constructor(public authService: AuthService, public appUserService: AppUserService, private router: Router) {
     router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     )
@@ -30,7 +31,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void { }
 
   getAvatar(): string {
-    return this.authService.userData ? this.authService.userData.photoURL : '';
+    const currentUser = this.appUserService.getCurrentAppUser();
+    return currentUser ? currentUser.photoURL : '';
   }
 
   getNavbarImage(): string {

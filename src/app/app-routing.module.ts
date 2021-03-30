@@ -7,7 +7,8 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MoveListContainerComponent } from './move/component/move-list-container/move-list-container.component';
 import { MoveFormContainerComponent } from './move/component/move-form-container/move-form-container.component';
-import {DashboardContainerComponent} from './dashboard/dashboard-container/dashboard-container.component';
+import {AdventureContainerComponent} from './adventure/adventure-container/adventure-container.component';
+import {GameComponent} from './game/game.component';
 
 const routes: Routes = [
   {
@@ -23,34 +24,39 @@ const routes: Routes = [
     data: { url: '../../../assets/moves-navbar-image.jpg' },
   },
   {
-    path: 'dashboard',
-    component: DashboardContainerComponent,
+    path: 'adventure',
+    component: AdventureContainerComponent,
     canActivate: [AuthGuard],
     data: { url: '../../../assets/dashboard-navbar-image.png' },
   },
   { path: 'sign-in', component: SignInComponent },
   {
-    path: 'pokemon/:id',
+    path: 'pokemons/:id',
     component: PokemonFormContainerComponent,
     data: { type: 'update', url: '../../../assets/pokemons-navbar-image.jpg' },
     canActivate: [AuthGuard],
   },
   {
-    path: 'add-pokemon',
+    path: 'pokemons-add',
     component: PokemonFormContainerComponent,
     data: { type: 'create', url: '../../../assets/pokemons-navbar-image.jpg' },
     canActivate: [AuthGuard],
   },
   {
-    path: 'add-move',
+    path: 'moves-add',
     component: MoveFormContainerComponent,
     data: { type: 'create', url: '../../../assets/moves-navbar-image.jpg' },
     canActivate: [AuthGuard],
   },
   {
-    path: 'move/:id',
+    path: 'moves/:id',
     component: MoveFormContainerComponent,
     data: { type: 'update', url: '../../../assets/moves-navbar-image.jpg' },
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'game',
+    component: GameComponent,
     canActivate: [AuthGuard],
   },
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
