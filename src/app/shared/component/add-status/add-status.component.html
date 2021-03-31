@@ -1,3 +1,7 @@
-<p>{{ currentNumber }} / {{ max }}</p>
-
-<a routerLink="{{ route }}" *ngIf="currentNumber < max">Add</a>
+<div class="pokemon-status">
+  <div class="pokemons-title">
+    <h2>{{ title }}</h2>
+    <p>({{ currentNumber }} / {{ max }})</p>
+  </div>
+  <a class="app-button" routerLink="{{ route }}" *ngIf="currentNumber < max">Add</a>
+</div>

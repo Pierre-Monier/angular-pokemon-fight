@@ -1,0 +1,30 @@
+@import "../../../../styles";
+
+.pokemon-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  .pokemons-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: 16px;
+
+    h2 {
+      font-size: 32px;
+      margin: 0;
+      margin-right: 16px;
+    }
+    p {
+      margin: 0;
+      font-size: 20px;
+      color: $grey-main;
+    }
+  }
+
+  .app-button {
+    margin-bottom: 50px;
+  }
+}
