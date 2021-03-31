@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BossService } from '../../shared/service/boss.service';
 import { Subject } from 'rxjs';
 import { Boss } from '../../shared/model/boss/boss';
-import { takeUntil } from 'rxjs/operators';
 import {AppUserService} from '../../shared/service/app-user.service';
+import {PokemonService} from '../../shared/service/pokemon.service';
 
 @Component({
   selector: 'app-adventure-container',
@@ -13,8 +13,9 @@ export class AdventureContainerComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   bosses: Boss[] = [];
   bossDefeatedByUser: string[] = [];
+  userNbrPokemon = 0;
 
-  constructor(private bossService: BossService, private appUserService: AppUserService) { }
+  constructor(private bossService: BossService, private appUserService: AppUserService, private pokemonService: PokemonService) { }
 
   ngOnInit(): void {
     this.getBosses();
@@ -22,12 +23,19 @@ export class AdventureContainerComponent implements OnInit, OnDestroy {
     const appUser = this.appUserService.getCurrentAppUser();
     if (appUser) {
       this.bossDefeatedByUser = appUser.bossesDefeated;
+      this.getUserPokemons();
     }
   }
 
   getBosses(): void {
-    this.bossService.getBosses().pipe(takeUntil(this.destroy$)).subscribe((bosses) => {
-      this.bosses = bosses;
+    this.bossService.getBosses().toPromise().then((bosses) => this.bosses = bosses);
+  }
+
+  getUserPokemons(): void {
+    this.pokemonService.getPokemons().subscribe((pokemons) => {
+      if (pokemons) {
+        this.userNbrPokemon = pokemons.length;
+      }
     });
   }
 

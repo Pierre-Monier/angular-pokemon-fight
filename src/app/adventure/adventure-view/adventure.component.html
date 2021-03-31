@@ -1,5 +1,5 @@
 <h2>Adventure</h2>
-<div class="boss-container">
+<div *ngIf="userNbrPokemon > 0; else noPokemon" class="boss-container">
   <div [class.disabled]="isBossFightable(boss.ranking) === false" class="boss-card" *ngFor="let boss of bosses">
     <div class="lock-container">
       <div class="lock-sail"></div>
@@ -12,7 +12,7 @@
       </div>
     </div>
     <p>{{ boss.name }}</p>
-    <a *ngIf="isBossFightable(boss.ranking); else noClick" routerLink="/game">
+    <a *ngIf="isBossFightable(boss.ranking); else noClick" routerLink="/game/{{ boss.id }}">
       <p *ngIf="isBossDefeated(boss.id)">Boss defeated</p>
       <img src="{{boss.imageUrl}}" alt="Boss Image" />
     </a>
@@ -23,3 +23,7 @@
     </ng-template>
   </div>
 </div>
+
+<ng-template #noPokemon>
+  <p>Vous n'avez pas encore de pokemon, aller former votre équipe avant de vous battre :)</p>
+</ng-template>

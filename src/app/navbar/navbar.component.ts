@@ -44,4 +44,8 @@ export class NavbarComponent implements OnInit {
       return this.dashboardImage;
     }
   }
+
+  shouldRender(): boolean {
+    return this.authService.isLoggedIn && !this.currentRoute.includes('/game');
+  }
 }

@@ -1,4 +1,4 @@
-<nav *ngIf="authService.isLoggedIn">
+<nav *ngIf="shouldRender()">
   <div class="navbar-image">
     <img src="{{ getNavbarImage() }}" alt="">
     <div class="black-sail"></div>

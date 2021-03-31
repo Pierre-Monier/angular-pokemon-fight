@@ -12,6 +12,8 @@ export class AdventureComponent implements OnInit {
   bosses!: Boss[];
   @Input()
   bossDefeatedByUser!: string[];
+  @Input()
+  userNbrPokemon!: number;
   constructor() {
   }
 

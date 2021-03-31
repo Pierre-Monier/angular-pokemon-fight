@@ -24,7 +24,7 @@ export class PokemonListContainerComponent
     public moveService: MoveService,
     private afStorage: AngularFireStorage,
     private toastr: ToastrService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getItems();
@@ -36,9 +36,8 @@ export class PokemonListContainerComponent
       .pipe(takeUntil(this.destroy$))
       .subscribe((pokemons) => {
         this.pokemons = pokemons;
-        this.pokemons.map((pokemon, i) => {
+        this.pokemons.forEach((pokemon, i) => {
           if (pokemon.movesIds) {
-            console.log(pokemon.isImageUrlDefault(), pokemon.getImageRef());
             this.moveService
               .getMoves(pokemon.movesIds)
               .pipe(takeUntil(this.destroy$))

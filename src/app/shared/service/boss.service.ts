@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {Boss} from '../model/boss/boss';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
+import {Move} from "../model/move/move";
+import {ElemantaryType} from "../model/elemantary-type/elemantary-type";
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +35,29 @@ export class BossService {
                 data.ranking
               );
             });
+        })
+      );
+  }
+
+  getBoss(id: string): Observable<Boss | undefined> {
+    return this.db
+      .doc<Boss>(`/boss/${id}`)
+      .snapshotChanges()
+      .pipe(
+        map((bossSnapshot) => {
+          const data = bossSnapshot.payload.data();
+          if (data) {
+            return new Boss(
+              bossSnapshot.payload.id,
+              data.name,
+              data.imageUrl,
+              data.pokemonsIds,
+              data.ranking
+            );
+          } else {
+            console.error('No move found');
+            return undefined;
+          }
         })
       );
   }
