@@ -46,6 +46,19 @@ export class Pokemon {
     return input !== 'damage';
   }
 
+  static defaultPokemon() {
+    return new Pokemon(
+      '',
+      '',
+      '',
+      ElemantaryType.Air,
+      0,
+      0,
+      0,
+      Pokemon.getDefaultImageUrl()
+    );
+  }
+
   getImageRef(): string {
     return this.imageUrl.split('/')[7].split('?')[0];
   }
@@ -58,17 +71,6 @@ export class Pokemon {
     return this.pv + this.e + this.cc;
   }
 }
-
-export const defaultPokemon = new Pokemon(
-  '',
-  '',
-  '',
-  ElemantaryType.Air,
-  0,
-  0,
-  0,
-  Pokemon.getDefaultImageUrl()
-);
 
 export type PokemonStat = 'pv' | 'e' | 'cc';
 

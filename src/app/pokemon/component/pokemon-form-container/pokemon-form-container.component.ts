@@ -8,7 +8,6 @@ import { ToastrService } from 'ngx-toastr';
 
 import { FormContainer, FormMode } from '../../../shared/interface/form';
 import {
-  defaultPokemon,
   Pokemon,
   pokemonSpec,
 } from '../../../shared/model/pokemon/pokemon';
@@ -30,7 +29,7 @@ import {
 export class PokemonFormContainerComponent
   implements OnInit, OnDestroy, FormContainer {
   private destroy$ = new Subject<void>();
-  pokemon = defaultPokemon;
+  pokemon = Pokemon.defaultPokemon();
   elemantaryTypes = elemantaryTypeToArray();
   points = pokemonSpec.maxPoints;
   type: FormMode;
