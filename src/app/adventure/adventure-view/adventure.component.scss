@@ -1,51 +1,114 @@
-@import "../../styles";
+@import "../../../styles";
 
 h2 {
   text-align: center;
   font-size: 32px;
+  margin-top: 0;
+  margin-bottom: 50px;
 }
 
-  .heroes-menu {
-    padding: 0;
-    margin: auto;
-    max-width: 1000px;
+.boss-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 32px;
 
-    /* flexbox */
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-content: flex-start;
-    align-items: flex-start;
-  }
-
-  a {
-    background-color: #3f525c;
-    border-radius: 2px;
-    padding: 1rem;
-    font-size: 1.2rem;
-    text-decoration: none;
-    display: inline-block;
-    color: #fff;
-    text-align: center;
+  .boss-card {
+    position: relative;
+    max-width: 350px;
     width: 100%;
-    min-width: 70px;
-    margin: .5rem auto;
-    box-sizing: border-box;
+    border-radius: 7px;
+    border: solid 1px $grey-main;
+    padding: 16px;
+    margin-right: 32px;
+    transition: all .2s ease;
 
-    /* flexbox */
-    order: 0;
-    flex: 0 1 auto;
-    align-self: auto;
-  }
+    &:hover {
+      transform: scale(.9);
+    }
+    &.disabled {
+      border: solid 1px $grey-placeholder;
+      pointer-events: none;
 
-  @media (min-width: 600px) {
+      p {
+        color: $grey-placeholder;
+      }
+      .lock-container {
+        display: flex;
+      }
+    }
+    .lock-container {
+      display: none;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      align-items: center;
+      justify-content: center;
+      border-radius: 7px;
+      overflow: hidden;
+
+      img {
+        width: 150px;
+        height: 150px;
+        z-index: 1;
+      }
+      .lock-sail {
+        background-color: $black-main;
+        opacity: .5;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+      .chains {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+
+        img {
+          width: 100px;
+          height: 100px;
+
+          &#first-chain {
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+          &#second-chain {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: rotate(90deg);
+          }
+          &#third-chain {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            transform: rotate(90deg);
+          }
+          &#fourth-chain {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+          }
+        }
+      }
+    }
+    p {
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: $black-main;
+    }
     a {
-      width: 18%;
-      box-sizing: content-box;
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+    img {
+      width: 100%;
     }
   }
-
-  a:hover {
-    background-color: #000;
-  }
+}

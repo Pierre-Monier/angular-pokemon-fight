@@ -1,13 +1,25 @@
-<h2>Dashboard</h2>
-<div *ngFor="let boss of bosses">
-  <p>{{ boss.name }}</p>
-  <a *ngIf="isBossFightable(boss.ranking); else noClick" routerLink="/game">
-    <p *ngIf="isBossDefeated(boss.id)">Boss defeated</p>
-    <img src="{{boss.imageUrl}}" alt="Boss Image"/>
-  </a>
+<h2>Adventure</h2>
+<div class="boss-container">
+  <div [class.disabled]="isBossFightable(boss.ranking) === false" class="boss-card" *ngFor="let boss of bosses">
+    <div class="lock-container">
+      <div class="lock-sail"></div>
+      <img src="../assets/padlock.png" alt="">
+      <div class="chains">
+        <img id="first-chain" src="../assets/chains.png" alt="">
+        <img id="second-chain" src="../assets/chains.png" alt="">
+        <img id="third-chain" src="../assets/chains.png" alt="">
+        <img id="fourth-chain" src="../assets/chains.png" alt="">
+      </div>
+    </div>
+    <p>{{ boss.name }}</p>
+    <a *ngIf="isBossFightable(boss.ranking); else noClick" routerLink="/game">
+      <p *ngIf="isBossDefeated(boss.id)">Boss defeated</p>
+      <img src="{{boss.imageUrl}}" alt="Boss Image"/>
+    </a>
 
-  <ng-template #noClick>
-    <p *ngIf="isBossDefeated(boss.id)">Boss defeated</p>
-    <img src="{{boss.imageUrl}}" alt="Boss Image"/>
-  </ng-template>
+    <ng-template #noClick>
+      <p *ngIf="isBossDefeated(boss.id)">Boss defeated</p>
+      <img src="{{boss.imageUrl}}" alt="Boss Image"/>
+    </ng-template>
+  </div>
 </div>
