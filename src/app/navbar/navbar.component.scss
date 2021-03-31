@@ -2,12 +2,16 @@
 
 nav {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 200px;
 
   .navbar-image {
     position: absolute;
     width: 100%;
     height: 200px;
-    top: -150px;
+    top: 0;
     left: 0;
     z-index: -1;
 
@@ -31,12 +35,11 @@ nav {
     background-color: $white-main;
     border-radius: 7px;
     max-width: 1000px;
+    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: auto;
-    margin-top: 150px;
-    margin-bottom: 50px;
+    transform: translateY(50px);
 
     a {
       text-decoration: none;
