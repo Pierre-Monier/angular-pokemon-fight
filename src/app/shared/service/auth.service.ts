@@ -45,7 +45,7 @@ export class AuthService {
       .signInWithPopup(provider)
       .then((result: UserCredential) => {
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['adventure']);
         });
         this.setUserData(result.user);
       })
