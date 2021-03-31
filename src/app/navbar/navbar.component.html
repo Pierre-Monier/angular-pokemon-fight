@@ -1,9 +1,16 @@
 <nav *ngIf="authService.isLoggedIn">
-  <a routerLink="/adventure">Adventure</a>
-  <a routerLink="/pokemons">Pokemons</a>
-  <a routerLink="/moves">Moves</a>
-  <div>
-    <img  src="{{ getAvatar() }}" alt="avatar" />
-    <a (click)="authService.signOut()">Logout</a>
+  <div class="navbar-image">
+    <img src="{{ getNavbarImage() }}" alt="">
+    <div class="black-sail"></div>
+  </div>
+  <div class="navbar-navigation">
+    <a [class.active]="currentRoute.includes('/adventure')" routerLink="/adventure">Adventure</a>
+    <a [class.active]="currentRoute.includes('/pokemons')" routerLink="/pokemons">Pokemons</a>
+    <a [class.active]="currentRoute.includes('/moves')" routerLink="/moves">Moves</a>
+    <hr>
+    <a (click)="authService.signOut()" class="logout-button">
+      <img src="{{ getAvatar() }}" alt="avatar" />
+      <span>Logout</span>
+    </a>
   </div>
 </nav>

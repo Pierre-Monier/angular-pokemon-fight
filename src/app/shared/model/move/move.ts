@@ -10,6 +10,10 @@ export class Move {
   e: number;
   cc: number;
 
+  static getDefaultMove(): Move {
+    return new Move('', '', '', ElemantaryType.Air, 0, 0, 0);
+  }
+
   constructor(
     id: string,
     name: string,
@@ -29,11 +33,9 @@ export class Move {
   }
 
   getStatPoint(): number {
-    return this.e + this.cc;
+    return this.e + this.cc + this.damage;
   }
 }
-
-export const defaultMove = new Move('', '', '', ElemantaryType.Air, 0, 0, 0);
 
 export type MoveStat = 'damage' | 'e' | 'cc';
 

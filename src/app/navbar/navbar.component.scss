@@ -1,17 +1,91 @@
-nav a {
-  padding: 1rem;
-  text-decoration: none;
-  margin-top: 10px;
-  display: inline-block;
-  background-color: #e8e8e8;
-  color: #3d3d3d;
-  border-radius: 4px;
-}
+@import "../../styles";
 
-nav a:hover {
-  color: white;
-  background-color: #42545C;
-}
-nav a.active {
-  background-color: black;
+nav {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 200px;
+
+  .navbar-image {
+    position: absolute;
+    width: 100%;
+    height: 200px;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .black-sail {
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      opacity: .5;
+      z-index: 1;
+      position: absolute;
+      top: 0;
+    }
+  }
+  .navbar-navigation {
+    padding: 16px;
+    background-color: $white-main;
+    border-radius: 7px;
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transform: translateY(50px);
+
+    a {
+      text-decoration: none;
+      color: $black-main;
+      font-size: 20px;
+      transition: all .2s ease;
+
+      &:hover {
+        color: $red-main;
+      }
+      &.active {
+        color: $red-main;
+      }
+    }
+    hr {
+      height: 50px;
+      width: 1px;
+      background-color: $black-main;
+      border: none;
+      margin: 0;
+    }
+    .logout-button {
+      padding: 8px 16px;
+      border-radius: 7px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      background-color: transparent;
+      transition: all .2s ease;
+
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+      span {
+        margin-left: 10px;
+        transition: all .2s ease;
+      }
+      &:hover {
+        background-color: $red-main;
+
+        span {
+          color: $white-main;
+        }
+      }
+    }
+  }
 }

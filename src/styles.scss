@@ -77,3 +77,9 @@ $main-regular: "proxima-nova-regular";
 $main-medium: "proxima-nova-medium";
 $main-semibold: "proxima-nova-semibold";
 $main-bold: "proxima-nova-bold";
+
+// MAIN STYLES
+body {
+  font-family: $main-medium;
+  margin: 0;
+}
