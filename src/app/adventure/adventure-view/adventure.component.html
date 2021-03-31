@@ -14,12 +14,12 @@
     <p>{{ boss.name }}</p>
     <a *ngIf="isBossFightable(boss.ranking); else noClick" routerLink="/game">
       <p *ngIf="isBossDefeated(boss.id)">Boss defeated</p>
-      <img src="{{boss.imageUrl}}" alt="Boss Image"/>
+      <img src="{{boss.imageUrl}}" alt="Boss Image" />
     </a>
 
     <ng-template #noClick>
       <p *ngIf="isBossDefeated(boss.id)">Boss defeated</p>
-      <img src="{{boss.imageUrl}}" alt="Boss Image"/>
+      <img src="{{boss.imageUrl}}" alt="Boss Image" />
     </ng-template>
   </div>
 </div>
