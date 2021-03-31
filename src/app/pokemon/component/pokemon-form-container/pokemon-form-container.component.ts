@@ -161,14 +161,14 @@ export class PokemonFormContainerComponent
   }
 
   addPoint(property: AppStat): void {
-    if (this.points > 0) {
+    if (this.points > 0 && Pokemon.isPokemonStat(property)) {
       this.pokemon[property] += 5;
       this.points -= 5;
     }
   }
 
   removePoint(property: AppStat): void {
-    if (this.points < 60 && this.pokemon[property] > 0) {
+    if (this.points < 60 && Pokemon.isPokemonStat(property) && this.pokemon[property] > 0) {
       this.pokemon[property] -= 5;
       this.points += 5;
     }

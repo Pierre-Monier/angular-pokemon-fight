@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Move } from '../model/move/move';
-import { AuthService } from './auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { ElemantaryType } from '../model/elemantary-type/elemantary-type';
 import { FormMode } from '../interface/form';
 import firebase from 'firebase';
 import DocumentReference = firebase.firestore.DocumentReference;
-import {AppUserService} from "./app-user.service";
+import {AppUserService} from './app-user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +37,7 @@ export class MoveService {
                 movesSnapshot.payload.doc.data().name,
                 movesSnapshot.payload.doc.data().userUid,
                 ElemantaryType[movesSnapshot.payload.doc.data().type],
+                movesSnapshot.payload.doc.data().damage,
                 movesSnapshot.payload.doc.data().e,
                 movesSnapshot.payload.doc.data().cc
               );
@@ -59,6 +59,7 @@ export class MoveService {
               data.name,
               data.userUid,
               ElemantaryType[data.type],
+              data.damage,
               data.e,
               data.cc
             );
