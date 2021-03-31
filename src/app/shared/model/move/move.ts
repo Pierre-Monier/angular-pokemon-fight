@@ -6,6 +6,7 @@ export class Move {
   name: string;
   userUid: string;
   type: ElemantaryType;
+  damage: number;
   e: number;
   cc: number;
 
@@ -14,6 +15,7 @@ export class Move {
     name: string,
     userUid: string,
     type: ElemantaryType,
+    damage: number,
     e: number,
     cc: number
   ) {
@@ -21,6 +23,7 @@ export class Move {
     this.name = name;
     this.userUid = userUid;
     this.type = type;
+    this.damage = damage;
     this.e = e;
     this.cc = cc;
   }
@@ -30,9 +33,9 @@ export class Move {
   }
 }
 
-export const defaultMove = new Move('', '', '', ElemantaryType.Air, 0, 0);
+export const defaultMove = new Move('', '', '', ElemantaryType.Air, 0, 0, 0);
 
-export type MoveStat = 'e' | 'cc';
+export type MoveStat = 'damage' | 'e' | 'cc';
 
 export const moveSpec = { maxPoints: 60, minPoint: 0, maxMoveNbr: 4 };
 

@@ -28,7 +28,8 @@ import { MoveFormContainerComponent } from './move/component/move-form-container
 import { MoveFormComponent } from './move/component/move-form/move-form.component';
 import { LoaderComponent } from './shared/component/loader/loader.component';
 import { AdventureContainerComponent } from './adventure/adventure-container/adventure-container.component';
-import { GameComponent } from './game/game.component';
+import { GameViewComponent } from './game/game-view/game-view.component';
+import { GameContainerComponent } from './game/game-container/game-container.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { GameComponent } from './game/game.component';
     MoveFormComponent,
     LoaderComponent,
     AdventureContainerComponent,
-    GameComponent,
+    GameViewComponent,
+    GameContainerComponent,
   ],
   imports: [
     BrowserModule,

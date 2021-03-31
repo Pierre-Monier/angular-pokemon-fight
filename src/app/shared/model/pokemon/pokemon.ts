@@ -1,5 +1,6 @@
 import { ElemantaryType } from '../elemantary-type/elemantary-type';
-import { Move } from '../move/move';
+import {Move, MoveStat} from '../move/move';
+import {AppStat} from "../../interface/app-stat";
 
 export class Pokemon {
   id: string;
@@ -39,6 +40,10 @@ export class Pokemon {
 
   static getDefaultImageUrl(): string {
     return 'https://firebasestorage.googleapis.com/v0/b/lp-angular.appspot.com/o/default_avatar.png?alt=media&token=46d115c9-8391-4b5a-ac57-32f729b3f088';
+  }
+
+  static isPokemonStat(input: AppStat): input is PokemonStat {
+    return input !== 'damage';
   }
 
   getImageRef(): string {

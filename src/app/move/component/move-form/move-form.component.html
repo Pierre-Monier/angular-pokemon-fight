@@ -16,6 +16,18 @@
     ></app-types-selector>
 
     <div>
+      <p>Dégat : {{ move.damage }}</p>
+      <app-stat-selector
+        [current]="points"
+        [max]="60"
+        [min]="0"
+        [property]="'damage'"
+        (removePointEvent)="removePoint($event)"
+        (addPointEvent)="addPoint($event)"
+      ></app-stat-selector>
+    </div>
+
+    <div>
       <p>Esquive: {{ move.e }}</p>
       <app-stat-selector
         [current]="points"
