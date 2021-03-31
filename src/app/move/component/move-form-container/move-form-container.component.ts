@@ -7,7 +7,6 @@ import { ToastrService } from 'ngx-toastr';
 
 import { FormContainer, FormMode } from '../../../shared/interface/form';
 import {
-  defaultMove,
   isMoveStat,
   Move,
   moveSpec,
@@ -24,7 +23,7 @@ import { AppStat } from '../../../shared/interface/app-stat';
 export class MoveFormContainerComponent
   implements OnInit, OnDestroy, FormContainer {
   private destroy$ = new Subject<void>();
-  move = defaultMove;
+  move = Move.getDefaultMove();
   elemantaryTypes = elemantaryTypeToArray();
   points = moveSpec.maxPoints;
   type: FormMode;
@@ -58,6 +57,7 @@ export class MoveFormContainerComponent
           .pipe(takeUntil(this.destroy$))
           .subscribe((move) => {
             if (move) {
+              console.log('In observable');
               this.move = move;
               // we update the current points base on the existing pokemon
               this.updatePoints();
@@ -113,5 +113,9 @@ export class MoveFormContainerComponent
     this.location.back();
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    // emit an event to clean up the this.pokemonService.getPokemons() Observable
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

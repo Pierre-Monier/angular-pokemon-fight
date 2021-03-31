@@ -11,11 +11,11 @@ import {AppUserService} from '../shared/service/app-user.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  dashboardImage = "assets/dashboard-navbar-image.png";
-  movesImage = "assets/moves-navbar-image.jpg";
-  pokemonImage = "assets/pokemons-navbar-image.jpg";
+  dashboardImage = 'assets/dashboard-navbar-image.png';
+  movesImage = 'assets/moves-navbar-image.jpg';
+  pokemonImage = 'assets/pokemons-navbar-image.jpg';
 
-  currentRoute = "/dashboard";
+  currentRoute = '/dashboard';
 
   constructor(public authService: AuthService, public appUserService: AppUserService, private router: Router) {
     router.events.pipe(
@@ -23,9 +23,9 @@ export class NavbarComponent implements OnInit {
     )
     .subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.currentRoute = event.url
+        this.currentRoute = event.url;
       }
-    })
+    });
   }
 
   ngOnInit(): void { }
@@ -36,9 +36,9 @@ export class NavbarComponent implements OnInit {
   }
 
   getNavbarImage(): string {
-    if (this.currentRoute.includes("/moves")) {
+    if (this.currentRoute.includes('/moves')) {
       return this.movesImage;
-    } else if (this.currentRoute.includes("/pokemon")) {
+    } else if (this.currentRoute.includes('/pokemon')) {
       return this.pokemonImage;
     } else {
       return this.dashboardImage;
