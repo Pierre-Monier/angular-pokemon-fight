@@ -1,18 +1,33 @@
-<h2>{{ title }}</h2>
-<div class="heroes" *ngFor="let pokemon of pokemons">
-  <div>
-    <p>{{ pokemon.name }}</p>
-    <img src="{{ pokemon.imageUrl }}" alt="pokemon image"/>
-    <p>Type: {{ pokemon.type }}</p>
-    <p>Pv: {{ pokemon.pv }}</p>
-    <p>Esquive: {{ pokemon.e }}</p>
-    <p>Coup critique: {{ pokemon.cc }}</p>
-    <div *ngIf="pokemon.moves">
-      <ul *ngFor="let move of pokemon.moves">
-        <li>{{ move.name }}</li>
-      </ul>
+<div class="pokemons-list-container">
+  <div class="pokemon-card" *ngFor="let pokemon of pokemons">
+    <div class="pokemon-card-header">
+      <div class="pokemon-type-image">
+        <img src="{{ pokemon.imageUrl }}" alt="pokemon image"/>
+        <img class="type-image" src="{{ getTypeImage(pokemon.type) }}" alt="type-image">
+      </div>
+      <p>{{ pokemon.name }}</p>
     </div>
-    <a routerLink="/pokemons/{{ pokemon.id }}">Edit</a>
-    <button (click)="deletePokemon(pokemon)">Delete</button>
+    <hr class="vertical-hr">
+    <div class="pokemon-card-body">
+      <div class="pokemon-infos">
+        <p>Type : <span class="badge-type" [ngClass]="getBadgeClass(pokemon.type)">{{ pokemon.type }}</span></p>
+        <p>Pv : {{ pokemon.pv }}</p>
+        <p>Esquive : {{ pokemon.e }}</p>
+        <p>Coup critique : {{ pokemon.cc }}</p>
+      </div>
+      <hr class="horizontal-hr">
+      <div class="pokemon-moves">
+        <p>Moves :</p>
+        <div *ngIf="pokemon.moves">
+          <ul *ngFor="let move of pokemon.moves">
+            <li>{{ move.name }} <span class="badge-type" [ngClass]="getBadgeClass(move.type)">{{ move.type }}</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="pokemon-card-footer">
+      <a class="app-button scd" routerLink="/pokemons/{{ pokemon.id }}">Edit</a>
+      <button class="app-button" (click)="deletePokemon(pokemon)">Delete</button>
+    </div>
   </div>
 </div>
