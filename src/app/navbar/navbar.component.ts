@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import {AuthService} from '../shared/service/auth.service';
-import { Location } from '@angular/common';
-import {filter} from 'rxjs/operators';
-import {AppUserService} from '../shared/service/app-user.service';
+import { AuthService } from '../shared/service/auth.service';
+import { filter } from 'rxjs/operators';
+import { AppUserService } from '../shared/service/app-user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,18 +16,21 @@ export class NavbarComponent implements OnInit {
 
   currentRoute = '/dashboard';
 
-  constructor(public authService: AuthService, public appUserService: AppUserService, private router: Router) {
-    router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    )
-    .subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.currentRoute = event.url;
-      }
-    });
+  constructor(
+    public authService: AuthService,
+    public appUserService: AppUserService,
+    private router: Router
+  ) {
+    router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.currentRoute = event.url;
+        }
+      });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   getAvatar(): string {
     const currentUser = this.appUserService.getCurrentAppUser();

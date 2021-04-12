@@ -6,7 +6,6 @@ import { ToastrService } from 'ngx-toastr';
 import { MoveService } from '../../../shared/service/move.service';
 import { ListContainer } from '../../../shared/interface/list';
 import { Move, moveSpec } from '../../../shared/model/move/move';
-import { Pokemon } from '../../../shared/model/pokemon/pokemon';
 
 @Component({
   selector: 'app-move-list-container',

@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
-import {Boss} from '../model/boss/boss';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {map} from 'rxjs/operators';
-import {Move} from "../model/move/move";
-import {ElemantaryType} from "../model/elemantary-type/elemantary-type";
+import { Boss } from '../model/boss/boss';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BossService {
-
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore) {}
 
   getBosses(): Observable<Boss[]> {
     return this.db
@@ -23,7 +20,9 @@ export class BossService {
           // first we order the array by ranking, next we return a Boss for each element
           return bosses
             .sort((a, b) => {
-              return a.payload.doc.data().ranking - b.payload.doc.data().ranking;
+              return (
+                a.payload.doc.data().ranking - b.payload.doc.data().ranking
+              );
             })
             .map((bossSnapshot) => {
               const data = bossSnapshot.payload.doc.data();

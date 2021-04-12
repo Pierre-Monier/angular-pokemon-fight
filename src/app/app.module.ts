@@ -30,6 +30,7 @@ import { LoaderComponent } from './shared/component/loader/loader.component';
 import { AdventureContainerComponent } from './adventure/adventure-container/adventure-container.component';
 import { GameViewComponent } from './game/game-view/game-view.component';
 import { GameContainerComponent } from './game/game-container/game-container.component';
+import { GameUserPokemonSelectorComponent } from './game/game-user-pokemon-selector/game-user-pokemon-selector.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { GameContainerComponent } from './game/game-container/game-container.com
     AdventureContainerComponent,
     GameViewComponent,
     GameContainerComponent,
+    GameUserPokemonSelectorComponent,
   ],
   imports: [
     BrowserModule,
