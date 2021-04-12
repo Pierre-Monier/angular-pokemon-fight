@@ -6,8 +6,8 @@ import { map } from 'rxjs/operators';
 import { ElemantaryType } from '../model/elemantary-type/elemantary-type';
 import { FormMode } from '../interface/form';
 import firebase from 'firebase';
+import { AppUserService } from './app-user.service';
 import DocumentReference = firebase.firestore.DocumentReference;
-import {AppUserService} from './app-user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,8 +27,7 @@ export class MoveService {
             .filter(
               (movesSnapshot) =>
                 currentUser &&
-                movesSnapshot.payload.doc.data().userUid ===
-                currentUser?.uid &&
+                movesSnapshot.payload.doc.data().userUid === currentUser?.uid &&
                 areIds(movesSnapshot.payload.doc.id)
             )
             .map((movesSnapshot) => {
@@ -91,9 +90,7 @@ export class MoveService {
     move: Move
   ): Promise<DocumentReference<Move> | void> {
     const currentUser = this.appUser.getCurrentAppUser();
-    const userUid = currentUser
-      ? currentUser.uid
-      : 'unknown';
+    const userUid = currentUser ? currentUser.uid : 'unknown';
 
     if (type === 'create') {
       return this.addMove(move, userUid);

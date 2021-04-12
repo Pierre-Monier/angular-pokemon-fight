@@ -3,11 +3,10 @@ import { Observable } from 'rxjs';
 import { Pokemon } from '../model/pokemon/pokemon';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
-import { AuthService } from './auth.service';
 import { FormMode } from '../interface/form';
 import firebase from 'firebase';
+import { AppUserService } from './app-user.service';
 import DocumentReference = firebase.firestore.DocumentReference;
-import {AppUserService} from './app-user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,19 +14,20 @@ import {AppUserService} from './app-user.service';
 export class PokemonService {
   constructor(private appUser: AppUserService, private db: AngularFirestore) {}
 
-  getPokemons(): Observable<Pokemon[]> {
+  getPokemons(userId?: string): Observable<Pokemon[]> {
     return this.db
       .collection<Pokemon>('/pokemon')
       .snapshotChanges()
       .pipe(
         map((pokemons) => {
-          const currentUser = this.appUser.getCurrentAppUser();
+          // if we specify a userId we get this specific user pokemons
+          // else we get the current logged user pokemons
+          const currentUser = userId ?? this.appUser.getCurrentAppUser()?.uid;
           return pokemons
             .filter(
               (pokemonSnapshot) =>
                 currentUser &&
-                pokemonSnapshot.payload.doc.data().userUid ===
-                currentUser?.uid
+                pokemonSnapshot.payload.doc.data().userUid === currentUser
             )
             .map((pokemonSnapshot) => {
               const data = pokemonSnapshot.payload.doc.data();
@@ -99,9 +99,7 @@ export class PokemonService {
     // we don't want to store Move object on firebase
     pokemon.moves = [];
     const currentUser = this.appUser.getCurrentAppUser();
-    const userUid = currentUser
-      ? currentUser.uid
-      : 'unknown';
+    const userUid = currentUser ? currentUser.uid : 'unknown';
 
     if (type === 'create') {
       return this.addPokemon(pokemon, userUid);
