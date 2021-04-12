@@ -98,6 +98,7 @@ body {
   font-size: 16px;
   cursor: pointer;
   border: none;
+  outline: none;
   transition: all .2s ease;
 
   &:hover {
@@ -141,5 +142,54 @@ body {
   }
   &.air {
     background-color: $green-main;
+  }
+}
+
+// INPUT, SELECT
+.input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  label {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+}
+
+.app-input {
+  padding: 12px 14px;
+  font-size: 16px;
+  border-radius: 7px;
+  box-shadow: none;
+  border: solid 1px $black-main;
+  transition: all .2s ease;
+  outline: none;
+
+  &:hover {
+    border-color: $blue-tertiary;
+  }
+  &:focus {
+    border-color: $blue-main;
+  }
+}
+
+.app-select {
+  position: relative;
+  padding: 12px 14px;
+  font-size: 16px;
+  border-radius: 7px;
+  box-shadow: none;
+  border: solid 1px $black-main;
+  transition: all .2s ease;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $blue-tertiary;
+  }
+  &:focus {
+    border-color: $blue-main;
   }
 }

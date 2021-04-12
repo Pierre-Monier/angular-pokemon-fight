@@ -1,78 +1,95 @@
 <div>
-  <button (click)="goBack()">go back</button>
-  <h2>{{ pokemon.name | uppercase }} Details</h2>
-  <div>
-    <p>points: {{ points }}</p>
-    <label>
-      Pokemon name:
-      <input [(ngModel)]="pokemon.name" placeholder="name" required />
-    </label>
-    <app-types-selector
-      name="types"
-      ngDefaultControl
-      [types]="types"
-      [current]="pokemon.type.toString()"
-      [(ngModel)]="pokemon.type"
-      (change)="typeChange()"
-    ></app-types-selector>
+  <div class="pokemon-details-head">
+    <button id="back-to-pokemons" class="app-button scd smaller" (click)="goBack()"><img src="../assets/long-arrow-alt-left-solid.svg" alt="">Retour</button>
+    <h2 class="pokemon-details-title">{{ pokemon.name | uppercase }} Details</h2>
+  </div>
 
-    <div>
-      <p>Pv: {{ pokemon.pv }}</p>
-      <app-stat-selector
-        [current]="points"
-        [max]="60"
-        [min]="0"
-        [property]="'pv'"
-        (removePointEvent)="removePoint($event)"
-        (addPointEvent)="addPoint($event)"
-      ></app-stat-selector>
-    </div>
+  <div class="pokemon-details-cards">
+    <div class="pokemon-card">
+      <div class="pokemon-card-header">
+        <div class="pokemon-header-image">
+          <img id="blah" [src]="avatarSrc" alt="your image" />
+          <label for="change-pokemon-image" class="file-upload-button">
+            <input id="change-pokemon-image" type="file" (change)="readURL($event)" accept=".png,.jpg" hidden="" />
+            <img src="../assets/pen-solid.svg" alt="">
+          </label>
+        </div>
+        <div class="input-container">
+          <label for="pokemon-name">Pokemon name :</label>
+          <input id="pokemon-name" class="app-input" [(ngModel)]="pokemon.name" placeholder="name" required />
+        </div>
+        <div class="input-container">
+          <app-types-selector
+          name="types"
+          ngDefaultControl
+          [types]="types"
+          [current]="pokemon.type.toString()"
+          [(ngModel)]="pokemon.type"
+          (change)="typeChange()"
+          ></app-types-selector>
+        </div>
+      </div>
+      <hr class="vertical-hr">
+      <div class="pokemon-card-body">
+        <p>points: {{ points }}</p>
 
-    <div>
-      <p>Esquive: {{ pokemon.e }}</p>
-      <app-stat-selector
-        [current]="points"
-        [max]="60"
-        [min]="0"
-        [property]="'e'"
-        (removePointEvent)="removePoint($event)"
-        (addPointEvent)="addPoint($event)"
-      ></app-stat-selector>
-    </div>
+        <div>
+          <p>Pv: {{ pokemon.pv }}</p>
+          <app-stat-selector
+          [current]="points"
+          [max]="60"
+          [min]="0"
+          [property]="'pv'"
+          (removePointEvent)="removePoint($event)"
+          (addPointEvent)="addPoint($event)"
+          ></app-stat-selector>
+        </div>
 
-    <div>
-      <p>Coup critique: {{ pokemon.cc }}</p>
-      <app-stat-selector
-        [current]="points"
-        [max]="60"
-        [min]="0"
-        [property]="'cc'"
-        (removePointEvent)="removePoint($event)"
-        (addPointEvent)="addPoint($event)"
-      ></app-stat-selector>
-    </div>
+        <div>
+          <p>Esquive: {{ pokemon.e }}</p>
+          <app-stat-selector
+          [current]="points"
+          [max]="60"
+          [min]="0"
+          [property]="'e'"
+          (removePointEvent)="removePoint($event)"
+          (addPointEvent)="addPoint($event)"
+          ></app-stat-selector>
+        </div>
 
-    <label>
-      Moves:
-      <select
-        multiple
-        *ngIf="moves"
-        [(ngModel)]="pokemon.movesIds"
-        (change)="movesChange()"
-      >
-        <option
+        <div>
+          <p>Coup critique: {{ pokemon.cc }}</p>
+          <app-stat-selector
+          [current]="points"
+          [max]="60"
+          [min]="0"
+          [property]="'cc'"
+          (removePointEvent)="removePoint($event)"
+          (addPointEvent)="addPoint($event)"
+          ></app-stat-selector>
+        </div>
+
+        <label>
+          Moves:
+          <select
+          multiple
+          *ngIf="moves"
+          [(ngModel)]="pokemon.movesIds"
+          (change)="movesChange()"
+          >
+          <option
           *ngFor="let move of moves"
           [value]="move.id"
           [selected]="pokemon.movesIds.includes(move.id)"
-        >
+          >
           {{ move.name }}
         </option>
       </select>
     </label>
+  </div>
 
-    <input type="file" (change)="readURL($event)" accept=".png,.jpg" />
-    <img id="blah" [src]="avatarSrc" alt="your image" />
+  <button (click)="submit(pokemon)" class="app-button">Save</button>
 
-    <button (click)="submit(pokemon)">Save</button>
+</div>
   </div>
 </div>

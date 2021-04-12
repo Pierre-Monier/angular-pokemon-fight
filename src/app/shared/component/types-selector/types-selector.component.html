@@ -1,12 +1,12 @@
-<label>
-  Type:
-  <select>
-    <option
+<div class="input-container">
+  <label for="type-selector">Type:</label>
+    <select id="type-selector" class="app-select">
+      <option
       *ngFor="let item of types"
       [value]="item"
       [selected]="item == current"
-    >
+      >
       {{ item }}
     </option>
   </select>
-</label>
+</div>
