@@ -6,11 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
 import { FormContainer, FormMode } from '../../../shared/interface/form';
-import {
-  isMoveStat,
-  Move,
-  moveSpec,
-} from '../../../shared/model/move/move';
+import { isMoveStat, Move, moveSpec } from '../../../shared/model/move/move';
 import { FormService } from '../../../shared/service/form.service';
 import { MoveService } from '../../../shared/service/move.service';
 import { elemantaryTypeToArray } from '../../../shared/model/elemantary-type/elemantary-type';
@@ -45,32 +41,32 @@ export class MoveFormContainerComponent
   }
 
   ngOnInit(): void {
-    this.init();
-  }
-
-  init(): void {
     if (this.type === 'update') {
-      const id: string | null = this.route.snapshot.paramMap.get('id');
-      if (id) {
-        this.moveService
-          .getMove(id)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe((move) => {
-            if (move) {
-              console.log('In observable');
-              this.move = move;
-              // we update the current points base on the existing pokemon
-              this.updatePoints();
-            }
-          });
-      } else {
-        this.toastr.error(
-          'Le move que vous essayer déditer néxiste pas, ajouter un id dans l url'
-        );
-      }
+      const moveId: string | null = this.route.snapshot.paramMap.get('id');
+      this.initUpdateForm(moveId);
     } else if (this.type !== 'create') {
       this.toastr.error('Le formulaire ne supporte pas ce type de valeur');
       console.error('Trying to create a form with the wrong type');
+    }
+  }
+
+  initUpdateForm(moveId: string | null): void {
+    if (moveId) {
+      this.moveService
+        .getMove(moveId)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((move) => {
+          if (move) {
+            console.log('In observable');
+            this.move = move;
+            // we update the current points base on the existing pokemon
+            this.updatePoints();
+          }
+        });
+    } else {
+      this.toastr.error(
+        'Le move que vous essayer déditer néxiste pas, ajouter un id dans l url'
+      );
     }
   }
 

@@ -1,5 +1,21 @@
-<div>
-  <app-add-status title="My pokemons" [currentNumber]="pokemons.length" route="/pokemons-add" [max]="maxPokemon">
+<div *ngIf="isUserHavingMoves">
+  <app-add-status
+    title="My pokemons"
+    [currentNumber]="pokemons.length"
+    route="/pokemons-add"
+    [max]="maxPokemon"
+  >
   </app-add-status>
-  <app-pokemon-list title="My pokemons" [pokemons]="pokemons" (deleteEvent)="deleteItem($event)"></app-pokemon-list>
+  <app-pokemon-list
+    title="My pokemons"
+    [pokemons]="pokemons"
+    (deleteEvent)="alertDeleteItem($event)"
+  ></app-pokemon-list>
 </div>
+
+<h1 *ngIf="isUserHavingMoves === false">
+  Vous n'avez pas encore de moves, aller créer vos attaques avant de créer vos
+  pokemons :)
+</h1>
+
+<app-loader *ngIf="isUserHavingMoves === undefined"></app-loader>

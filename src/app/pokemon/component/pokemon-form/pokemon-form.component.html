@@ -13,6 +13,7 @@
       [types]="types"
       [current]="pokemon.type.toString()"
       [(ngModel)]="pokemon.type"
+      (change)="typeChange()"
     ></app-types-selector>
 
     <div>
@@ -53,7 +54,12 @@
 
     <label>
       Moves:
-      <select multiple *ngIf="moves" [(ngModel)]="pokemon.movesIds">
+      <select
+        multiple
+        *ngIf="moves"
+        [(ngModel)]="pokemon.movesIds"
+        (change)="movesChange()"
+      >
         <option
           *ngFor="let move of moves"
           [value]="move.id"
@@ -64,7 +70,7 @@
       </select>
     </label>
 
-    <input type='file' (change)="readURL($event);" accept=".png,.jpg" />
+    <input type="file" (change)="readURL($event)" accept=".png,.jpg" />
     <img id="blah" [src]="avatarSrc" alt="your image" />
 
     <button (click)="submit(pokemon)">Save</button>

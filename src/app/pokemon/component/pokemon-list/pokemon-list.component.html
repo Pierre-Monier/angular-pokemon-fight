@@ -2,32 +2,48 @@
   <div class="pokemon-card" *ngFor="let pokemon of pokemons">
     <div class="pokemon-card-header">
       <div class="pokemon-type-image">
-        <img src="{{ pokemon.imageUrl }}" alt="pokemon image"/>
-        <img class="type-image" src="{{ getTypeImage(pokemon.type) }}" alt="type-image">
+        <img src="{{ pokemon.imageUrl }}" alt="pokemon image" />
+        <img
+          class="type-image"
+          src="{{ getTypeImage(pokemon.type) }}"
+          alt="type-image"
+        />
       </div>
       <p>{{ pokemon.name }}</p>
     </div>
-    <hr class="vertical-hr">
+    <hr class="vertical-hr" />
     <div class="pokemon-card-body">
       <div class="pokemon-infos">
-        <p>Type : <span class="badge-type" [ngClass]="getBadgeClass(pokemon.type)">{{ pokemon.type }}</span></p>
+        <p>
+          Type :
+          <span class="badge-type" [ngClass]="getBadgeClass(pokemon.type)">{{
+            pokemon.type
+          }}</span>
+        </p>
         <p>Pv : {{ pokemon.pv }}</p>
         <p>Esquive : {{ pokemon.e }}</p>
         <p>Coup critique : {{ pokemon.cc }}</p>
       </div>
-      <hr class="horizontal-hr">
+      <hr class="horizontal-hr" />
       <div class="pokemon-moves">
         <p>Moves :</p>
         <div *ngIf="pokemon.moves">
           <ul *ngFor="let move of pokemon.moves">
-            <li>{{ move.name }} <span class="badge-type" [ngClass]="getBadgeClass(move.type)">{{ move.type }}</span></li>
+            <li>
+              {{ move.name }}
+              <span class="badge-type" [ngClass]="getBadgeClass(move.type)">{{
+                move.type
+              }}</span>
+            </li>
           </ul>
         </div>
       </div>
     </div>
     <div class="pokemon-card-footer">
       <a class="app-button scd" routerLink="/pokemons/{{ pokemon.id }}">Edit</a>
-      <button class="app-button" (click)="deletePokemon(pokemon)">Delete</button>
+      <button class="app-button" (click)="deletePokemon(pokemon)">
+        Delete
+      </button>
     </div>
   </div>
 </div>

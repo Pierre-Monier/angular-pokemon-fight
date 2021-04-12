@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 
 import { Pokemon, pokemonSpec } from '../../../shared/model/pokemon/pokemon';
 import { PokemonService } from '../../../shared/service/pokemon.service';
@@ -18,16 +18,18 @@ export class PokemonListContainerComponent
   private destroy$ = new Subject<void>();
   pokemons: Pokemon[] = [];
   maxPokemon = pokemonSpec.maxPokemonNbr;
+  isUserHavingMoves?: boolean;
 
   constructor(
     private pokemonService: PokemonService,
     public moveService: MoveService,
     private afStorage: AngularFireStorage,
-    private toastr: ToastrService,
-  ) { }
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.getItems();
+    this.getMovesData();
   }
 
   getItems(): void {
@@ -46,6 +48,15 @@ export class PokemonListContainerComponent
               });
           }
         });
+      });
+  }
+
+  getMovesData(): void {
+    this.moveService
+      .getMoves()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((moves) => {
+        this.isUserHavingMoves = moves.length > 0;
       });
   }
 
@@ -68,6 +79,16 @@ export class PokemonListContainerComponent
           'Il  y a eu un problème lors de la suppression du pokemon'
         )
       );
+  }
+
+  alertDeleteItem(pokemon: Pokemon): void {
+    this.toastr
+      .error(
+        'Cliquer sur ce message pour confirmer',
+        'Attention vous vous apprêtez à supprimer un pokemon'
+      )
+      .onTap.pipe(take(2))
+      .subscribe(() => this.deleteItem(pokemon));
   }
 
   ngOnDestroy(): void {
