@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Game} from '../../shared/model/game/game';
 
 @Component({
   selector: 'app-game-view',
@@ -6,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game-view.component.scss']
 })
 export class GameViewComponent implements OnInit {
+  @Input()
+  gameState!: Game;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

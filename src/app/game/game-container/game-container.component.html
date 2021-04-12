@@ -1,2 +1,10 @@
-<app-game-view>
+<app-game-view
+  *ngIf="gameState; else loading"
+  [gameState]="gameState"
+>
 </app-game-view>
+
+<ng-template #loading>
+  <app-loader>
+  </app-loader>
+</ng-template>

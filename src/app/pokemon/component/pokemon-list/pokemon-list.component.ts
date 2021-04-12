@@ -23,38 +23,38 @@ export class PokemonListComponent implements OnInit {
   getBadgeClass(type: ElemantaryType): string {
     switch (type) {
       case ElemantaryType.Eau:
-        return "eau";
+        return 'eau';
       case ElemantaryType.Foudre:
-        return "foudre";
+        return 'foudre';
       case ElemantaryType.Feu:
-        return "feu";
+        return 'feu';
       case ElemantaryType.Neutre:
-        return "neutre";
+        return 'neutre';
       case ElemantaryType.Air:
-        return "air";
+        return 'air';
       case ElemantaryType.Terre:
-        return "terre";
+        return 'terre';
       default:
-        return "test";
+        return 'test';
     }
   }
 
   getTypeImage(type: ElemantaryType): string {
     switch (type) {
       case ElemantaryType.Eau:
-        return "../assets/water-type.png";
+        return '../assets/water-type.png';
       case ElemantaryType.Foudre:
-        return "../assets/electric-type.png";
+        return '../assets/electric-type.png';
       case ElemantaryType.Feu:
-        return "../assets/fire-type.png";
+        return '../assets/fire-type.png';
       case ElemantaryType.Neutre:
-        return "../assets/neutral-type.png";
+        return '../assets/neutral-type.png';
       case ElemantaryType.Air:
-        return "../assets/air-type.png";
+        return '../assets/air-type.png';
       case ElemantaryType.Terre:
-        return "../assets/earth-type.png";
+        return '../assets/earth-type.png';
       default:
-        return "test";
+        return 'test';
     }
   }
 }

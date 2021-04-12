@@ -1,5 +1,13 @@
 <app-adventure-view
+  *ngIf="isUserHavingPokemon"
   [bosses]="bosses"
   [bossDefeatedByUser]="bossDefeatedByUser"
 >
 </app-adventure-view>
+
+<h1 *ngIf="isUserHavingPokemon === false">
+  Vous n'avez pas encore de pokemon, aller former votre équipe avant de vous
+  battre :)
+</h1>
+
+<app-loader *ngIf="isUserHavingPokemon === undefined"></app-loader>

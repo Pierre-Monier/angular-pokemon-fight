@@ -9,11 +9,12 @@
     (addPointEvent)="addPoint($event)"
     (removePointEvent)="removePoint($event)"
     (fileChangeEvent)="setAvatarFile($event)"
+    (typeChangeEvent)="handleTypeChange()"
+    (movesChangeEvent)="handleMovesChange()"
     [pokemon]="pokemon"
     [types]="elemantaryTypes"
     [points]="points"
-    [moves]="moves"
+    [moves]="currentMoves"
     [avatarSrc]="pokemon.imageUrl"
   ></app-pokemon-form>
 </div>
-

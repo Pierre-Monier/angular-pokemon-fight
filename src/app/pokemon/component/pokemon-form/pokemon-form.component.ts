@@ -29,6 +29,10 @@ export class PokemonFormComponent {
   removePointEvent = new EventEmitter<AppStat>();
   @Output()
   fileChangeEvent = new EventEmitter<File>();
+  @Output()
+  typeChangeEvent = new EventEmitter<void>();
+  @Output()
+  movesChangeEvent = new EventEmitter<void>();
   constructor() {}
 
   submit(pokemon: Pokemon): void {
@@ -56,10 +60,18 @@ export class PokemonFormComponent {
       const file = event.target.files[0];
 
       const reader = new FileReader();
-      reader.onload = e => this.avatarSrc = reader.result as string;
+      reader.onload = (e) => (this.avatarSrc = reader.result as string);
 
       reader.readAsDataURL(file);
       this.fileChange(file);
     }
+  }
+
+  typeChange(): void {
+    this.typeChangeEvent.emit();
+  }
+
+  movesChange(): void {
+    this.movesChangeEvent.emit();
   }
 }

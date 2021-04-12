@@ -1,7 +1,6 @@
 import { AppStat } from './app-stat';
 
 export interface FormContainer {
-  init: () => void;
   submit: (entity: any) => void;
   updatePoints: () => void;
   addPoint: (property: AppStat) => void;
