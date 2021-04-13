@@ -102,16 +102,25 @@
     }
     .pokemon-card-body {
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      align-items: center;
       margin-top: 16px;
       margin-bottom: 16px;
 
-      .pokemon-infos {
-        width: 100%;
+      p {
+        margin: 0;
       }
-      .pokemon-moves {
-        width: 100%;
+      .points-container {
+        .points-item {
+          margin-top: 14px;
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+    .choose-moves {
+      p {
+        margin: 16px 0;
       }
     }
     .pokemon-card-footer {

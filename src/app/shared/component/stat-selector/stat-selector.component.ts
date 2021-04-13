@@ -4,7 +4,7 @@ import { AppStat } from '../../interface/app-stat';
 @Component({
   selector: 'app-stat-selector',
   templateUrl: './stat-selector.component.html',
-  styleUrls: ['./stat-selector.component.css'],
+  styleUrls: ['./stat-selector.component.scss'],
 })
 export class StatSelectorComponent implements OnInit {
   @Input()

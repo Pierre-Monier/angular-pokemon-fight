@@ -1,2 +1,4 @@
-<button *ngIf="current > min" (click)="addPoint()">Add</button>
-<button *ngIf="current < max" (click)="removePoint()">Remove</button>
+<div class="increment-buttons">
+  <button *ngIf="current > min" (click)="addPoint()" class="increment-button" id="add">+</button>
+  <button *ngIf="current < max" (click)="removePoint()" class="increment-button">-</button>
+</div>

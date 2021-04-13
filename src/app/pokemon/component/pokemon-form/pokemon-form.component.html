@@ -29,67 +29,73 @@
           ></app-types-selector>
         </div>
       </div>
+
       <hr class="vertical-hr">
+
       <div class="pokemon-card-body">
-        <p>points: {{ points }}</p>
+        <p>Points restants : {{ points }}</p>
 
-        <div>
-          <p>Pv: {{ pokemon.pv }}</p>
-          <app-stat-selector
-          [current]="points"
-          [max]="60"
-          [min]="0"
-          [property]="'pv'"
-          (removePointEvent)="removePoint($event)"
-          (addPointEvent)="addPoint($event)"
-          ></app-stat-selector>
+        <div class="points-container">
+          <div class="points-item">
+            <p>Pv : {{ pokemon.pv }}</p>
+            <app-stat-selector
+            [current]="points"
+            [max]="60"
+            [min]="0"
+            [property]="'pv'"
+            (removePointEvent)="removePoint($event)"
+            (addPointEvent)="addPoint($event)"
+            ></app-stat-selector>
+          </div>
+
+          <div class="points-item">
+            <p>Esquive : {{ pokemon.e }}</p>
+            <app-stat-selector
+            [current]="points"
+            [max]="60"
+            [min]="0"
+            [property]="'e'"
+            (removePointEvent)="removePoint($event)"
+            (addPointEvent)="addPoint($event)"
+            ></app-stat-selector>
+          </div>
+
+          <div class="points-item">
+            <p>Coup critique : {{ pokemon.cc }}</p>
+            <app-stat-selector
+            [current]="points"
+            [max]="60"
+            [min]="0"
+            [property]="'cc'"
+            (removePointEvent)="removePoint($event)"
+            (addPointEvent)="addPoint($event)"
+            ></app-stat-selector>
+          </div>
         </div>
+      </div>
 
-        <div>
-          <p>Esquive: {{ pokemon.e }}</p>
-          <app-stat-selector
-          [current]="points"
-          [max]="60"
-          [min]="0"
-          [property]="'e'"
-          (removePointEvent)="removePoint($event)"
-          (addPointEvent)="addPoint($event)"
-          ></app-stat-selector>
-        </div>
+      <hr class="vertical-hr">
 
-        <div>
-          <p>Coup critique: {{ pokemon.cc }}</p>
-          <app-stat-selector
-          [current]="points"
-          [max]="60"
-          [min]="0"
-          [property]="'cc'"
-          (removePointEvent)="removePoint($event)"
-          (addPointEvent)="addPoint($event)"
-          ></app-stat-selector>
-        </div>
-
-        <label>
-          Moves:
-          <select
-          multiple
-          *ngIf="moves"
-          [(ngModel)]="pokemon.movesIds"
-          (change)="movesChange()"
-          >
+      <div class="choose-moves">
+        <p>Moves :</p>
+        <select
+        multiple
+        *ngIf="moves"
+        [(ngModel)]="pokemon.movesIds"
+        (change)="movesChange()"
+        >
           <option
           *ngFor="let move of moves"
           [value]="move.id"
           [selected]="pokemon.movesIds.includes(move.id)"
           >
-          {{ move.name }}
-        </option>
-      </select>
-    </label>
-  </div>
+            {{ move.name }}
+          </option>
+        </select>
+      </div>
 
-  <button (click)="submit(pokemon)" class="app-button">Save</button>
+      <button (click)="submit(pokemon)" class="app-button">Save</button>
 
-</div>
+    </div>
   </div>
 </div>
