@@ -1,10 +1,14 @@
 <app-game-view
-  *ngIf="gameState; else loading"
+  *ngIf="gameState && gameState.phase !== 'USER_CHOOSING_POKEMON'"
   [gameState]="gameState"
 >
 </app-game-view>
 
-<ng-template #loading>
-  <app-loader>
-  </app-loader>
-</ng-template>
+<app-game-user-pokemon-selector
+  *ngIf="gameState && gameState.phase === 'USER_CHOOSING_POKEMON'"
+  (choosePokemon)="userChoosePokemon($event)"
+  [pokemons]="gameState.user.pokemons"
+>
+</app-game-user-pokemon-selector>
+
+<app-loader *ngIf="!gameState"> </app-loader>

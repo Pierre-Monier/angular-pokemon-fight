@@ -1,0 +1,5 @@
+<ul *ngIf="pokemons">
+  <li *ngFor="let pokemon of pokemons" (click)="emitChoosePokemon(pokemon.id)">
+    Use pokemon {{ pokemon.name }}
+  </li>
+</ul>
