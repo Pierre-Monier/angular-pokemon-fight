@@ -1,6 +1,6 @@
-import { AppUser } from '../user/app-user';
-import { Boss } from '../boss/boss';
-import { Pokemon } from '../pokemon/pokemon';
+import {AppUser} from '../user/app-user';
+import {Boss} from '../boss/boss';
+import {Pokemon} from '../pokemon/pokemon';
 
 export interface Game {
   user: AppUser;

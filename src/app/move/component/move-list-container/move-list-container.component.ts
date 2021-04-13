@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
+import {take, takeUntil} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
 
-import { MoveService } from '../../../shared/service/move.service';
-import { ListContainer } from '../../../shared/interface/list';
-import { Move, moveSpec } from '../../../shared/model/move/move';
+import {MoveService} from '../../../shared/service/move.service';
+import {ListContainer} from '../../../shared/interface/list';
+import {Move, moveSpec} from '../../../shared/model/move/move';
 
 @Component({
   selector: 'app-move-list-container',

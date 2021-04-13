@@ -1,5 +1,5 @@
 // this is named AppUser not User to avoid firebase.default.User conflict
-import { Pokemon } from '../pokemon/pokemon';
+import {Pokemon} from '../pokemon/pokemon';
 
 export class AppUser {
   constructor(

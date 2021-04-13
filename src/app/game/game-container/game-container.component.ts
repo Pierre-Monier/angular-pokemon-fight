@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { GameService } from '../../shared/service/game.service';
-import { INIT, USER_CHANGE_POKEMON } from '../../shared/model/game/game-action';
-import { AppUserService } from '../../shared/service/app-user.service';
-import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { BossService } from '../../shared/service/boss.service';
-import { first } from 'rxjs/operators';
-import { Boss } from '../../shared/model/boss/boss';
-import { Game } from '../../shared/model/game/game';
-import { AppUser } from '../../shared/model/user/app-user';
+import {Component, OnInit} from '@angular/core';
+import {GameService} from '../../shared/service/game.service';
+import {INIT, USER_CHANGE_POKEMON} from '../../shared/model/game/game-action';
+import {AppUserService} from '../../shared/service/app-user.service';
+import {ActivatedRoute} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
+import {BossService} from '../../shared/service/boss.service';
+import {first} from 'rxjs/operators';
+import {Boss} from '../../shared/model/boss/boss';
+import {Game, Phases} from '../../shared/model/game/game';
+import {AppUser} from '../../shared/model/user/app-user';
 
 @Component({
   selector: 'app-game-container',
@@ -86,7 +86,17 @@ export class GameContainerComponent implements OnInit {
   private subscribeToGameState(): void {
     this.gameService.subscribeToGameState().subscribe((gameState) => {
       this.gameState = gameState;
-      console.log('sub in container', this.gameState);
+      switch (this.gameState?.phase) {
+        case Phases.BOSS_PLAYING:
+          console.log('Boss is playing');
+          break;
+        case Phases.USER_PLAYING:
+          console.log('User is playing');
+          break;
+        default:
+          break;
+      }
+      console.log('GameContainer current gameState', this.gameState);
     });
   }
 }

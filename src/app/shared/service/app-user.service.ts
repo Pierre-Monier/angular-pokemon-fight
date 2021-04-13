@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import {Injectable} from '@angular/core';
+import {AngularFirestore} from '@angular/fire/firestore';
 import firebase from 'firebase';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { AppUser } from '../model/user/app-user';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {AppUser} from '../model/user/app-user';
 import User = firebase.User;
 
 @Injectable({

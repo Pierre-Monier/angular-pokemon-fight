@@ -1,16 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
 
-import { FormContainer, FormMode } from '../../../shared/interface/form';
-import { isMoveStat, Move, moveSpec } from '../../../shared/model/move/move';
-import { FormService } from '../../../shared/service/form.service';
-import { MoveService } from '../../../shared/service/move.service';
-import { elemantaryTypeToArray } from '../../../shared/model/elemantary-type/elemantary-type';
-import { AppStat } from '../../../shared/interface/app-stat';
+import {FormContainer, FormMode} from '../../../shared/interface/form';
+import {isMoveStat, Move, moveSpec} from '../../../shared/model/move/move';
+import {FormService} from '../../../shared/service/form.service';
+import {MoveService} from '../../../shared/service/move.service';
+import {elemantaryTypeToArray} from '../../../shared/model/elemantary-type/elemantary-type';
+import {AppStat} from '../../../shared/interface/app-stat';
 
 @Component({
   selector: 'app-move-form-container',

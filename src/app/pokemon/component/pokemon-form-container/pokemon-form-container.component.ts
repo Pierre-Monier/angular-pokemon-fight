@@ -1,26 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { v4 as uuidv4 } from 'uuid';
-import { ToastrService } from 'ngx-toastr';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {v4 as uuidv4} from 'uuid';
+import {ToastrService} from 'ngx-toastr';
 
-import { FormContainer, FormMode } from '../../../shared/interface/form';
-import { Pokemon, pokemonSpec } from '../../../shared/model/pokemon/pokemon';
-import { PokemonService } from '../../../shared/service/pokemon.service';
-import { FormService } from '../../../shared/service/form.service';
-import {
-  ElemantaryType,
-  elemantaryTypeToArray,
-} from '../../../shared/model/elemantary-type/elemantary-type';
-import { AppStat } from '../../../shared/interface/app-stat';
-import { MoveService } from '../../../shared/service/move.service';
-import { Move } from '../../../shared/model/move/move';
-import {
-  AngularFireStorage,
-  AngularFireUploadTask,
-} from '@angular/fire/storage';
+import {FormContainer, FormMode} from '../../../shared/interface/form';
+import {Pokemon, pokemonSpec} from '../../../shared/model/pokemon/pokemon';
+import {PokemonService} from '../../../shared/service/pokemon.service';
+import {FormService} from '../../../shared/service/form.service';
+import {ElemantaryType, elemantaryTypeToArray,} from '../../../shared/model/elemantary-type/elemantary-type';
+import {AppStat} from '../../../shared/interface/app-stat';
+import {MoveService} from '../../../shared/service/move.service';
+import {Move} from '../../../shared/model/move/move';
+import {AngularFireStorage, AngularFireUploadTask,} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-pokemon-form-container',

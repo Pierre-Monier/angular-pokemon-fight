@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Move } from '../model/move/move';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
-import { ElemantaryType } from '../model/elemantary-type/elemantary-type';
-import { FormMode } from '../interface/form';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Move} from '../model/move/move';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {map} from 'rxjs/operators';
+import {ElemantaryType} from '../model/elemantary-type/elemantary-type';
+import {FormMode} from '../interface/form';
 import firebase from 'firebase';
-import { AppUserService } from './app-user.service';
+import {AppUserService} from './app-user.service';
 import DocumentReference = firebase.firestore.DocumentReference;
 
 @Injectable({
@@ -15,19 +15,21 @@ import DocumentReference = firebase.firestore.DocumentReference;
 export class MoveService {
   constructor(private appUser: AppUserService, private db: AngularFirestore) {}
 
-  getMoves(ids?: string[]): Observable<Move[]> {
+  getMoves(ids?: string[], userId?: string): Observable<Move[]> {
+    const currentUser = this.appUser.getCurrentAppUser();
+    const movesUserId = userId ?? currentUser?.uid;
+
     return this.db
       .collection<Move>('/move')
       .snapshotChanges()
       .pipe(
         map((moves) => {
           const areIds = (id: string) => (ids ? ids.includes(id) : true);
-          const currentUser = this.appUser.getCurrentAppUser();
           return moves
             .filter(
               (movesSnapshot) =>
-                currentUser &&
-                movesSnapshot.payload.doc.data().userUid === currentUser?.uid &&
+                movesUserId &&
+                movesSnapshot.payload.doc.data().userUid === movesUserId &&
                 areIds(movesSnapshot.payload.doc.id)
             )
             .map((movesSnapshot) => {

@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
 
-import { Boss } from '../model/boss/boss';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import {Boss} from '../model/boss/boss';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

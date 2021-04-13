@@ -1,18 +1,17 @@
-import { Injectable } from '@angular/core';
-import { Game, Phases, Player } from '../model/game/game';
-import { INIT, USER_CHANGE_POKEMON } from '../model/game/game-action';
-import { Observable, Subject } from 'rxjs';
-import { PokemonService } from './pokemon.service';
-import { first } from 'rxjs/operators';
-import { Pokemon } from '../model/pokemon/pokemon';
-import { AppUser } from '../model/user/app-user';
-import { Boss } from '../model/boss/boss';
+import {Injectable} from '@angular/core';
+import {Game, Phases, Player} from '../model/game/game';
+import {INIT, USER_CHANGE_POKEMON} from '../model/game/game-action';
+import {combineLatest, Observable, Subject} from 'rxjs';
+import {PokemonService} from './pokemon.service';
+import {Pokemon} from '../model/pokemon/pokemon';
+import {MoveService} from './move.service';
+import {Move} from '../model/move/move';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
-  constructor(private pokemonService: PokemonService) {
+  constructor(private pokemonService: PokemonService, private moveService: MoveService) {
     this.gameState$ = new Subject<Game | undefined>();
     const localGame = localStorage.getItem('game');
     if (localGame) {
@@ -84,38 +83,65 @@ export class GameService {
   }
 
   private init(data: Record<any, any>): void {
-    this.pokemonService
-      .getPokemons()
-      .pipe(first())
-      .subscribe((pokemons) => {
-        data.user.pokemons = pokemons;
+    combineLatest([this.pokemonService.getPokemons(), this.pokemonService.getPokemons(data.boss.id)])
+      .subscribe(([userPokemons, bossPokemons]) => {
+        // use to get all the moves from firestore
+        const moves$: Observable<Move[]>[] = [];
 
-        this.pokemonService
-          .getPokemons(data.boss.id)
-          .pipe(first())
-          .subscribe((bossPokemons) => {
-            data.boss.pokemons = bossPokemons;
+        // add observables for each pokemon in order to get it's move
+        userPokemons.forEach((pokemon) => {
+          moves$.push(this.moveService.getMoves(pokemon.movesIds));
+        });
+        data.user.pokemons = userPokemons;
 
-            const newGameState = {
-              user: data.user as AppUser,
-              boss: data.boss as Boss,
-              fight: {
-                currentUserPokemon: undefined,
-                currentBossPokemon: GameService.chooseBossPokemon(bossPokemons),
-                gameTurn: Math.round(Math.random()) ? Player.USER : Player.BOSS,
-              },
-              phase: Phases.USER_CHOOSING_POKEMON,
-            };
+        // same here
+        bossPokemons.forEach((pokemon) => {
+          moves$.push(this.moveService.getMoves(pokemon.movesIds, data.boss.id));
+        });
+        data.boss.pokemons = bossPokemons;
 
-            this.updateGameState(newGameState);
+        combineLatest(moves$).subscribe((moves) => {
+          // Here we add moves to each pokemon
+          // I think it can be optimise
+          moves.forEach((movesTab) => {
+            movesTab.forEach((move) => {
+              // we filter at this stage to avoid unnecessary loop
+              // two is already way to much :(
+              if (move.userUid === data.user.uid) {
+                data.user.pokemons.forEach((pokemon: Pokemon) => {
+                  if (pokemon.movesIds.includes(move.id)) {
+                    pokemon.moves.push(move);
+                  }
+                });
+              } else if (move.userUid === data.boss.id) {
+                data.boss.pokemons.forEach((pokemon: Pokemon) => {
+                  if (pokemon.movesIds.includes(move.id)) {
+                    pokemon.moves.push(move);
+                  }
+                });
+              }
+            });
           });
+
+          const newGameState = {
+            user: data.user,
+            boss: data.boss,
+            fight: {
+              currentUserPokemon: undefined,
+              currentBossPokemon: GameService.chooseBossPokemon(bossPokemons),
+              gameTurn: Math.round(Math.random()) ? Player.USER : Player.BOSS,
+            },
+            phase: Phases.USER_CHOOSING_POKEMON,
+          };
+
+          this.updateGameState(newGameState);
+        });
       });
   }
 
   private updateGameState(newGameState: Game): void {
     this.gameState = newGameState;
     this.gameState$.next(newGameState);
-    console.log('updateGame', this.gameState);
     localStorage.setItem('game', JSON.stringify(this.gameState));
   }
 }

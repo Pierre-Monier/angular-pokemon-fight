@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AppStat } from '../../interface/app-stat';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AppStat} from '../../interface/app-stat';
 
 @Component({
   selector: 'app-stat-selector',

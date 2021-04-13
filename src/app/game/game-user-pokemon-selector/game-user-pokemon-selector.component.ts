@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Pokemon } from '../../shared/model/pokemon/pokemon';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Pokemon} from '../../shared/model/pokemon/pokemon';
 
 @Component({
   selector: 'app-game-user-pokemon-selector',

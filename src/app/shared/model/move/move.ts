@@ -1,5 +1,5 @@
-import { ElemantaryType } from '../elemantary-type/elemantary-type';
-import { AppStat } from '../../interface/app-stat';
+import {ElemantaryType} from '../elemantary-type/elemantary-type';
+import {AppStat} from '../../interface/app-stat';
 
 export class Move {
   id: string;

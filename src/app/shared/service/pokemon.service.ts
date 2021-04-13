@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Pokemon } from '../model/pokemon/pokemon';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
-import { FormMode } from '../interface/form';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Pokemon} from '../model/pokemon/pokemon';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {map} from 'rxjs/operators';
+import {FormMode} from '../interface/form';
 import firebase from 'firebase';
-import { AppUserService } from './app-user.service';
+import {AppUserService} from './app-user.service';
 import DocumentReference = firebase.firestore.DocumentReference;
 
 @Injectable({

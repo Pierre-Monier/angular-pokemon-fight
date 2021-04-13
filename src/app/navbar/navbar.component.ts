@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { AuthService } from '../shared/service/auth.service';
-import { filter } from 'rxjs/operators';
-import { AppUserService } from '../shared/service/app-user.service';
+import {Component, OnInit} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
+import {AuthService} from '../shared/service/auth.service';
+import {filter} from 'rxjs/operators';
+import {AppUserService} from '../shared/service/app-user.service';
 
 @Component({
   selector: 'app-navbar',

@@ -1,6 +1,6 @@
-import { ElemantaryType } from '../elemantary-type/elemantary-type';
-import { Move } from '../move/move';
-import { AppStat } from '../../interface/app-stat';
+import {ElemantaryType} from '../elemantary-type/elemantary-type';
+import {Move} from '../move/move';
+import {AppStat} from '../../interface/app-stat';
 
 export class Pokemon {
   id: string;
