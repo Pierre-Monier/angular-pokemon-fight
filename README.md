@@ -1,6 +1,6 @@
 # AngularPokemonFight
 <img src="https://img.shields.io/badge/scope-school--project%F0%9F%8E%93-blue" alt="school-project"/>
-<img src="https://img.shields.io/badge/current--state-WIP-orange" alt="wip"/>
+<img src="https://img.shields.io/badge/current--state-WIP%F0%9F%94%A8-blue" alt="wip"/>
 
 *The goal of this project was to learn how to use the Angular framework*
 
