@@ -28,9 +28,10 @@ import { MoveFormContainerComponent } from './move/component/move-form-container
 import { MoveFormComponent } from './move/component/move-form/move-form.component';
 import { LoaderComponent } from './shared/component/loader/loader.component';
 import { AdventureContainerComponent } from './adventure/adventure-container/adventure-container.component';
-import { GameViewComponent } from './game/game-view/game-view.component';
-import { GameContainerComponent } from './game/game-container/game-container.component';
-import { GameUserPokemonSelectorComponent } from './game/game-user-pokemon-selector/game-user-pokemon-selector.component';
+import { GameViewComponent } from './game/component/game-view/game-view.component';
+import { GameContainerComponent } from './game/component/game-container/game-container.component';
+import { GameUserPokemonSelectorComponent } from './game/component/game-user-pokemon-selector/game-user-pokemon-selector.component';
+import { GameDialogComponent } from './game/component/game-dialog/game-dialog.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { GameUserPokemonSelectorComponent } from './game/game-user-pokemon-selec
     GameViewComponent,
     GameContainerComponent,
     GameUserPokemonSelectorComponent,
+    GameDialogComponent,
   ],
   imports: [
     BrowserModule,

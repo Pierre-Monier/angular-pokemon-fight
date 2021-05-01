@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PokemonFormContainerComponent } from './pokemon-form-container.component';
+import {PokemonFormContainerComponent} from './pokemon-form-container.component';
 
 describe('HeroDetailComponent', () => {
   let component: PokemonFormContainerComponent;

@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Move } from '../../../shared/model/move/move';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Move} from '../../../shared/model/move/move';
 
 @Component({
   selector: 'app-move-list',

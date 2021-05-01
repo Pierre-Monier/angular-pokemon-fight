@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { MoveListComponent } from './move-list.component';
+import {MoveListComponent} from './move-list.component';
 
 describe('MoveListComponent', () => {
   let component: MoveListComponent;

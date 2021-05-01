@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BossService } from '../../shared/service/boss.service';
-import { Subject } from 'rxjs';
-import { Boss } from '../../shared/model/boss/boss';
-import { AppUserService } from '../../shared/service/app-user.service';
-import { PokemonService } from '../../shared/service/pokemon.service';
-import { takeUntil } from 'rxjs/operators';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {BossService} from '../../shared/service/boss.service';
+import {Subject} from 'rxjs';
+import {Boss} from '../../shared/model/boss/boss';
+import {AppUserService} from '../../shared/service/app-user.service';
+import {PokemonService} from '../../shared/service/pokemon.service';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-adventure-container',

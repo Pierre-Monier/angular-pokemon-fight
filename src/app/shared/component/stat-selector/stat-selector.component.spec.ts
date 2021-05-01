@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { StatSelectorComponent } from './stat-selector.component';
+import {StatSelectorComponent} from './stat-selector.component';
 
 describe('StatSelectorComponent', () => {
   let component: StatSelectorComponent;

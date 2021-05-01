@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { MoveFormContainerComponent } from './move-form-container.component';
+import {MoveFormContainerComponent} from './move-form-container.component';
 
 describe('MoveFormContainerComponent', () => {
   let component: MoveFormContainerComponent;

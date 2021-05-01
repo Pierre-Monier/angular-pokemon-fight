@@ -1,10 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { Boss } from '../../shared/model/boss/boss';
+import {ChangeDetectionStrategy, Component, Input, OnInit,} from '@angular/core';
+import {Boss} from '../../shared/model/boss/boss';
 
 @Component({
   selector: 'app-adventure-view',

@@ -1,0 +1,20 @@
+<div>
+  <app-game-view
+    *ngIf="gameState && gameState.phase !== 'USER_CHOOSING_POKEMON'"
+    (pokemonAttack)="userPokemonAttack($event)"
+    [gameState]="gameState"
+  >
+  </app-game-view>
+
+  <app-game-dialog *ngIf="gameState" [dialogContent]="gameDialog">
+  </app-game-dialog>
+
+  <app-game-user-pokemon-selector
+    *ngIf="gameState && gameState.phase === 'USER_CHOOSING_POKEMON'"
+    (choosePokemon)="userChoosePokemon($event)"
+    [pokemons]="getSelectableUserPokemon()"
+  >
+  </app-game-user-pokemon-selector>
+</div>
+
+<app-loader *ngIf="!gameState"> </app-loader>

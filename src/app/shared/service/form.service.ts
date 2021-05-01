@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Pokemon, pokemonSpec } from '../model/pokemon/pokemon';
-import { ElemantaryType } from '../model/elemantary-type/elemantary-type';
-import { Move, moveSpec } from '../model/move/move';
+import {Injectable} from '@angular/core';
+import {Pokemon, pokemonSpec} from '../model/pokemon/pokemon';
+import {ElemantaryType} from '../model/elemantary-type/elemantary-type';
+import {Move, moveSpec} from '../model/move/move';
 
 @Injectable({
   providedIn: 'root',

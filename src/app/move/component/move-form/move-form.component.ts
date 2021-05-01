@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Move } from '../../../shared/model/move/move';
-import { AppStat } from '../../../shared/interface/app-stat';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Move} from '../../../shared/model/move/move';
+import {AppStat} from '../../../shared/interface/app-stat';
 
 @Component({
   selector: 'app-move-form',

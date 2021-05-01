@@ -1,4 +1,4 @@
-import { AppStat } from './app-stat';
+import {AppStat} from './app-stat';
 
 export interface FormContainer {
   submit: (entity: any) => void;

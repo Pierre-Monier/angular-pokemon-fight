@@ -1,11 +1,11 @@
-import { Injectable, NgZone } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import {Injectable, NgZone} from '@angular/core';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {Router} from '@angular/router';
 
-import { AppUser } from '../model/user/app-user';
+import {AppUser} from '../model/user/app-user';
 import firebase from 'firebase';
-import { AppUserService } from './app-user.service';
+import {AppUserService} from './app-user.service';
 import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
 import UserCredential = firebase.auth.UserCredential;
 import User = firebase.User;

@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AngularFireStorage} from '@angular/fire/storage';
+import {ToastrService} from 'ngx-toastr';
+import {Subject} from 'rxjs';
+import {take, takeUntil} from 'rxjs/operators';
 
-import { Pokemon, pokemonSpec } from '../../../shared/model/pokemon/pokemon';
-import { PokemonService } from '../../../shared/service/pokemon.service';
-import { ListContainer } from '../../../shared/interface/list';
-import { MoveService } from '../../../shared/service/move.service';
+import {Pokemon, pokemonSpec} from '../../../shared/model/pokemon/pokemon';
+import {PokemonService} from '../../../shared/service/pokemon.service';
+import {ListContainer} from '../../../shared/interface/list';
+import {MoveService} from '../../../shared/service/move.service';
 
 @Component({
   selector: 'app-pokemon-list-container',

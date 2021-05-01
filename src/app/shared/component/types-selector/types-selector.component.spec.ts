@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TypesSelectorComponent } from './types-selector.component';
+import {TypesSelectorComponent} from './types-selector.component';
 
 describe('TypesSelectorComponent', () => {
   let component: TypesSelectorComponent;

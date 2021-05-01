@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AddStatusComponent } from './add-status.component';
+import {AddStatusComponent} from './add-status.component';
 
 describe('PokemonNumberComponent', () => {
   let component: AddStatusComponent;

@@ -1,0 +1,41 @@
+<div style="background-color: #8dcae9">
+  <p *ngIf="gameState.phase === 'BOSS_PLAYING'">Playing</p>
+  <p>{{ gameState.boss.name }}</p>
+  <div *ngIf="gameState.fight.currentBossPokemon">
+    <p>Pokemon : {{ gameState.fight.currentBossPokemon.name }}</p>
+    <p>
+      Pv:
+      {{
+        gameState.fight.currentBossPokemon.pv > 0
+          ? gameState.fight.currentBossPokemon.pv
+          : "dead"
+      }}
+    </p>
+  </div>
+</div>
+
+<div style="background-color: #3aaf79">
+  <p>{{ gameState.user.email }}</p>
+  <div *ngIf="gameState.fight.currentUserPokemon">
+    <p>Pokemon : {{ gameState.fight.currentUserPokemon.name }}</p>
+    <p>
+      Pv:
+      {{
+        gameState.fight.currentUserPokemon.pv > 0
+          ? gameState.fight.currentUserPokemon.pv
+          : "dead"
+      }}
+    </p>
+    <div *ngIf="gameState.phase === 'USER_PLAYING'">
+      <p>Moves:</p>
+      <ul>
+        <li
+          *ngFor="let move of gameState.fight.currentUserPokemon.moves"
+          (click)="emitPokemonAttack(move)"
+        >
+          {{ move.name }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

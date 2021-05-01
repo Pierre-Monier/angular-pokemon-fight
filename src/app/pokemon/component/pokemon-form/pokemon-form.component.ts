@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Pokemon } from '../../../shared/model/pokemon/pokemon';
-import { AppStat } from '../../../shared/interface/app-stat';
-import { Move } from '../../../shared/model/move/move';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Pokemon} from '../../../shared/model/pokemon/pokemon';
+import {AppStat} from '../../../shared/interface/app-stat';
+import {Move} from '../../../shared/model/move/move';
 
 @Component({
   selector: 'app-pokemon-form',

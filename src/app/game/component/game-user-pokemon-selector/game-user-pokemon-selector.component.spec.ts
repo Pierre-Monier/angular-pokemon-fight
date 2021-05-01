@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { GameUserPokemonSelectorComponent } from './game-user-pokemon-selector.component';
+import {GameUserPokemonSelectorComponent} from './game-user-pokemon-selector.component';
 
 describe('GameUserPokemonSelectorComponent', () => {
   let component: GameUserPokemonSelectorComponent;
