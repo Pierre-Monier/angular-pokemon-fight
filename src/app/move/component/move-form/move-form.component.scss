@@ -1,0 +1,88 @@
+@import "../../../../styles";
+
+.move-details-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  margin-bottom: 50px;
+  position: relative;
+
+  #back-to-moves {
+    position: absolute;
+    left: 40px;
+    top: 0;
+    height: 100%;
+
+    img {
+      width: 25px;
+      height: 25px;
+      margin-right: 10px;
+    }
+  }
+
+  .move-details-title {
+    font-size: 32px;
+    margin: 0;
+  }
+}
+
+.move-details-cards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .move-card {
+    padding: 32px;
+    border-radius: 7px;
+    border: solid 1px $black-main;
+    max-width: 350px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+
+    .input-container {
+      margin-bottom: 16px;
+    }
+    hr {
+      background-color: $grey-placeholder;
+      border: none;
+      margin: 0;
+
+      &.vertical-hr {
+        width: 100%;
+        height: 1px;
+      }
+    }
+    .move-card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-top: 16px;
+      margin-bottom: 16px;
+
+      p {
+        margin: 0;
+      }
+      .points-container {
+        .points-item {
+          margin-top: 14px;
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+    .move-card-footer {
+      display: flex;
+      justify-content: flex-end;
+
+      a {
+        margin-right: 10px;
+      }
+    }
+  }
+  .app-button {
+    align-self: flex-end;
+  }
+}

@@ -1,56 +1,71 @@
 <div>
-  <button (click)="goBack()">go back</button>
-  <h2>{{ move.name | uppercase }} Details</h2>
-  <div>
-    <p>points: {{ points }}</p>
-    <label>
-      Pokemon name:
-      <input [(ngModel)]="move.name" placeholder="name" required />
-    </label>
-    <app-types-selector
-      name="types"
-      ngDefaultControl
-      [types]="types"
-      [current]="move.type.toString()"
-      [(ngModel)]="move.type"
-    ></app-types-selector>
+  <div class="move-details-head">
+    <button id="back-to-moves" class="app-button scd smaller" (click)="goBack()"><img src="../assets/long-arrow-alt-left-solid.svg" alt="">Retour</button>
+    <h2 class="move-details-title">{{ move.name | uppercase }} Details</h2>
+  </div>
 
-    <div>
-      <p>Dégat : {{ move.damage }}</p>
-      <app-stat-selector
-        [current]="points"
-        [max]="60"
-        [min]="0"
-        [property]="'damage'"
-        (removePointEvent)="removePoint($event)"
-        (addPointEvent)="addPoint($event)"
-      ></app-stat-selector>
+  <div class="move-details-cards">
+    <div class="move-card">
+      <div class="input-container">
+        <label for="move-name">Move name :</label>
+        <input id="move-name" class="app-input" [(ngModel)]="move.name" placeholder="name" required />
+      </div>
+
+      <div class="input-container">
+        <app-types-selector
+        name="types"
+        ngDefaultControl
+        [types]="types"
+        [current]="move.type.toString()"
+        [(ngModel)]="move.type"
+        ></app-types-selector>
+      </div>
+
+      <hr class="vertical-hr">
+
+      <div class="move-card-body">
+        <p>Points restants : {{ points }}</p>
+
+        <div class="points-container">
+          <div class="points-item">
+            <p>Dégat : {{ move.damage }}</p>
+            <app-stat-selector
+            [current]="points"
+            [max]="60"
+            [min]="0"
+            [property]="'damage'"
+            (removePointEvent)="removePoint($event)"
+            (addPointEvent)="addPoint($event)"
+            ></app-stat-selector>
+          </div>
+
+          <div class="points-item">
+            <p>Esquive: {{ move.e }}</p>
+            <app-stat-selector
+            [current]="points"
+            [max]="60"
+            [min]="0"
+            [property]="'e'"
+            (removePointEvent)="removePoint($event)"
+            (addPointEvent)="addPoint($event)"
+            ></app-stat-selector>
+          </div>
+
+          <div class="points-item">
+            <p>Coup critique: {{ move.cc }}</p>
+            <app-stat-selector
+            [current]="points"
+            [max]="60"
+            [min]="0"
+            [property]="'cc'"
+            (removePointEvent)="removePoint($event)"
+            (addPointEvent)="addPoint($event)"
+            ></app-stat-selector>
+          </div>
+        </div>
+      </div>
+
+      <button class="app-button" (click)="submit(move)">Save</button>
     </div>
-
-    <div>
-      <p>Esquive: {{ move.e }}</p>
-      <app-stat-selector
-        [current]="points"
-        [max]="60"
-        [min]="0"
-        [property]="'e'"
-        (removePointEvent)="removePoint($event)"
-        (addPointEvent)="addPoint($event)"
-      ></app-stat-selector>
-    </div>
-
-    <div>
-      <p>Coup critique: {{ move.cc }}</p>
-      <app-stat-selector
-        [current]="points"
-        [max]="60"
-        [min]="0"
-        [property]="'cc'"
-        (removePointEvent)="removePoint($event)"
-        (addPointEvent)="addPoint($event)"
-      ></app-stat-selector>
-    </div>
-
-    <button (click)="submit(move)">Save</button>
   </div>
 </div>

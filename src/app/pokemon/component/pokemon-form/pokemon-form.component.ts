@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Pokemon} from '../../../shared/model/pokemon/pokemon';
 import {AppStat} from '../../../shared/interface/app-stat';
 import {Move} from '../../../shared/model/move/move';
+import {ElemantaryType} from '../../../shared/model/elemantary-type/elemantary-type';
 
 @Component({
   selector: 'app-pokemon-form',
@@ -33,6 +34,7 @@ export class PokemonFormComponent {
   typeChangeEvent = new EventEmitter<void>();
   @Output()
   movesChangeEvent = new EventEmitter<void>();
+
   constructor() {}
 
   submit(pokemon: Pokemon): void {
@@ -71,7 +73,33 @@ export class PokemonFormComponent {
     this.typeChangeEvent.emit();
   }
 
-  movesChange(): void {
-    this.movesChangeEvent.emit();
+  saveMoves(move: Move): void {
+    if (this.pokemon.movesIds.includes(move.id)) {
+      this.pokemon.movesIds = this.pokemon.movesIds.filter((moveId) => {
+        return moveId !== move.id;
+      });
+    } else {
+      this.pokemon.movesIds.push(move.id);
+      this.movesChangeEvent.emit();
+    }
+  }
+
+  getTypeImage(type: ElemantaryType): string {
+    switch (type) {
+      case ElemantaryType.Eau:
+        return '../assets/water-type.png';
+      case ElemantaryType.Foudre:
+        return '../assets/electric-type.png';
+      case ElemantaryType.Feu:
+        return '../assets/fire-type.png';
+      case ElemantaryType.Neutre:
+        return '../assets/neutral-type.png';
+      case ElemantaryType.Air:
+        return '../assets/air-type.png';
+      case ElemantaryType.Terre:
+        return '../assets/earth-type.png';
+      default:
+        return 'test';
+    }
   }
 }

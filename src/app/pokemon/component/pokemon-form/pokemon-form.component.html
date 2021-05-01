@@ -78,7 +78,15 @@
 
       <div class="choose-moves">
         <p>Moves :</p>
-        <select
+
+        <div *ngIf="moves" class="move-badge-container">
+          <div [ngClass]="this.pokemon.movesIds.includes(move.id) ? 'move-badge selected' : 'move-badge'" *ngFor="let move of moves" (click)="saveMoves(move)">
+            <img src="{{ getTypeImage(move.type) }}" alt="">
+            <span>{{ move.name }}</span>
+          </div>
+        </div>
+
+        <!-- <select
         multiple
         *ngIf="moves"
         [(ngModel)]="pokemon.movesIds"
@@ -91,7 +99,7 @@
           >
             {{ move.name }}
           </option>
-        </select>
+        </select> -->
       </div>
 
       <button (click)="submit(pokemon)" class="app-button">Save</button>

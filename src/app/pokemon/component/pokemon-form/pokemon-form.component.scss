@@ -119,8 +119,45 @@
       }
     }
     .choose-moves {
-      p {
-        margin: 16px 0;
+      .move-badge-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 16px;
+
+        .move-badge {
+          border: solid 1px $grey-main;
+          padding: 8px;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          max-width: 100px;
+          width: 100%;
+          margin-bottom: 8px;
+          margin-right: 8px;
+          background-color: transparent;
+          cursor: pointer;
+          transition: all .2s ease;
+
+          &:hover {
+            background-color: $grey-main;
+            color: $white-main;
+          }
+          &.selected {
+            background-color: $grey-main;
+            color: $white-main;
+          }
+          img {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+          }
+          span {
+            text-align: center;
+          }
+        }
       }
     }
     .pokemon-card-footer {
