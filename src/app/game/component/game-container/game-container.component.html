@@ -15,6 +15,15 @@
     [pokemons]="getSelectableUserPokemon()"
   >
   </app-game-user-pokemon-selector>
+
+  <div
+    *ngIf="
+      gameState &&
+      (gameState.phase === 'USER_WIN' || gameState.phase === 'BOSS_WIN')
+    "
+  >
+    <a routerLink="/adventure">Get back to adventure</a>
+  </div>
 </div>
 
 <app-loader *ngIf="!gameState"> </app-loader>

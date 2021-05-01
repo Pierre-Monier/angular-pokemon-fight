@@ -1,10 +1,12 @@
-import {Injectable} from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import firebase from 'firebase';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {AppUser} from '../model/user/app-user';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { AppUser } from '../model/user/app-user';
 import User = firebase.User;
+import { Pokemon } from '../model/pokemon/pokemon';
+import app = firebase.app;
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +46,10 @@ export class AppUserService {
       );
   }
 
+  setCurrentAppUser(appUser: AppUser): void {
+    localStorage.setItem('user', JSON.stringify(appUser));
+  }
+
   addAppUser(appUser: AppUser): void {
     this.db
       .collection<AppUser>('/users')
@@ -65,5 +71,25 @@ export class AppUserService {
     }
 
     return undefined;
+  }
+
+  private updateAppUser(appUser: AppUser): Promise<void> {
+    return this.db
+      .doc<AppUser>(`/users/${appUser.uid}`)
+      .update(Object.assign({}, appUser));
+  }
+
+  addBossToBossDefeated(bossId: string): void {
+    console.log('addBossToBossDefeated called');
+    const currentUser = this.getCurrentAppUser();
+
+    if (currentUser && !currentUser.bossesDefeated.includes(bossId)) {
+      currentUser.bossesDefeated.push(bossId);
+      this.setCurrentAppUser(currentUser);
+      console.log('currentUser updated : ', currentUser);
+      this.updateAppUser(currentUser);
+    } else {
+      console.log('in else');
+    }
   }
 }

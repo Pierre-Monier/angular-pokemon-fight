@@ -4,11 +4,11 @@ import {
   BOSS_CHANGE_POKEMON,
   BOSS_POKEMON_ATTACK,
   HANDLE_DEAD_POKEMON,
+  HANDLE_END_GAME,
   INIT,
+  RESTART_GAME,
   USER_CHANGE_POKEMON,
   USER_POKEMON_ATTACK,
-  HANDLE_END_GAME,
-  RESTART_GAME,
 } from '../../model/game-action';
 import { AppUserService } from '../../../shared/service/app-user.service';
 import { ActivatedRoute } from '@angular/router';
@@ -59,7 +59,10 @@ export class GameContainerComponent implements OnInit {
         (bossId &&
           currentGameState &&
           currentGameState.boss &&
-          currentGameState.boss.id !== bossId)) as boolean
+          currentGameState.boss.id !== bossId) ||
+        (currentGameState &&
+          (currentGameState.phase === Phases.USER_WIN ||
+            currentGameState.phase === Phases.BOSS_WIN))) as boolean
     );
   }
 
@@ -69,6 +72,8 @@ export class GameContainerComponent implements OnInit {
 
     const currentGameState = this.gameService.getGameState();
     const bossId = this.route.snapshot.paramMap.get('id');
+
+    console.log(currentGameState);
 
     // we test bossId isn't undefined twice because the compiler isn't that smart
     // remove this for debug GameContainerComponent.gameShouldBeUpdated(currentGameState, bossId) to this condition
@@ -153,12 +158,17 @@ export class GameContainerComponent implements OnInit {
             this.gameDialogService.getSomeoneWinDialog(
               this.gameState.boss.name
             );
-            this.gameService.makeGameAction(HANDLE_END_GAME, {});
+            this.gameService.makeGameAction(HANDLE_END_GAME, {
+              winner: Player.BOSS,
+            });
             break;
           case Phases.USER_WIN:
             this.gameDialogService.getSomeoneWinDialog(
               this.gameState.user.displayName
             );
+            this.gameService.makeGameAction(HANDLE_END_GAME, {
+              winner: Player.USER,
+            });
             break;
           default:
             break;

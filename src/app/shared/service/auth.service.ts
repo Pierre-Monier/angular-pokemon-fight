@@ -1,11 +1,11 @@
-import {Injectable, NgZone} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {Router} from '@angular/router';
+import { Injectable, NgZone } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
-import {AppUser} from '../model/user/app-user';
+import { AppUser } from '../model/user/app-user';
 import firebase from 'firebase';
-import {AppUserService} from './app-user.service';
+import { AppUserService } from './app-user.service';
 import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
 import UserCredential = firebase.auth.UserCredential;
 import User = firebase.User;
@@ -14,7 +14,6 @@ import User = firebase.User;
   providedIn: 'root',
 })
 export class AuthService {
-  private userData: AppUser | null = null;
   // use to redirect while signing in (guard limitation)
   redirectUrl = '';
   constructor(
@@ -35,7 +34,7 @@ export class AuthService {
   }
 
   get isLoggedIn(): boolean {
-    const userData: string | null = localStorage.getItem('user');
+    const userData = this.appUserService.getCurrentAppUser();
     return userData !== null;
   }
 
@@ -61,8 +60,7 @@ export class AuthService {
   setUserData(user: User | null): void {
     if (user) {
       this.appUserService.initUser(user).subscribe((dbUser) => {
-        this.userData = dbUser;
-        localStorage.setItem('user', JSON.stringify(this.userData));
+        this.appUserService.setCurrentAppUser(dbUser);
       });
     } else {
       console.error('SendUserData was called without an actual user');

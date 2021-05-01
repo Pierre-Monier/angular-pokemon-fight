@@ -15,8 +15,9 @@ import { PokemonService } from '../../shared/service/pokemon.service';
 import { Pokemon } from '../../shared/model/pokemon/pokemon';
 import { MoveService } from '../../shared/service/move.service';
 import { Move } from '../../shared/model/move/move';
-import { getRandomInt } from '../utils/utils';
+import { getRandomInt, getElementaryTypeDominanceBonus } from '../utils/utils';
 import { GameDialogService } from './game-dialog.service';
+import { AppUserService } from '../../shared/service/app-user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,8 @@ export class GameService {
   constructor(
     private pokemonService: PokemonService,
     private moveService: MoveService,
-    private gameDialogService: GameDialogService
+    private gameDialogService: GameDialogService,
+    private appUserService: AppUserService
   ) {
     this.gameState$ = new Subject<Game | undefined>();
     const localGame = localStorage.getItem('game');
@@ -34,7 +36,8 @@ export class GameService {
     }
   }
 
-  private static GAME_DELAY = 2000;
+  // private static GAME_DELAY = 2000;
+  private static GAME_DELAY = 2;
   private static GAMESTATE_LOCALSTORAGE_KEY = 'game';
   gameState?: Game;
   gameState$: Subject<Game | undefined>;
@@ -49,6 +52,10 @@ export class GameService {
   ): { pv: number; dialogType: string } {
     const attackedPokemonDodge = Math.max(1, attackedPokemon.e - move.e);
     const moveCritic = Math.max(1, move.cc - attackedPokemon.cc);
+    const elementaryTypeDominanceBonus = getElementaryTypeDominanceBonus(
+      move.type,
+      attackedPokemon.type
+    );
 
     if (attackedPokemonDodge > getRandomInt(100)) {
       // the attacked pokemon dodge the attack
@@ -56,17 +63,28 @@ export class GameService {
     } else if (moveCritic > getRandomInt(100)) {
       // the move done a critic !
       return {
-        pv: attackedPokemon.pv - move.damage * 1.7,
+        pv:
+          (attackedPokemon.pv - move.damage * 1.7) *
+          elementaryTypeDominanceBonus,
         dialogType: 'critic',
       };
     } else {
       // regular damage
-      return { pv: attackedPokemon.pv - move.damage, dialogType: 'regular' };
+      return {
+        pv: (attackedPokemon.pv - move.damage) * elementaryTypeDominanceBonus,
+        dialogType: 'regular',
+      };
     }
   }
 
-  private static handleEndGame(): void {
+  private handleEndGame(data: Record<any, any>): void {
     localStorage.removeItem(GameService.GAMESTATE_LOCALSTORAGE_KEY);
+    const winner = data.winner;
+
+    if (winner && winner === Player.USER && this.gameState) {
+      // update user data
+      this.appUserService.addBossToBossDefeated(this.gameState.boss.id);
+    }
   }
 
   getGameState(): Game | undefined {
@@ -111,7 +129,7 @@ export class GameService {
         this.handleDeadPokemon(data);
         break;
       case HANDLE_END_GAME:
-        GameService.handleEndGame();
+        this.handleEndGame(data);
         break;
       case RESTART_GAME:
         this.restartGame();
