@@ -189,17 +189,13 @@ export class PokemonFormContainerComponent
   }
 
   handleTypeChange(): void {
-    console.log('movesIds', this.pokemon.movesIds);
     this.currentMoves = this.filterMoves();
   }
 
   handleMovesChange(): void {
-    console.log('handleMovesChange called', this.pokemon.movesIds);
     while (this.pokemon.movesIds.length > 3) {
       this.pokemon.movesIds.shift();
     }
-
-    console.log('after : ', this.pokemon.movesIds);
   }
 
   ngOnDestroy(): void {

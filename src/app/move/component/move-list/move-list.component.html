@@ -1,12 +1,20 @@
-<h2>{{ title }}</h2>
-<div *ngFor="let move of moves">
-  <div>
-    <p>{{ move.name }}</p>
-    <p>Type: {{ move.type }}</p>
-    <p>Dommage: {{ move.damage }}</p>
-    <p>Esquive: {{ move.e }}</p>
-    <p>Coup critique: {{ move.cc }}</p>
-    <a routerLink="/moves/{{ move.id }}">Edit</a>
-    <button (click)="deleteMove(move.id)">Delete</button>
+<div class="move-cards-container">
+  <div class="move-card" *ngFor="let move of moves">
+    <p class="move-name">{{ move.name }}</p>
+    <div class="move-card-body">
+      <div class="move-card-left">
+        <img src="{{ getTypeImage(move.type) }}" alt="">
+      </div>
+      <div class="move-card-right">
+        <p>Type : <span class="badge-type" [ngClass]="getBadgeClass(move.type)">{{move.type}}</span></p>
+        <p>Dommages : {{ move.damage }}</p>
+        <p>Esquive : {{ move.e }}</p>
+        <p>Coup critique : {{ move.cc }}</p>
+      </div>
+    </div>
+    <div class="move-card-footer">
+      <a class="app-button scd smaller" routerLink="/moves/{{ move.id }}">Edit</a>
+      <button class="app-button smaller" (click)="deleteMove(move.id)">Delete</button>
+    </div>
   </div>
 </div>
