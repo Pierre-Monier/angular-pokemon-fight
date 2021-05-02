@@ -36,8 +36,7 @@ export class GameService {
     }
   }
 
-  // private static GAME_DELAY = 2000;
-  private static GAME_DELAY = 2;
+  private static GAME_DELAY = 2000;
   private static GAMESTATE_LOCALSTORAGE_KEY = 'game';
   gameState?: Game;
   gameState$: Subject<Game | undefined>;

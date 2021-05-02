@@ -1,0 +1,117 @@
+@import "../../../../styles";
+
+.playing-view {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: space-between;
+}
+
+.boss-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .boss-pokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    span {
+      margin-bottom: 32px;
+      margin-top: 32px;
+      font-size: 32px;
+    }
+    img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 1px solid $grey-main;
+    }
+  }
+  .boss-actions {
+    position: absolute;
+    top: 200px;
+    left: 200px;
+    background-color: $white-main;
+    border: 1px solid $grey-main;
+    border-radius: 10px;
+    padding: 16px;
+    max-width: 150px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    p {
+      margin: 0;
+
+      &:first-child {
+        margin-bottom: 16px;
+        font-size: 30px;
+      }
+      &:last-child {
+        color: $red-main;
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.player-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .player-pokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    span {
+      margin-bottom: 32px;
+      margin-top: 32px;
+      font-size: 32px;
+    }
+    img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 1px solid $grey-main;
+    }
+  }
+  .player-actions {
+    position: absolute;
+    bottom: 200px;
+    left: 200px;
+    background-color: $white-main;
+    border: 1px solid $grey-main;
+    border-radius: 10px;
+    padding: 16px;
+    max-width: 150px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    p {
+      margin: 0;
+
+      &:first-child {
+        margin-bottom: 16px;
+        font-size: 30px;
+      }
+      &:last-child {
+        color: $red-main;
+        font-size: 20px;
+      }
+    }
+  }
+}

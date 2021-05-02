@@ -1,41 +1,49 @@
-<div style="background-color: #8dcae9">
-  <p *ngIf="gameState.phase === 'BOSS_PLAYING'">Playing</p>
-  <p>{{ gameState.boss.name }}</p>
-  <div *ngIf="gameState.fight.currentBossPokemon">
-    <p>Pokemon : {{ gameState.fight.currentBossPokemon.name }}</p>
-    <p>
-      Pv:
-      {{
-        gameState.fight.currentBossPokemon.pv > 0
+<div class="playing-view">
+  <div class="boss-view" *ngIf="gameState.fight.currentBossPokemon">
+    <div class="boss-pokemon">
+      <span>{{ gameState.fight.currentBossPokemon.name }}</span>
+      <img src="{{gameState.fight.currentBossPokemon.imageUrl}}" alt="">
+    </div>
+    <div class="boss-actions">
+      <p *ngIf="gameState.phase === 'BOSS_PLAYING'">Playing</p>
+      <p>{{ gameState.boss.name }}</p>
+      <p>
+        Pv :
+        {{
+          gameState.fight.currentBossPokemon.pv > 0
           ? gameState.fight.currentBossPokemon.pv
           : "dead"
-      }}
-    </p>
+        }}
+      </p>
+    </div>
   </div>
-</div>
 
-<div style="background-color: #3aaf79">
-  <p>{{ gameState.user.email }}</p>
-  <div *ngIf="gameState.fight.currentUserPokemon">
-    <p>Pokemon : {{ gameState.fight.currentUserPokemon.name }}</p>
-    <p>
-      Pv:
-      {{
-        gameState.fight.currentUserPokemon.pv > 0
+  <div class="player-view" *ngIf="gameState.fight.currentUserPokemon">
+    <div class="player-pokemon">
+      <img src="{{gameState.fight.currentUserPokemon.imageUrl}}" alt="">
+      <span>{{ gameState.fight.currentUserPokemon.name }}</span>
+    </div>
+    <div class="player-actions">
+      <p>{{ gameState.user.email }}</p>
+      <p>
+        Pv:
+        {{
+          gameState.fight.currentUserPokemon.pv > 0
           ? gameState.fight.currentUserPokemon.pv
           : "dead"
-      }}
-    </p>
-    <div *ngIf="gameState.phase === 'USER_PLAYING'">
-      <p>Moves:</p>
-      <ul>
-        <li
+        }}
+      </p>
+      <div *ngIf="gameState.phase === 'USER_PLAYING'">
+        <p>Moves:</p>
+        <ul>
+          <li
           *ngFor="let move of gameState.fight.currentUserPokemon.moves"
           (click)="emitPokemonAttack(move)"
-        >
+          >
           {{ move.name }}
         </li>
       </ul>
     </div>
   </div>
+</div>
 </div>

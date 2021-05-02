@@ -1,6 +1,6 @@
 <div>
   <app-game-view
-    *ngIf="gameState && gameState.phase !== 'USER_CHOOSING_POKEMON'"
+    *ngIf="gameState"
     (pokemonAttack)="userPokemonAttack($event)"
     [gameState]="gameState"
   >
@@ -9,6 +9,7 @@
   <app-game-dialog *ngIf="gameState" [dialogContent]="gameDialog">
   </app-game-dialog>
 
+  <!-- MODAL MENU CHOOSE POKEMON -->
   <app-game-user-pokemon-selector
     *ngIf="gameState && gameState.phase === 'USER_CHOOSING_POKEMON'"
     (choosePokemon)="userChoosePokemon($event)"

@@ -1,5 +1,11 @@
-<ul *ngIf="pokemons">
-  <li *ngFor="let pokemon of pokemons" (click)="emitChoosePokemon(pokemon.id)">
-    Use pokemon {{ pokemon.name }}
-  </li>
-</ul>
+<div class="black-sail">
+  <div *ngIf="pokemons" class="choose-pokemon-modal">
+    <h1>Choisissez un pokémon !</h1>
+    <div class="choose-pokemon-container">
+      <div class="choose-pokemon-card" *ngFor="let pokemon of pokemons" (click)="emitChoosePokemon(pokemon.id)">
+        <img src="{{ pokemon.imageUrl }}" alt="">
+        <span>{{pokemon.name}}</span>
+      </div>
+    </div>
+  </div>
+</div>
