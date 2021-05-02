@@ -6,6 +6,7 @@
   >
   </app-game-view>
 
+  <!-- FENETRE DE COMMENTAIRES -->
   <app-game-dialog *ngIf="gameState" [dialogContent]="gameDialog">
   </app-game-dialog>
 
@@ -17,14 +18,12 @@
   >
   </app-game-user-pokemon-selector>
 
-  <div
-    *ngIf="
-      gameState &&
-      (gameState.phase === 'USER_WIN' || gameState.phase === 'BOSS_WIN')
-    "
-  >
-    <a routerLink="/adventure">Get back to adventure</a>
-  </div>
+  <!-- MODAL DE FIN, VICTOIRE / DEFAITE -->
+  <app-game-end *ngIf="
+    gameState &&
+    (gameState.phase === 'USER_WIN' || gameState.phase === 'BOSS_WIN')"
+    [gameState]="gameState"
+  ></app-game-end>
 </div>
 
 <app-loader *ngIf="!gameState"> </app-loader>

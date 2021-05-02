@@ -6,8 +6,8 @@
     </div>
     <div class="boss-actions">
       <p *ngIf="gameState.phase === 'BOSS_PLAYING'">Playing</p>
-      <p>{{ gameState.boss.name }}</p>
-      <p>
+      <p class="name">{{ gameState.boss.name }}</p>
+      <p class="PV">
         Pv :
         {{
           gameState.fight.currentBossPokemon.pv > 0
@@ -24,26 +24,28 @@
       <span>{{ gameState.fight.currentUserPokemon.name }}</span>
     </div>
     <div class="player-actions">
-      <p>{{ gameState.user.email }}</p>
-      <p>
-        Pv:
+      <p class="name">{{ gameState.user.displayName }}</p>
+      <p class="PV">
+        Pv :
         {{
           gameState.fight.currentUserPokemon.pv > 0
           ? gameState.fight.currentUserPokemon.pv
           : "dead"
         }}
       </p>
-      <div *ngIf="gameState.phase === 'USER_PLAYING'">
-        <p>Moves:</p>
-        <ul>
-          <li
-          *ngFor="let move of gameState.fight.currentUserPokemon.moves"
-          (click)="emitPokemonAttack(move)"
-          >
-          {{ move.name }}
-        </li>
-      </ul>
+      <div class="moves-container" *ngIf="gameState.phase === 'USER_PLAYING'">
+        <p>Attaquez !</p>
+        <div class="moves-details-container">
+          <div
+            *ngFor="let move of gameState.fight.currentUserPokemon.moves"
+            (click)="emitPokemonAttack(move)"
+            class="move"
+            >
+            <img src="{{ getTypeImage(move.type) }}" alt="">
+            <span>{{ move.name }}</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 </div>

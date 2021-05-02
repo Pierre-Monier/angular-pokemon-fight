@@ -1,0 +1,7 @@
+<div class="black-sail">
+  <div class="end-modal">
+    <span class="user-win" *ngIf="gameState.phase === 'USER_WIN'">Vous avez gagné :)</span>
+    <span class="user-lose" *ngIf="gameState.phase === 'BOSS_WIN'">Vous avez perdu :(</span>
+    <a class="app-button" routerLink="/adventure">Retour au choix des bosses</a>
+  </div>
+</div>

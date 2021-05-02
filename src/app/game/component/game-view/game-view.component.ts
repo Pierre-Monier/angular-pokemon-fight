@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Game } from '../../model/game';
 import { Move } from '../../../shared/model/move/move';
+import {ElemantaryType} from '../../../shared/model/elemantary-type/elemantary-type';
 
 @Component({
   selector: 'app-game-view',
@@ -18,5 +19,24 @@ export class GameViewComponent implements OnInit {
 
   emitPokemonAttack(move: Move): void {
     this.pokemonAttack.emit(move);
+  }
+
+  getTypeImage(type: ElemantaryType): string {
+    switch (type) {
+      case ElemantaryType.Eau:
+        return '../assets/water-type.png';
+      case ElemantaryType.Foudre:
+        return '../assets/electric-type.png';
+      case ElemantaryType.Feu:
+        return '../assets/fire-type.png';
+      case ElemantaryType.Neutre:
+        return '../assets/neutral-type.png';
+      case ElemantaryType.Air:
+        return '../assets/air-type.png';
+      case ElemantaryType.Terre:
+        return '../assets/earth-type.png';
+      default:
+        return 'test';
+    }
   }
 }
