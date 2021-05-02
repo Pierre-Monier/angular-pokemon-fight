@@ -35,7 +35,7 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     const userData = this.appUserService.getCurrentAppUser();
-    return userData !== null;
+    return userData !== undefined;
   }
 
   // Auth logic to run auth providers
@@ -69,7 +69,8 @@ export class AuthService {
 
   signOut(): Promise<void> {
     return this.afAuth.signOut().then(() => {
-      localStorage.removeItem('user');
+      console.log('SignOUT called');
+      this.appUserService.removeCurrentAppUser();
       this.router.navigate(['sign-in']);
     });
   }
