@@ -50,6 +50,10 @@ export class AppUserService {
     localStorage.setItem('user', JSON.stringify(appUser));
   }
 
+  removeCurrentAppUser(): void {
+    localStorage.removeItem('user');
+  }
+
   addAppUser(appUser: AppUser): void {
     this.db
       .collection<AppUser>('/users')
@@ -86,10 +90,7 @@ export class AppUserService {
     if (currentUser && !currentUser.bossesDefeated.includes(bossId)) {
       currentUser.bossesDefeated.push(bossId);
       this.setCurrentAppUser(currentUser);
-      console.log('currentUser updated : ', currentUser);
       this.updateAppUser(currentUser);
-    } else {
-      console.log('in else');
     }
   }
 }
