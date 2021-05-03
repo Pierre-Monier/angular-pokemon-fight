@@ -1,3 +1,5 @@
+<button id="run-away" class="app-button" type="button" (click)="emitRunAway()">Fuire !</button>
+
 <div class="playing-view">
   <div class="boss-view" *ngIf="gameState.fight.currentBossPokemon">
     <div class="boss-pokemon">
@@ -35,7 +37,6 @@
       </p>
       <div class="moves-container" *ngIf="gameState.phase === 'USER_PLAYING'">
         <p>Attaquez !</p>
-        <p (click)="emitRunAway()">Run away</p>
         <div class="moves-details-container">
           <div
             *ngFor="let move of gameState.fight.currentUserPokemon.moves"

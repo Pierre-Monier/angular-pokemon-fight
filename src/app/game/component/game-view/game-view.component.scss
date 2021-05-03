@@ -1,5 +1,12 @@
 @import "../../../../styles";
 
+#run-away {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  z-index: 2;
+}
+
 .playing-view {
   height: 100vh;
   display: flex;
