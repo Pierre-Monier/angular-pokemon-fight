@@ -118,6 +118,7 @@ export class GameContainerComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((gameState) => {
         this.gameState = gameState;
+
         if (this.gameState) {
           switch (this.gameState?.phase) {
             case Phases.BOSS_PLAYING:
@@ -175,6 +176,7 @@ export class GameContainerComponent implements OnInit {
               );
               this.gameService.makeGameAction(HANDLE_END_GAME, {
                 winner: Player.USER,
+                bossId: this.gameState.boss.id,
               });
 
               this.unsuscribe();
