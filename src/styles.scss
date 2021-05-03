@@ -78,6 +78,53 @@ $main-medium: "proxima-nova-medium";
 $main-semibold: "proxima-nova-semibold";
 $main-bold: "proxima-nova-bold";
 
+// ANIMATIONS
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-5px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(6px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(10px, 0, 0);
+  }
+}
+
+@keyframes attackUp {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-300px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes attackDown {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(300px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
 // MAIN STYLES
 body {
   font-family: $main-medium;
@@ -87,6 +134,18 @@ body {
 .no-pokemon-title {
   text-align: center;
   margin-top: 100px;
+}
+
+.attack {
+  animation: attackUp 1s ease-in-out both;
+}
+
+.take {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  animation-delay: 1s;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 // BUTTONS
