@@ -30,6 +30,14 @@
       margin-bottom: 32px;
       margin-top: 64px;
       font-size: 32px;
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 32px;
+        height: 32px;
+        margin-left: 16px;
+      }
     }
     img {
       width: 200px;
@@ -84,6 +92,14 @@
       margin-bottom: 64px;
       margin-top: 32px;
       font-size: 32px;
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 32px;
+        height: 32px;
+        margin-left: 16px;
+      }
     }
     img {
       width: 200px;

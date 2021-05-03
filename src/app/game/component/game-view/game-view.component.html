@@ -3,7 +3,10 @@
 <div class="playing-view">
   <div class="boss-view" *ngIf="gameState.fight.currentBossPokemon">
     <div class="boss-pokemon">
-      <span>{{ gameState.fight.currentBossPokemon.name }}</span>
+      <span>
+        {{ gameState.fight.currentBossPokemon.name }}
+        <img src="{{getTypeImage(gameState.fight.currentBossPokemon.type)}}" alt="">
+      </span>
       <img [ngClass]="UserAttack() ? 'take' : BossAttack() ? 'attack-down' : ''" src="{{ gameState.fight.currentBossPokemon.imageUrl }}" alt="" />
     </div>
     <div class="boss-actions">
@@ -23,7 +26,10 @@
   <div class="player-view" *ngIf="gameState.fight.currentUserPokemon">
     <div class="player-pokemon">
       <img [ngClass]="UserAttack() ? 'attack-up' : BossAttack() ? 'take' : ''" src="{{ gameState.fight.currentUserPokemon.imageUrl }}" alt="" />
-      <span>{{ gameState.fight.currentUserPokemon.name }}</span>
+      <span>
+        {{ gameState.fight.currentUserPokemon.name }}
+        <img src="{{getTypeImage(gameState.fight.currentUserPokemon.type)}}" alt="">
+      </span>
     </div>
     <div class="player-actions">
       <p class="name">{{ gameState.user.displayName }}</p>
