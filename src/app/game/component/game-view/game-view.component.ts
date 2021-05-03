@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Game } from '../../model/game';
+import { Game, Player, Phases } from '../../model/game';
 import { Move } from '../../../shared/model/move/move';
 import { ElemantaryType } from '../../../shared/model/elemantary-type/elemantary-type';
 
@@ -44,5 +44,13 @@ export class GameViewComponent implements OnInit {
       default:
         return 'test';
     }
+  }
+
+  UserAttack(): boolean {
+    return this.gameState.fight.gameTurn === Player.BOSS && this.gameState.phase === Phases.LOADING_ATTACK.valueOf()
+  }
+
+  BossAttack(): boolean {
+    return this.gameState.fight.gameTurn === Player.USER && this.gameState.phase === Phases.LOADING_ATTACK.valueOf()
   }
 }

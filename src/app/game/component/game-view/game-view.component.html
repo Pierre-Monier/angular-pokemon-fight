@@ -4,7 +4,7 @@
   <div class="boss-view" *ngIf="gameState.fight.currentBossPokemon">
     <div class="boss-pokemon">
       <span>{{ gameState.fight.currentBossPokemon.name }}</span>
-      <img src="{{ gameState.fight.currentBossPokemon.imageUrl }}" alt="" />
+      <img [ngClass]="UserAttack() ? 'take' : BossAttack() ? 'attack-down' : ''" src="{{ gameState.fight.currentBossPokemon.imageUrl }}" alt="" />
     </div>
     <div class="boss-actions">
       <p *ngIf="gameState.phase === 'BOSS_PLAYING'">Playing</p>
@@ -22,7 +22,7 @@
 
   <div class="player-view" *ngIf="gameState.fight.currentUserPokemon">
     <div class="player-pokemon">
-      <img src="{{ gameState.fight.currentUserPokemon.imageUrl }}" alt="" />
+      <img [ngClass]="UserAttack() ? 'attack-up' : BossAttack() ? 'take' : ''" src="{{ gameState.fight.currentUserPokemon.imageUrl }}" alt="" />
       <span>{{ gameState.fight.currentUserPokemon.name }}</span>
     </div>
     <div class="player-actions">
@@ -35,6 +35,7 @@
             : "dead"
         }}
       </p>
+      <app-game-loader *ngIf="gameState.phase.includes('LOADING')"></app-game-loader>
       <div class="moves-container" *ngIf="gameState.phase === 'USER_PLAYING'">
         <p>Attaquez !</p>
         <div class="moves-details-container">

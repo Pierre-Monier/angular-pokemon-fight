@@ -59,15 +59,15 @@ $size: 50px;
   }
 }
 
-.loader {
-  margin-top: 100px;
+.game-loader {
+  margin-top: 16px;
 }
 
-.poke-title-loader {
+.poke-title-game-loader {
   text-align: center;
 }
 
-.poke-loader {
+.poke-game-loader {
   width: $size;
   height: $size;
   border-radius: $size;

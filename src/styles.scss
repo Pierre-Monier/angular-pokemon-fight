@@ -125,6 +125,24 @@ $main-bold: "proxima-nova-bold";
   }
 }
 
+@keyframes blinkColor {
+  10%, 90% {
+    background-color: #E74C3C00;
+  }
+
+  20%, 80% {
+    background-color: #E74C3C40;
+  }
+
+  30%, 50%, 70% {
+    background-color: #E74C3C80;
+  }
+
+  40%, 60% {
+    background-color: #E74C3C40;
+  }
+}
+
 // MAIN STYLES
 body {
   font-family: $main-medium;
@@ -136,13 +154,17 @@ body {
   margin-top: 100px;
 }
 
-.attack {
+.attack-up {
   animation: attackUp 1s ease-in-out both;
 }
 
+.attack-down {
+  animation: attackDown 1s ease-in-out both;
+}
+
 .take {
-  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-  animation-delay: 1s;
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both, blinkColor 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  animation-delay: 0.5s;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;

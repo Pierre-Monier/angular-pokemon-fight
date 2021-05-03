@@ -33,6 +33,7 @@ import { GameContainerComponent } from './game/component/game-container/game-con
 import { GameUserPokemonSelectorComponent } from './game/component/game-user-pokemon-selector/game-user-pokemon-selector.component';
 import { GameDialogComponent } from './game/component/game-dialog/game-dialog.component';
 import { GameEndComponent } from './game/component/game-end/game-end.component';
+import { GameLoaderComponent } from './shared/component/game-loader/game-loader.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { GameEndComponent } from './game/component/game-end/game-end.component';
     GameUserPokemonSelectorComponent,
     GameDialogComponent,
     GameEndComponent,
+    GameLoaderComponent,
   ],
   imports: [
     BrowserModule,
