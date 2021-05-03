@@ -19,6 +19,7 @@ import { Move } from '../../shared/model/move/move';
 import { getRandomInt, getElementaryTypeDominanceBonus } from '../utils/utils';
 import { GameDialogService } from './game-dialog.service';
 import { AppUserService } from '../../shared/service/app-user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -28,19 +29,17 @@ export class GameService {
     private pokemonService: PokemonService,
     private moveService: MoveService,
     private gameDialogService: GameDialogService,
-    private appUserService: AppUserService
+    private appUserService: AppUserService,
+    public route: ActivatedRoute
   ) {
-    this.gameState$ = new Subject<Game | undefined>();
-    const localGame = localStorage.getItem('game');
-    if (localGame) {
-      this.gameState = JSON.parse(localGame);
-    }
+    this.gameState$ = new Subject<Game | null>();
   }
 
   private static GAME_DELAY = 2000;
-  private static GAMESTATE_LOCALSTORAGE_KEY = 'game';
-  gameState?: Game;
-  gameState$: Subject<Game | undefined>;
+  gameState: Game | null = null;
+  gameState$: Subject<Game | null>;
+  // use to avoid calling two time the same action (avoid bug)
+  lastAction = '';
 
   private static chooseBossPokemon(bossPokemons: Pokemon[]): Pokemon {
     return bossPokemons[Math.round(Math.random() * (bossPokemons.length - 1))];
@@ -87,55 +86,73 @@ export class GameService {
     }
   }
 
-  getGameState(): Game | undefined {
-    if (this.gameState) {
-      return this.gameState;
-    }
-
-    const localGame = localStorage.getItem('game');
-    if (localGame) {
-      return JSON.parse(localGame);
-    }
-
-    return undefined;
+  getGameState(): Game | null {
+    return this.gameState;
   }
 
-  subscribeToGameState(): Observable<Game | undefined> {
+  subscribeToGameState(): Observable<Game | null> {
     return this.gameState$.asObservable();
   }
 
   makeGameAction(action: string, data: Record<any, any>): void {
     switch (action) {
       case INIT:
-        this.init(data);
+        if (this.lastAction !== INIT) {
+          this.lastAction = INIT;
+          this.init(data);
+        }
         break;
       case USER_CHANGE_POKEMON:
-        this.changeUserPokemon(data);
+        if (this.lastAction !== USER_CHANGE_POKEMON) {
+          this.lastAction = USER_CHANGE_POKEMON;
+          this.changeUserPokemon(data);
+        }
         break;
       case BOSS_CHANGE_POKEMON:
-        setTimeout(() => {
-          this.changeBossPokemon();
-        }, GameService.GAME_DELAY);
+        if (this.lastAction !== BOSS_CHANGE_POKEMON) {
+          this.lastAction = BOSS_CHANGE_POKEMON;
+          setTimeout(() => {
+            this.changeBossPokemon();
+          }, GameService.GAME_DELAY);
+        }
         break;
       case USER_POKEMON_ATTACK:
-        this.userPokemonAttack(data);
+        if (this.lastAction !== USER_POKEMON_ATTACK) {
+          this.lastAction = USER_POKEMON_ATTACK;
+          this.userPokemonAttack(data);
+        }
         break;
       case BOSS_POKEMON_ATTACK:
-        setTimeout(() => {
-          this.bossPokemonAttack();
-        }, GameService.GAME_DELAY);
+        if (this.lastAction !== BOSS_POKEMON_ATTACK) {
+          this.lastAction = BOSS_POKEMON_ATTACK;
+          setTimeout(() => {
+            this.bossPokemonAttack();
+          }, GameService.GAME_DELAY);
+        }
         break;
       case HANDLE_DEAD_POKEMON:
-        this.handleDeadPokemon(data);
+        if (this.lastAction !== HANDLE_DEAD_POKEMON) {
+          this.lastAction = HANDLE_DEAD_POKEMON;
+          this.handleDeadPokemon(data);
+        }
         break;
       case HANDLE_END_GAME:
-        this.handleEndGame(data);
+        if (this.lastAction !== HANDLE_END_GAME) {
+          this.lastAction = HANDLE_END_GAME;
+          this.handleEndGame(data);
+        }
         break;
       case RESTART_GAME:
-        this.restartGame();
+        if (this.lastAction !== RESTART_GAME) {
+          this.lastAction = RESTART_GAME;
+          this.restartGame();
+        }
         break;
       case RUN_AWAY:
-        this.deleteGameState();
+        if (this.lastAction !== RUN_AWAY) {
+          this.lastAction = RUN_AWAY;
+          this.deleteGameState();
+        }
         break;
       default:
         break;
@@ -308,40 +325,51 @@ export class GameService {
 
       switch (data.player) {
         case Player.USER:
-          this.gameState.fight.userDeadPokemons.push(
-            this.gameState.fight.currentUserPokemon.id
-          );
+          if (
+            !this.gameState.fight.userDeadPokemons.includes(
+              this.gameState.fight.currentUserPokemon.id
+            )
+          ) {
+            this.gameState.fight.userDeadPokemons.push(
+              this.gameState.fight.currentUserPokemon.id
+            );
 
-          newGameState = {
-            ...this.gameState,
-            phase:
-              this.gameState.fight.userDeadPokemons.length ===
-              this.gameState.user.pokemons?.length
-                ? Phases.BOSS_WIN
-                : Phases.USER_CHOOSING_POKEMON,
-          };
+            newGameState = {
+              ...this.gameState,
+              phase:
+                this.gameState.fight.userDeadPokemons.length ===
+                this.gameState.user.pokemons?.length
+                  ? Phases.BOSS_WIN
+                  : Phases.USER_CHOOSING_POKEMON,
+            };
+
+            this.updateGameState(newGameState);
+          }
           break;
         case Player.BOSS:
-          this.gameState.fight.bossDeadPokemons.push(
-            this.gameState.fight.currentBossPokemon.id
-          );
+          if (
+            !this.gameState.fight.bossDeadPokemons.includes(
+              this.gameState.fight.currentBossPokemon.id
+            )
+          ) {
+            this.gameState.fight.bossDeadPokemons.push(
+              this.gameState.fight.currentBossPokemon.id
+            );
 
-          newGameState = {
-            ...this.gameState,
-            phase:
-              this.gameState.fight.bossDeadPokemons.length ===
-              this.gameState.boss.pokemons?.length
-                ? Phases.USER_WIN
-                : Phases.BOSS_CHOOSING_POKEMON,
-          };
+            newGameState = {
+              ...this.gameState,
+              phase:
+                this.gameState.fight.bossDeadPokemons.length ===
+                this.gameState.boss.pokemons?.length
+                  ? Phases.USER_WIN
+                  : Phases.BOSS_CHOOSING_POKEMON,
+            };
+
+            this.updateGameState(newGameState);
+          }
           break;
         default:
           break;
-      }
-
-      // if we update newGameState in the switch statement
-      if (newGameState !== this.gameState) {
-        this.updateGameState(newGameState);
       }
     }
   }
@@ -433,14 +461,9 @@ export class GameService {
   private updateGameState(newGameState: Game): void {
     this.gameState = newGameState;
     this.gameState$.next(newGameState);
-    localStorage.setItem(
-      GameService.GAMESTATE_LOCALSTORAGE_KEY,
-      JSON.stringify(this.gameState)
-    );
   }
 
   private deleteGameState(): void {
-    this.gameState = undefined;
-    localStorage.removeItem(GameService.GAMESTATE_LOCALSTORAGE_KEY);
+    this.gameState = null;
   }
 }
