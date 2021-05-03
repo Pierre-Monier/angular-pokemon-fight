@@ -79,10 +79,11 @@ export class GameService {
   private handleEndGame(data: Record<any, any>): void {
     this.deleteGameState();
     const winner = data.winner;
+    const bossId = data.bossId;
 
-    if (winner && winner === Player.USER && this.gameState) {
+    if (winner && winner === Player.USER.valueOf() && bossId) {
       // update user data
-      this.appUserService.addBossToBossDefeated(this.gameState.boss.id);
+      this.appUserService.addBossToBossDefeated(bossId);
     }
   }
 
