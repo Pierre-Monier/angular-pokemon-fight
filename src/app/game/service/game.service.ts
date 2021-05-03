@@ -6,7 +6,6 @@ import {
   HANDLE_DEAD_POKEMON,
   HANDLE_END_GAME,
   INIT,
-  RESTART_GAME,
   RUN_AWAY,
   USER_CHANGE_POKEMON,
   USER_POKEMON_ATTACK,
@@ -142,12 +141,6 @@ export class GameService {
         if (this.lastAction !== HANDLE_END_GAME) {
           this.lastAction = HANDLE_END_GAME;
           this.handleEndGame(data);
-        }
-        break;
-      case RESTART_GAME:
-        if (this.lastAction !== RESTART_GAME) {
-          this.lastAction = RESTART_GAME;
-          this.restartGame();
         }
         break;
       case RUN_AWAY:
@@ -477,10 +470,6 @@ export class GameService {
       ...gameState,
       phase: Phases.LOADING_ATTACK,
     };
-  }
-
-  private restartGame(): void {
-    this.gameState$.next(this.gameState);
   }
 
   private updateGameState(newGameState: Game): void {
