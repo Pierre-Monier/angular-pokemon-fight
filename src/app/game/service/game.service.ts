@@ -6,17 +6,17 @@ import {
   HANDLE_DEAD_POKEMON,
   HANDLE_END_GAME,
   INIT,
-  USER_CHANGE_POKEMON,
-  USER_POKEMON_ATTACK,
   RESTART_GAME,
   RUN_AWAY,
+  USER_CHANGE_POKEMON,
+  USER_POKEMON_ATTACK,
 } from '../model/game-action';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { PokemonService } from '../../shared/service/pokemon.service';
 import { Pokemon } from '../../shared/model/pokemon/pokemon';
 import { MoveService } from '../../shared/service/move.service';
 import { Move } from '../../shared/model/move/move';
-import { getRandomInt, getElementaryTypeDominanceBonus } from '../utils/utils';
+import { getElementaryTypeDominanceBonus, getRandomInt } from '../utils/utils';
 import { GameDialogService } from './game-dialog.service';
 import { AppUserService } from '../../shared/service/app-user.service';
 import { ActivatedRoute } from '@angular/router';
@@ -36,6 +36,7 @@ export class GameService {
   }
 
   private static GAME_DELAY = 2000;
+  private static GAME_ATTACK_DELAY = 2000;
   gameState: Game | null = null;
   gameState$: Subject<Game | null>;
   // use to avoid calling two time the same action (avoid bug)
@@ -190,6 +191,8 @@ export class GameService {
           currentUserPokemon.name
         );
 
+        this.updateGameState(this.createLoadingGameState(newGameState));
+
         setTimeout(() => {
           this.updateGameState(newGameState);
         }, GameService.GAME_DELAY);
@@ -222,6 +225,9 @@ export class GameService {
         this.gameState.boss.name,
         currentBossPokemon.name
       );
+
+      this.updateGameState(this.createLoadingGameState(newGameState));
+
       setTimeout(() => {
         this.updateGameState(newGameState);
       }, GameService.GAME_DELAY);
@@ -258,6 +264,8 @@ export class GameService {
         data.move.name
       );
 
+      this.updateGameState(this.createLoadingAttackGameState(newGameState));
+
       setTimeout(() => {
         if (dialogType === 'regular') {
           this.updateGameState(newGameState);
@@ -267,7 +275,7 @@ export class GameService {
             this.updateGameState(newGameState);
           }, GameService.GAME_DELAY);
         }
-      }, GameService.GAME_DELAY);
+      }, GameService.GAME_ATTACK_DELAY);
     }
   }
 
@@ -301,8 +309,10 @@ export class GameService {
         move.name
       );
 
+      this.updateGameState(this.createLoadingAttackGameState(newGameState));
+
       setTimeout(() => {
-        if (dialogType === 'regular') {
+        if (dialogType !== 'regular') {
           this.updateGameState(newGameState);
         } else {
           // if the move done something irregular, we push this data to gameDialog service
@@ -312,7 +322,7 @@ export class GameService {
             this.updateGameState(newGameState);
           }, GameService.GAME_DELAY);
         }
-      }, GameService.GAME_DELAY);
+      }, GameService.GAME_ATTACK_DELAY);
     }
   }
 
@@ -453,6 +463,20 @@ export class GameService {
         this.updateGameState(newGameState);
       });
     });
+  }
+
+  private createLoadingGameState(gameState: Game): Game {
+    return {
+      ...gameState,
+      phase: Phases.LOADING,
+    };
+  }
+
+  private createLoadingAttackGameState(gameState: Game): Game {
+    return {
+      ...gameState,
+      phase: Phases.LOADING_ATTACK,
+    };
   }
 
   private restartGame(): void {
