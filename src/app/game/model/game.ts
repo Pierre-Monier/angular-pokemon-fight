@@ -24,6 +24,8 @@ export enum Phases {
   USER_POKEMON_IS_DEAD = 'USER_POKEMON_IS_DEAD',
   BOSS_WIN = 'BOSS_WIN',
   USER_WIN = 'USER_WIN',
+  LOADING = 'LOADING',
+  LOADING_ATTACK = 'LOADING_ATTACK',
 }
 
 export enum Player {
