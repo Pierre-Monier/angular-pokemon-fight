@@ -6,7 +6,6 @@ import {
   HANDLE_DEAD_POKEMON,
   HANDLE_END_GAME,
   INIT,
-  RESTART_GAME,
   USER_CHANGE_POKEMON,
   USER_POKEMON_ATTACK,
   RUN_AWAY,
@@ -54,38 +53,14 @@ export class GameContainerComponent implements OnInit {
       user.bossesDefeated.length + 1 >= boss.ranking) as boolean;
   }
 
-  private static gameShouldBeUpdated(
-    currentGameState: Game | null,
-    bossId: string | null
-  ): boolean {
-    return Boolean(
-      ((!currentGameState && bossId) ||
-        (bossId &&
-          currentGameState &&
-          currentGameState.boss &&
-          currentGameState.boss.id !== bossId) ||
-        (currentGameState &&
-          (currentGameState.phase === Phases.USER_WIN ||
-            currentGameState.phase === Phases.BOSS_WIN))) as boolean
-    );
-  }
-
   ngOnInit(): void {
     this.subscribeToGameState();
     this.subscribeToGameDialog();
 
-    const currentGameState = this.gameService.getGameState();
     const bossId = this.route.snapshot.paramMap.get('id');
 
-    // we test bossId isn't undefined twice because the compiler isn't that smart
-    // remove this for debug GameContainerComponent.gameShouldBeUpdated(currentGameState, bossId) to this condition
-    if (
-      bossId &&
-      GameContainerComponent.gameShouldBeUpdated(currentGameState, bossId)
-    ) {
+    if (bossId) {
       this.initGame(bossId);
-    } else if (currentGameState) {
-      this.retrieveGameFromSession(currentGameState);
     }
   }
 
@@ -191,12 +166,6 @@ export class GameContainerComponent implements OnInit {
   runAway(): void {
     this.gameService.makeGameAction(RUN_AWAY, {});
     this.router.navigateByUrl('/adventure');
-  }
-
-  private retrieveGameFromSession(currentGameState: Game): void {
-    this.gameState = currentGameState;
-    this.gameService.makeGameAction(RESTART_GAME, {});
-    this.gameDialogService.getLastDialog();
   }
 
   private subscribeToGameDialog(): void {
