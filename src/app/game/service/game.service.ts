@@ -62,15 +62,18 @@ export class GameService {
     } else if (moveCritic > getRandomInt(100)) {
       // the move done a critic !
       return {
-        pv:
+        pv: Math.floor(
           (attackedPokemon.pv - move.damage * 1.7) *
-          elementaryTypeDominanceBonus,
+            elementaryTypeDominanceBonus
+        ),
         dialogType: 'critic',
       };
     } else {
       // regular damage
       return {
-        pv: (attackedPokemon.pv - move.damage) * elementaryTypeDominanceBonus,
+        pv: Math.floor(
+          (attackedPokemon.pv - move.damage) * elementaryTypeDominanceBonus
+        ),
         dialogType: 'regular',
       };
     }
