@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Game } from '../../model/game';
 import { Move } from '../../../shared/model/move/move';
-import {ElemantaryType} from '../../../shared/model/elemantary-type/elemantary-type';
+import { ElemantaryType } from '../../../shared/model/elemantary-type/elemantary-type';
 
 @Component({
   selector: 'app-game-view',
@@ -13,12 +13,18 @@ export class GameViewComponent implements OnInit {
   gameState!: Game;
   @Output()
   pokemonAttack = new EventEmitter<Move>();
+  @Output()
+  runAway = new EventEmitter<void>();
   constructor() {}
 
   ngOnInit(): void {}
 
   emitPokemonAttack(move: Move): void {
     this.pokemonAttack.emit(move);
+  }
+
+  emitRunAway(): void {
+    this.runAway.emit();
   }
 
   getTypeImage(type: ElemantaryType): string {

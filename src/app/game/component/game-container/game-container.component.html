@@ -2,6 +2,7 @@
   <app-game-view
     *ngIf="gameState"
     (pokemonAttack)="userPokemonAttack($event)"
+    (runAway)="runAway()"
     [gameState]="gameState"
   >
   </app-game-view>
@@ -19,9 +20,11 @@
   </app-game-user-pokemon-selector>
 
   <!-- MODAL DE FIN, VICTOIRE / DEFAITE -->
-  <app-game-end *ngIf="
-    gameState &&
-    (gameState.phase === 'USER_WIN' || gameState.phase === 'BOSS_WIN')"
+  <app-game-end
+    *ngIf="
+      gameState &&
+      (gameState.phase === 'USER_WIN' || gameState.phase === 'BOSS_WIN')
+    "
     [gameState]="gameState"
   ></app-game-end>
 </div>

@@ -9,6 +9,7 @@ import {
   USER_CHANGE_POKEMON,
   USER_POKEMON_ATTACK,
   RESTART_GAME,
+  RUN_AWAY,
 } from '../model/game-action';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { PokemonService } from '../../shared/service/pokemon.service';
@@ -77,7 +78,7 @@ export class GameService {
   }
 
   private handleEndGame(data: Record<any, any>): void {
-    localStorage.removeItem(GameService.GAMESTATE_LOCALSTORAGE_KEY);
+    this.deleteGameState();
     const winner = data.winner;
 
     if (winner && winner === Player.USER && this.gameState) {
@@ -132,6 +133,9 @@ export class GameService {
         break;
       case RESTART_GAME:
         this.restartGame();
+        break;
+      case RUN_AWAY:
+        this.deleteGameState();
         break;
       default:
         break;
@@ -433,5 +437,10 @@ export class GameService {
       GameService.GAMESTATE_LOCALSTORAGE_KEY,
       JSON.stringify(this.gameState)
     );
+  }
+
+  private deleteGameState(): void {
+    this.gameState = undefined;
+    localStorage.removeItem(GameService.GAMESTATE_LOCALSTORAGE_KEY);
   }
 }

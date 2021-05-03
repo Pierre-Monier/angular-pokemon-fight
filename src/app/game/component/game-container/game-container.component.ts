@@ -9,9 +9,10 @@ import {
   RESTART_GAME,
   USER_CHANGE_POKEMON,
   USER_POKEMON_ATTACK,
+  RUN_AWAY,
 } from '../../model/game-action';
 import { AppUserService } from '../../../shared/service/app-user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BossService } from '../../../shared/service/boss.service';
 import { first } from 'rxjs/operators';
@@ -36,7 +37,8 @@ export class GameContainerComponent implements OnInit {
     private appUserService: AppUserService,
     public route: ActivatedRoute,
     private bossService: BossService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public router: Router
   ) {
     this.gameDialog = 'loading...';
   }
@@ -72,8 +74,6 @@ export class GameContainerComponent implements OnInit {
 
     const currentGameState = this.gameService.getGameState();
     const bossId = this.route.snapshot.paramMap.get('id');
-
-    console.log(currentGameState);
 
     // we test bossId isn't undefined twice because the compiler isn't that smart
     // remove this for debug GameContainerComponent.gameShouldBeUpdated(currentGameState, bossId) to this condition
@@ -177,13 +177,18 @@ export class GameContainerComponent implements OnInit {
     });
   }
 
-  retrieveGameFromSession(currentGameState: Game): void {
+  runAway(): void {
+    this.gameService.makeGameAction(RUN_AWAY, {});
+    this.router.navigateByUrl('/adventure');
+  }
+
+  private retrieveGameFromSession(currentGameState: Game): void {
     this.gameState = currentGameState;
     this.gameService.makeGameAction(RESTART_GAME, {});
     this.gameDialogService.getLastDialog();
   }
 
-  subscribeToGameDialog(): void {
+  private subscribeToGameDialog(): void {
     this.gameDialogService.subscribeGameDialogs().subscribe((gameDialog) => {
       this.gameDialog = gameDialog;
     });
