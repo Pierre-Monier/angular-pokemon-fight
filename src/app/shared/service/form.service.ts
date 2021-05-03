@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Pokemon, pokemonSpec} from '../model/pokemon/pokemon';
-import {ElemantaryType} from '../model/elemantary-type/elemantary-type';
-import {Move, moveSpec} from '../model/move/move';
+import { Injectable } from '@angular/core';
+import { Pokemon, pokemonSpec } from '../model/pokemon/pokemon';
+import { ElemantaryType } from '../model/elemantary-type/elemantary-type';
+import { Move, moveSpec } from '../model/move/move';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,8 @@ export class FormService {
       Object.values(ElemantaryType).includes(pokemon.type) &&
       pokemon.getStatPoint() <= pokemonSpec.maxPoints &&
       pokemon.getStatPoint() > pokemonSpec.minPoint &&
-      pokemon.movesIds.length > 0
+      pokemon.movesIds.length > 0 &&
+      pokemon.pv > 0
     );
   }
 
@@ -48,6 +49,10 @@ export class FormService {
         '| au maximum ' +
         pokemonSpec.maxPoints.toString(10) +
         ' point de compétence ';
+    }
+
+    if (item instanceof Pokemon && item.pv <= 0) {
+      errorMessage += '| au minimum 5 pv';
     }
 
     if (item instanceof Pokemon && item.movesIds.length <= 0) {
